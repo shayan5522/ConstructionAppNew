@@ -2,6 +2,8 @@ import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart'
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Inspection/inspection.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,8 +35,8 @@ class HomeScreen extends StatelessWidget {
                   right: 0,
                   child: Center(
                     child: Text(
-                      "Inspection App",
-                      style: GoogleFonts.metamorphous(
+                      "TOTAL SURVEY",
+                      style: GoogleFonts.montserrat(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
@@ -90,7 +92,7 @@ class HomeScreen extends StatelessWidget {
               child: TabBarView(
                 children: [
                   ProjectsScreen(),
-                  Center(child: Text("Inspections Tab Content")),
+                  InspectionScreen(),
                   Center(child: Text("Regulations Tab Content")),
                   Center(child: Text("Settings Tab Content")),
                   Center(child: Text("Help Tab Content")),
