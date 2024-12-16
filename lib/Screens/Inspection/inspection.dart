@@ -3,7 +3,6 @@ import 'package:constructionapp/Screens/OccupiedPropertyScreens/opening_sheet_sc
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../CustomWidgets/custom_text_widget.dart';
 import 'inspection_form.dart';
 
 class InspectionScreen extends StatefulWidget {
@@ -46,9 +45,9 @@ class _InspectionScreenState extends State<InspectionScreen> {
               Center(
                 child: CustomButton(
                   text: "Occupied Property",
-                  onPressed: () {
-                    const Text('tyyab bi');
-                  },
+                    onPressed: (){
+                      Get.to(const OpeningSheetScreen());
+                    }
                 ),
               ),
               const SizedBox(height: 15),
@@ -91,35 +90,8 @@ class _InspectionScreenState extends State<InspectionScreen> {
               ),
             ],
           ),
-    return   Scaffold(
-      body:  Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const CustomTextWidget(
-              text:"What type of survey would you like to conduct?",
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-            const SizedBox(height: 15,),
-            CustomButton(
-                text: "Occupied Property",
-                onPressed: (){
-                  Get.to(const OpeningSheetScreen());
-                }
-            ),
-            const SizedBox(height: 10,),
-            CustomButton(
-                text: "Void Property",
-                onPressed: (){
-                  Get.to(()=>const InspectionFormScreen());
-                }
-            ),
-          ],
-        ),
-      ),
+    ),
+    ),
     );
   }
 }
