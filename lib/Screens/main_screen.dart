@@ -64,14 +64,28 @@ class MainScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isSelected ? Colors.green : Colors.transparent,
+        gradient: isSelected
+            ? const LinearGradient(
+          colors: [Color(0xFF6FE9D9), Color(0xFF4CC3B8)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
+            : null,
       ),
-      padding: const EdgeInsets.all(8),
-      child: Icon(
-        icon,
-        color: isSelected ? Colors.white : Colors.grey,
-        size: 28,
+      padding: const EdgeInsets.all(4),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+        ),
+        child: Icon(
+          icon,
+          color: isSelected ? const Color(0xFF4CC3B8) : Colors.grey,
+          size: 28,
+        ),
       ),
     );
   }
+
 }

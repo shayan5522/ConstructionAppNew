@@ -55,23 +55,46 @@ class ProjectsScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.tealAccent,
-        onPressed: () {
-          Get.to(const SurveyPage());
-        },
-        label: const Row(
-          children: [
-            Icon(Icons.add,color: Colors.black,),
-            SizedBox(width: 8),
-            CustomTextWidget(
-              text: 'Create Inspection',
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton.extended(
+            backgroundColor: Colors.tealAccent,
+            onPressed: () {
+              Get.to(const SurveyPage());
+            },
+            label: const Row(
+              children: [
+                Icon(Icons.add, color: Colors.black),
+                SizedBox(width: 8),
+                CustomTextWidget(
+                  text: 'Create Inspection',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+            backgroundColor: Colors.white,
+            onPressed: () {},
+            label: const Row(
+              children: [
+                Icon(Icons.history, color: Colors.black),
+                SizedBox(width: 8),
+                CustomTextWidget(
+                  text: 'View Past Projects',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+
     );
   }
 }
