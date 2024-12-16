@@ -1,8 +1,10 @@
 import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
+import 'package:constructionapp/Screens/Setting/help.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Inspection/inspection.dart';
+import '../Setting/setting.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -94,8 +96,8 @@ class HomeScreen extends StatelessWidget {
                   ProjectsScreen(),
                   InspectionScreen(),
                   Center(child: Text("Regulations Tab Content")),
-                  Center(child: Text("Settings Tab Content")),
-                  Center(child: Text("Help Tab Content")),
+                  SettingScreen(),
+                  HelpScreen(),
                 ],
               ),
             ),
