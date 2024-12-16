@@ -1,6 +1,7 @@
 import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
 import 'package:flutter/material.dart';
-import '../../CustomWidgets/custom_text_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,50 +12,91 @@ class HomeScreen extends StatelessWidget {
       length: 5,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.tealAccent,
-          automaticallyImplyLeading: false,
-          title: const CustomTextWidget(text: 'Construction App',fontSize: 20,),
-          actions: [
-            IconButton(icon: const Icon(Icons.search), onPressed: () {  },),
-          ],
-          elevation: 0,
-          bottom: const TabBar(
-            indicatorColor: Colors.teal,
-            labelColor: Colors.teal,
-            unselectedLabelColor: Colors.black,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
-            tabs: [
-              Tab(
-                icon: Icon(Icons.folder_open_outlined, size: 28),
-                text: "Projects",
-              ),
-              Tab(
-                icon: Icon(Icons.map_outlined, size: 28),
-                text: "Inspections",
-              ),
-              Tab(
-                icon: Icon(Icons.swap_horiz, size: 28),
-                text: "Regulations",
-              ),
-              Tab(
-                icon: Icon(Icons.settings_outlined, size: 28),
-                text: "Settings",
-              ),
-              Tab(
-                icon: Icon(Icons.help_outline, size: 28),
-                text: "Help",
-              ),
-            ],
-          ),
-        ),
-        body: const TabBarView(
+        body: Column(
           children: [
-            ProjectsScreen(),
-            Center(child: Text("Inspections Tab Content")),
-            Center(child: Text("Regulations Tab Content")),
-            Center(child: Text("Settings Tab Content")),
-            Center(child: Text("Help Tab Content")),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  height: 80,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.tealAccent, Colors.white],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Text(
+                      "Inspection App",
+                      style: GoogleFonts.metamorphous(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 16,
+                  top: 40,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.green.shade200,
+                    radius: 18,
+                    child:  IconButton(
+                      color: Colors.white,
+                      onPressed: (){ },
+                      icon: const Icon(Icons.person),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10,),
+            const TabBar(
+              indicatorColor: Colors.teal,
+              labelColor: Colors.teal,
+              unselectedLabelColor: Colors.black,
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.folder_open_outlined, size: 28),
+                  text: "Projects",
+                ),
+                Tab(
+                  icon: Icon(Icons.map_outlined, size: 28),
+                  text: "Inspections",
+                ),
+                Tab(
+                  icon: Icon(Icons.swap_horiz, size: 28),
+                  text: "Regulations",
+                ),
+                Tab(
+                  icon: Icon(Icons.settings_outlined, size: 28),
+                  text: "Settings",
+                ),
+                Tab(
+                  icon: Icon(Icons.help_outline, size: 28),
+                  text: "Help",
+                ),
+              ],
+            ),
+            const Expanded(
+              child: TabBarView(
+                children: [
+                  ProjectsScreen(),
+                  Center(child: Text("Inspections Tab Content")),
+                  Center(child: Text("Regulations Tab Content")),
+                  Center(child: Text("Settings Tab Content")),
+                  Center(child: Text("Help Tab Content")),
+                ],
+              ),
+            ),
           ],
         ),
       ),
