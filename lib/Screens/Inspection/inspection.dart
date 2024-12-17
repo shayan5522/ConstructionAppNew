@@ -1,8 +1,10 @@
 import 'package:constructionapp/Components/buttons.dart';
+import 'package:constructionapp/Screens/OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../CustomWidgets/custom_text_widget.dart';
 import 'inspection_form.dart';
 
 class InspectionScreen extends StatelessWidget {
@@ -16,18 +18,17 @@ class InspectionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("What type of survey would you like to conduct?",
-              style: GoogleFonts.poppins(
+            const CustomTextWidget(
+              text:"What type of survey would you like to conduct?",
               fontSize: 24,
               fontWeight: FontWeight.w600,
               color: Colors.black,
-            ),
             ),
             const SizedBox(height: 15,),
             CustomButton(
                 text: "Occupied Property",
                 onPressed: (){
-                  const Text('tyyab bi');
+                  Get.to(const OpeningSheetScreen());
                 }
             ),
             const SizedBox(height: 10,),

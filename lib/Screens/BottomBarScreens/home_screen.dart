@@ -1,7 +1,6 @@
 import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../Inspection/inspection.dart';
 
 
