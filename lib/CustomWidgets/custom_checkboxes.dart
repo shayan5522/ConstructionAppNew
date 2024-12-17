@@ -34,7 +34,7 @@ class CustomCheckboxes extends StatelessWidget {
           )),
           CustomTextWidget(
             text: label,
-            fontSize: 14,
+            fontSize: 12,
           ),
         ],
       ),

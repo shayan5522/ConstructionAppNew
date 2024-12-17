@@ -1,4 +1,4 @@
-import 'package:constructionapp/Components/buttons.dart';
+import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
 import 'package:constructionapp/Screens/OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,6 +32,7 @@ class _InspectionScreenState extends State<InspectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 20,),
               Text(
                 "What type of survey would you like to conduct?",
                 style: GoogleFonts.poppins(

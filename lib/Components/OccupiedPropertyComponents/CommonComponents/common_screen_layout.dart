@@ -32,6 +32,8 @@ class CommonScreenLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        surfaceTintColor: Colors.white70,
         title: Text(appBarTitle),
         backgroundColor: Colors.white,
         actions: [
@@ -54,15 +56,17 @@ class CommonScreenLayout extends StatelessWidget {
               const CustomImageSelector(),
               const SizedBox(height: 40,),
               Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: CustomElevatedButton(
-                    text: 'Skip This Session',
-                    onPressed:(){},
-                    width: 300,
-                    height: 35,
-                    backgroundColor: Colors.tealAccent,
-                    textColor: Colors.black,
-                    borderRadius: 30,
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: CustomElevatedButton(
+                      text: 'Skip This Session',
+                      onPressed:(){},
+                      width: 300,
+                      height: 45,
+                      backgroundColor: Colors.tealAccent,
+                      textColor: Colors.black,
+                      borderRadius: 30,
+                  ),
                 ),
               ),
               const SizedBox(height: 10,),
@@ -132,13 +136,13 @@ class CommonScreenLayout extends StatelessWidget {
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(14.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           CustomTextWidget(
                            text:  'Total Cost : $totalCost',
-                              fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.w600),
                         ],
                       ),
                     ),

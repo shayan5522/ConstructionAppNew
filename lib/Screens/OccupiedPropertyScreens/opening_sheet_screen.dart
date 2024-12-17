@@ -17,6 +17,7 @@ class OpeningSheetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.white70,
         title: const CustomTextWidget(text: 'Opening Sheet',fontSize: 20,),
         backgroundColor: Colors.white,
         actions: [
