@@ -1,3 +1,4 @@
+import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -8,9 +9,14 @@ class CustomElevatedButton extends StatelessWidget {
   final double fontSize;
   final double borderRadius;
   final EdgeInsets padding;
+  final double? height;
+  final double? width;
+  final IconData? icon;
+  final double iconSize;
+  final Color? iconColor;
 
   const CustomElevatedButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor = Colors.blue,
@@ -18,24 +24,45 @@ class CustomElevatedButton extends StatelessWidget {
     this.fontSize = 16.0,
     this.borderRadius = 8.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-  }) : super(key: key);
+    this.height,
+    this.width,
+    this.icon,
+    this.iconSize = 20.0,
+    this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
-        padding: padding,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+    return SizedBox(
+      height: height,
+      width: width,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          padding: padding,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
         ),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: fontSize,
-          color: textColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              Icon(
+                icon,
+                size: iconSize,
+                color: iconColor ?? textColor,
+              ),
+              const SizedBox(width: 8.0),
+            ],
+            CustomTextWidget(
+             text:  text,
+                fontSize: fontSize,
+                color: textColor,
+            ),
+          ],
         ),
       ),
     );

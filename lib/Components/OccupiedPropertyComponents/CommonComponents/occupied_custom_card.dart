@@ -1,15 +1,16 @@
+import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomOccupiedCard extends StatelessWidget {
   final String title;
-  final List<String> options;
+  final List<Widget> options;
   final String selectedQuantity;
   final List<String> quantityOptions;
   final String selectedCost;
   final List<String> costOptions;
   final VoidCallback onAddNote;
 
-  const CustomCard({
+  const CustomOccupiedCard({
     super.key,
     required this.title,
     required this.options,
@@ -22,67 +23,65 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 3,
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 170,
+        child: Stack(
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: options
-                        .map(
-                          (option) => Row(
+            Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 3,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Checkbox(
-                            value: false,
-                            onChanged: (val) {},
-                            activeColor: Colors.black87,
+                          CustomTextWidget(
+                           text:  title,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                           ),
-                          Text(option),
-                          const SizedBox(width: 8),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: options,
+                          ),
                         ],
                       ),
-                    )
-                        .toList(),
-                  ),
-                  TextButton(
-                    onPressed: onAddNote,
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
                     ),
-                    child: const Text('Add note +'),
-                  ),
-                ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        buildDropdown('Quantity', selectedQuantity, quantityOptions),
+                        const SizedBox(height: 12),
+                        buildDropdown('Cost', selectedCost, costOptions),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                buildDropdown('Quantity', selectedQuantity, quantityOptions),
-                const SizedBox(height: 12),
-                buildDropdown('Cost', selectedCost, costOptions),
-              ],
+            Positioned(
+              bottom: 0,
+              left: 15,
+              child: TextButton(
+                onPressed: onAddNote,
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.teal,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                child: const CustomTextWidget(text: 'Add note +',color: Colors.white,),
+              ),
             ),
           ],
         ),
@@ -94,9 +93,8 @@ class CustomCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        CustomTextWidget(
+         text:  label, fontWeight: FontWeight.bold, fontSize: 12,
         ),
         const SizedBox(height: 4),
         Container(
@@ -111,12 +109,10 @@ class CustomCard extends StatelessWidget {
               value: value,
               isDense: true,
               style: const TextStyle(fontSize: 14, color: Colors.black),
-              items: options
-                  .map((item) => DropdownMenuItem(
+              items: options.map((item) => DropdownMenuItem(
                 value: item,
-                child: Text(item),
-              ))
-                  .toList(),
+                child: CustomTextWidget(text: item),
+              )).toList(),
               onChanged: (val) {},
             ),
           ),

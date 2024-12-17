@@ -3,6 +3,8 @@ import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Controllers/checkbox_controller.dart';
+
 class OccupiedForm5 extends StatelessWidget {
   const OccupiedForm5({super.key});
 
@@ -19,40 +21,40 @@ class OccupiedForm5 extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(16.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTextFormField(
+                      const CustomTextFormField(
                           hint: 'Number of Door',
                           label: 'Front Door',
                       ),
-                      SizedBox(height: 10,),
-                      CustomTextFormField(
+                      const SizedBox(height: 10,),
+                      const CustomTextFormField(
                         hint: 'Number of Locks',
                         label: 'Other Locks',
                       ),
-                      SizedBox(height: 10,),
-                      CustomTextFormField(
+                      const SizedBox(height: 10,),
+                      const CustomTextFormField(
                         hint: ' Enter FOB',
                         label: 'FOB',
                       ),
-                      SizedBox(height: 10,),
-                      CustomTextWidget(
+                      const SizedBox(height: 10,),
+                      const CustomTextWidget(
                         text:  "Steel Grills",
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                       Row(
                         children: [
-                          CustomCheckboxes(label: "Yes",),
-                          CustomCheckboxes(label: "No",),
-                          CustomCheckboxes(label: "N/A",),
+                          CustomCheckboxes(label: "Yes",controller: CheckboxController(),),
+                          CustomCheckboxes(label: "No",controller: CheckboxController(),),
+                          CustomCheckboxes(label: "N/A",controller: CheckboxController(),),
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                     ],
                   )
               ),

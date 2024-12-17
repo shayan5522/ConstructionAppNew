@@ -3,8 +3,12 @@ import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Compo
 import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form3.dart';
 import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form4.dart';
 import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form5.dart';
+import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form6.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
+import 'package:constructionapp/Screens/OccupiedPropertyScreens/kitchen_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
 
 class OpeningSheetScreen extends StatelessWidget {
   const OpeningSheetScreen({super.key});
@@ -26,14 +30,20 @@ class OpeningSheetScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            OccupiedForm1(),
-            OccupiedForm2(),
-            OccupiedForm3(),
-            OccupiedForm4(),
-            OccupiedForm5(),
+            const OccupiedForm1(),
+            const OccupiedForm2(),
+            const OccupiedForm3(),
+            const OccupiedForm4(),
+            const OccupiedForm5(),
+            const OccupiedForm6(),
+            const SizedBox(height: 50,),
+            OccupiedSubmitButtons(
+                nextPage:(){
+                  Get.to(const KitchenScreen());
+                }),
           ],
         ),
       ),

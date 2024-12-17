@@ -1,6 +1,7 @@
 import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../Controllers/checkbox_controller.dart';
 import '../../../CustomWidgets/custom_checkboxes.dart';
 
 class OccupiedForm2 extends StatefulWidget {
@@ -34,34 +35,34 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
               padding: const EdgeInsets.all(16.0),
               child: Form(
                 key: _formKey,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "Void / occupied Address",hint:  "Enter Address"),
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "Date",hint:  "DD/MM/YY"),
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "Target program",hint:  "Enter Target program"),
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "Asbestos survey",hint:  "Enter Asbestos survey"),
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "EPC Required",hint:  "Enter EPC Required"),
-                    SizedBox(height: 16),
-                    CustomTextWidget(
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "Void / occupied Address",hint:  "Enter Address"),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "Date",hint:  "DD/MM/YY"),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "Target program",hint:  "Enter Target program"),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "Asbestos survey",hint:  "Enter Asbestos survey"),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "EPC Required",hint:  "Enter EPC Required"),
+                    const SizedBox(height: 16),
+                    const CustomTextWidget(
                      text:  "PIR",
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
                     Row(
                       children: [
-                        CustomCheckboxes(label: "Yes",),
-                        CustomCheckboxes(label: "No",),
-                        CustomCheckboxes(label: "N/A",),
+                        CustomCheckboxes(label: "Yes",controller: CheckboxController(),),
+                        CustomCheckboxes(label: "No",controller: CheckboxController(),),
+                        CustomCheckboxes(label: "N/A",controller: CheckboxController(),),
                       ],
                     ),
-                    SizedBox(height: 16),
-                    CustomTextFormField(label: "Gas test",hint:  "Enter Gas test"),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "Gas test",hint:  "Enter Gas test"),
                   ],
                 ),
               ),

@@ -1,83 +1,90 @@
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../Controllers/image_box_controller.dart';
 
-class OccupiedImageSelector extends StatelessWidget {
-  final List<ImageProvider> images;
-  final VoidCallback onAddImage;
-
-  const OccupiedImageSelector({
-    super.key,
-    required this.images,
-    required this.onAddImage,
-  });
+class CustomImageSelector extends StatelessWidget {
+  final int maxImages;
+  const CustomImageSelector({super.key, this.maxImages = 4});
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: [
-        for (var image in images) buildImageCard(image),
-        buildAddImageCard(),
-      ],
-    );
-  }
+    final ImageController imageController = Get.put(ImageController());
 
-  Widget buildImageCard(ImageProvider image) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Stack(
+    return Obx(() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 120,
-            width: 120,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: image,
-                fit: BoxFit.cover,
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Wrap(
+              spacing: 25.0,
+              runSpacing: 10.0,
+              children: List.generate(
+                maxImages,
+                    (index) {
+                  if (index < imageController.images.length) {
+                    // Display selected images
+                    return Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: FileImage(imageController.images[index]),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: -5,
+                          right: -5,
+                          child: IconButton(
+                            onPressed: () {
+                              imageController.removeImage(index);
+                            },
+                            icon: const Icon(
+                              Icons.remove_circle,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return GestureDetector(
+                      onTap: () {
+                        imageController.pickImage(index);
+                      },
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add_a_photo, size: 40),
+                              SizedBox(height: 5),
+                              CustomTextWidget(text: 'Add Image', textAlign: TextAlign.center),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ),
-          const Positioned(
-            top: 8,
-            right: 8,
-            child: Icon(
-              Icons.edit,
-              size: 16,
-              color: Colors.black54,
-            ),
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget buildAddImageCard() {
-    return GestureDetector(
-      onTap: onAddImage,
-      child: Container(
-        height: 120,
-        width: 120,
-        decoration: BoxDecoration(
-          color: Colors.grey[400],
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.image,
-              size: 40,
-              color: Colors.white,
-            ),
-            SizedBox(height: 8),
-            CustomTextWidget(
-              text: 'Add Image',
-              color: Colors.white, fontSize: 14,
-            ),
-          ],
-        ),
-      ),
-    );
+      );
+    });
   }
 }

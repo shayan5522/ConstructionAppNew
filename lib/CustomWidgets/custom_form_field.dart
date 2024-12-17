@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hint;
   final String label;
-
-  const CustomTextFormField({super.key, required this.hint, required this.label});
+  final Widget? leading;
+  const CustomTextFormField({super.key, required this.hint, required this.label,this.leading});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,10 @@ class CustomTextFormField extends StatelessWidget {
         TextField(
           decoration: InputDecoration(
             hintText: hint,
+            label:leading ,
             filled: true,
             hintStyle: const TextStyle(
-              color: Colors.grey,
+              color: Colors.black12,
               fontSize: 14,
             ),
             fillColor: Colors.grey[200],

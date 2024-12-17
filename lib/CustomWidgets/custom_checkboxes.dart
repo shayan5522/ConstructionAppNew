@@ -1,29 +1,43 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import '../Controllers/checkbox_controller.dart';
 import 'custom_text_widget.dart';
 
 class CustomCheckboxes extends StatelessWidget {
   final String label;
-  const CustomCheckboxes({super.key,required this.label});
+  final CheckboxController controller;
+
+  const CustomCheckboxes({
+    super.key,
+    required this.label,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Checkbox(
-          value: false,
-          onChanged: (value) {},
-          activeColor: Colors.green,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+    return GestureDetector(
+      onTap: () {
+        controller.toggleCheckbox();
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Obx(() => Checkbox(
+            value: controller.isChecked.value,
+            onChanged: (value) {
+              controller.toggleCheckbox();
+            },
+            activeColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          )),
+          CustomTextWidget(
+            text: label,
+            fontSize: 14,
           ),
-        ),
-        CustomTextWidget(
-          text:  label,
-          fontSize: 14,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
