@@ -31,31 +31,34 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: solidColor,
-          gradient: solidColor == null ? gradient : null,
-          borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0xff009680),
-              blurRadius: 4.0,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: solidColor,
+            gradient: solidColor == null ? gradient : null,
+            borderRadius: BorderRadius.circular(borderRadius),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0xff009680),
+                blurRadius: 1.0,
+              ),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: textStyle ??
+                  const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0,
+                  ),
             ),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: textStyle ??
-                const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.0,
-                ),
           ),
         ),
       ),

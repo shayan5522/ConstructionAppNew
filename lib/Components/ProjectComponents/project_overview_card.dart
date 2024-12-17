@@ -63,9 +63,9 @@ class ProjectOverviewComponent extends StatelessWidget {
                               color: Colors.tealAccent,
                               value: 10,
                               title: 'Completed',
-                              radius: 60,
+                              radius: 55,
                               titleStyle: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -74,9 +74,9 @@ class ProjectOverviewComponent extends StatelessWidget {
                               color: Colors.yellowAccent,
                               value: 10,
                               title: 'In Progress',
-                              radius: 60,
+                              radius: 55,
                               titleStyle: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -85,9 +85,9 @@ class ProjectOverviewComponent extends StatelessWidget {
                               color: Colors.pinkAccent,
                               value: 10,
                               title: 'Pending',
-                              radius: 60,
+                              radius: 55,
                               titleStyle: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -96,6 +96,7 @@ class ProjectOverviewComponent extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(width: 10),
                     const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -154,7 +155,7 @@ class _LegendItem extends StatelessWidget {
           const SizedBox(width: 4),
           CustomTextWidget(
             text: value,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
           ),
         ],
       ),

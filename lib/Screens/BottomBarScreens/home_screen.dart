@@ -1,6 +1,8 @@
+import 'package:constructionapp/Screens/BottomBarScreens/DrawerComponents/profile_screen.dart';
 import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
 import 'package:constructionapp/Screens/Setting/help.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Inspection/inspection.dart';
 import '../Setting/setting.dart';
@@ -38,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                     child: Text(
                       "TOTAL SURVEY",
                       style: GoogleFonts.montserrat(
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -52,8 +54,10 @@ class HomeScreen extends StatelessWidget {
                     backgroundColor: Colors.green.shade200,
                     radius: 18,
                     child:  IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
                       color: Colors.white,
-                      onPressed: (){ },
+                      onPressed: (){ Get.to(()=>const ProfileScreen());},
                       icon: const Icon(Icons.person),
                     ),
                   ),

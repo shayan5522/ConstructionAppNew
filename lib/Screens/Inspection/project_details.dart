@@ -11,6 +11,7 @@ class ProjectDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         title: Text(
           "Project Details",
           style: GoogleFonts.metamorphous(
@@ -95,7 +96,6 @@ class ProjectDetailsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
@@ -191,12 +191,14 @@ class ProjectDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 20),
-              CustomButton(text: "Complete Survey Inspection",
-                  onPressed: (){
-                Get.to(()=>const HomeScreen());
-              }),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: CustomButton(text: "Complete Survey Inspection",
+                    onPressed: (){
+                      Get.to(()=>const HomeScreen());
+                    }),
+              ),
             ],
           ),
         ),
