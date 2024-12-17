@@ -1,17 +1,20 @@
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/kitchen_screen.dart';
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/major_work_screen.dart';
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'package:constructionapp/Screens/main_screen.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (context)=>const MyApp(),
+      enabled: true,
+      builder: (context) => const MyApp(),
     ),
   );
 }
