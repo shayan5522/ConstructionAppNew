@@ -62,7 +62,6 @@ class NotificationScreen extends StatelessWidget {
          color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold,
         ),
       ),
-      drawer: const CustomDrawer(),
       body: ListView.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {

@@ -2,7 +2,6 @@ import 'package:constructionapp/Screens/BottomBarScreens/notifications_screen.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controllers/bottom_bar_controller.dart';
-import '../CustomWidgets/custon_drawer.dart';
 import 'BottomBarScreens/home_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -40,7 +39,7 @@ class MainScreen extends StatelessWidget {
                 index: 1,
                 navController: navController,
               ),
-              label: '',
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: _buildNavIcon(
@@ -63,6 +62,7 @@ class MainScreen extends StatelessWidget {
     final bool isSelected = navController.currentIndex.value == index;
 
     return Container(
+      padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: isSelected
@@ -73,20 +73,21 @@ class MainScreen extends StatelessWidget {
         )
             : null,
       ),
-      padding: const EdgeInsets.all(4),
       child: Container(
-        padding: const EdgeInsets.all(8),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.white,
         ),
-        child: Icon(
-          icon,
-          color: isSelected ? const Color(0xFF4CC3B8) : Colors.grey,
-          size: 28,
+        child: Center(
+          child: Icon(
+            icon,
+            color: isSelected ? const Color(0xFF4CC3B8) : Colors.grey,
+            size: 28,
+          ),
         ),
       ),
     );
+
   }
 
 }

@@ -61,7 +61,6 @@ class _InspectionScreenState extends State<InspectionScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-
               // Property Type Text
               Text(
                 "Select Property Type",
