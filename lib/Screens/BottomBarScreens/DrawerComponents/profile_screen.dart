@@ -1,5 +1,4 @@
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/CustomWidgets/custon_drawer.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -18,7 +17,6 @@ class ProfileScreen extends StatelessWidget {
               fontWeight: FontWeight.bold),
         centerTitle: true,
       ),
-      drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
