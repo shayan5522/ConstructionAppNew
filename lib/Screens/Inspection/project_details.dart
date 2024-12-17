@@ -1,4 +1,5 @@
-import 'package:constructionapp/Components/buttons.dart';
+import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
+import 'package:constructionapp/CustomWidgets/custom_snackbar.dart';
 import 'package:constructionapp/Screens/BottomBarScreens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class ProjectDetailsScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -196,6 +197,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: CustomButton(text: "Complete Survey Inspection",
                     onPressed: (){
+                      customSnackBar(context, "Success", "Survey Completed Successfully!");
                       Get.to(()=>const HomeScreen());
                     }),
               ),

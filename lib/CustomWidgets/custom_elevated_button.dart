@@ -49,6 +49,12 @@ class CustomElevatedButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            CustomTextWidget(
+              text:  text,
+              fontSize: fontSize,
+              color: textColor,
+            ),
+            const SizedBox(width: 5,),
             if (icon != null) ...[
               Icon(
                 icon,
@@ -57,11 +63,6 @@ class CustomElevatedButton extends StatelessWidget {
               ),
               const SizedBox(width: 8.0),
             ],
-            CustomTextWidget(
-             text:  text,
-                fontSize: fontSize,
-                color: textColor,
-            ),
           ],
         ),
       ),

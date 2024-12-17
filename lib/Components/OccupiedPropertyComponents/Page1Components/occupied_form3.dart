@@ -7,36 +7,39 @@ class OccupiedForm3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const CustomTextWidget(
-          text:  'Services',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-        Card(
-          color: const Color(0xFFF5F8F3),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const CustomTextWidget(
+            text:  'Services',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            width: Get.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                buildServiceSection('Electric', 'kWh'),
-                const SizedBox(height: 20),
-                buildServiceSection('Gas', 'm³'),
-                const SizedBox(height: 20),
-                buildServiceSection('Water', 'liters'),
-              ],
+          Card(
+            color: const Color(0xFFF5F8F3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              width: Get.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  buildServiceSection('Electric', 'kWh'),
+                  const SizedBox(height: 20),
+                  buildServiceSection('Gas', 'm³'),
+                  const SizedBox(height: 20),
+                  buildServiceSection('Water', 'liters'),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

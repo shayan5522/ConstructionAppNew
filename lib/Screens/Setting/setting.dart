@@ -2,7 +2,7 @@ import 'package:constructionapp/Screens/Setting/help.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../Components/buttons.dart';
+import '../../CustomWidgets/custom_buttons.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});

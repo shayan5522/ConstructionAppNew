@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Inspection/inspection.dart';
+
 class ProjectsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
 
@@ -61,7 +63,7 @@ class ProjectsScreen extends StatelessWidget {
           FloatingActionButton.extended(
             backgroundColor: Colors.tealAccent,
             onPressed: () {
-              Get.to(const SurveyPage());
+              Get.to(const InspectionScreen());
             },
             label: const Row(
               children: [

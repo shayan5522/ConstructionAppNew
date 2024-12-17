@@ -27,7 +27,7 @@ class OccupiedForm6 extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
             ),
             child:  Padding(
-              padding: const EdgeInsets.all(11.0),
+              padding: const EdgeInsets.all(14.0),
               child: Column(
                 children: [
                   Row(
@@ -37,9 +37,9 @@ class OccupiedForm6 extends StatelessWidget {
                           text: 'Add Other',
                           onPressed: (){},
                           width: 100,
-                          height: 30,
-                          fontSize: 13,
-                          backgroundColor: Colors.tealAccent,
+                          height: 40,
+                          fontSize: 12,
+                          backgroundColor: const Color(0xFF009688),
                       ),
                     ],
                   ),

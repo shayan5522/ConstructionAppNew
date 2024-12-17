@@ -1,4 +1,4 @@
-import 'package:constructionapp/Components/buttons.dart';
+import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
 import 'package:constructionapp/CustomWidgets/custon_drawer.dart';
 import 'package:constructionapp/Screens/Inspection/project_details.dart';
 import 'package:flutter/material.dart';
@@ -107,9 +107,8 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
           ),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
-      drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

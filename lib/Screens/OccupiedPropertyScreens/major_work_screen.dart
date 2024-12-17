@@ -55,7 +55,7 @@ class MajorWorkScreen extends StatelessWidget {
                   text: 'Skip This Session',
                   onPressed: () {},
                   width: 300,
-                  height: 35,
+                  height: 45,
                   backgroundColor: Colors.tealAccent,
                   textColor: Colors.black,
                   borderRadius: 30,
