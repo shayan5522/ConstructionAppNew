@@ -1,5 +1,9 @@
+import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
+import 'package:constructionapp/Screens/ProfileScreens/register.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -127,8 +131,12 @@ class ProfileScreen extends StatelessWidget {
                 onChanged: (value) {},
               ),
             ),
+            CustomButton(text: "SignUp", onPressed: (){
+              Get.to(()=>SignupScreen());
+            })
           ],
-        ),),
+        ),
+      ),
     );
   }
 }

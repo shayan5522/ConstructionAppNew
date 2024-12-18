@@ -1,8 +1,9 @@
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/Screens/BottomBarScreens/DrawerComponents/profile_screen.dart';
 import 'package:constructionapp/Screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../Screens/ProfileScreens/profile_screen.dart';
 
 
 class CustomDrawer extends StatelessWidget {
