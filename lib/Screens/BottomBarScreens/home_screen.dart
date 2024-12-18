@@ -1,10 +1,10 @@
-import 'package:constructionapp/Screens/BottomBarScreens/DrawerComponents/profile_screen.dart';
 import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
 import 'package:constructionapp/Screens/Setting/help.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Inspection/inspection.dart';
+import '../ProfileScreens/profile_screen.dart';
 import '../Setting/setting.dart';
 
 
