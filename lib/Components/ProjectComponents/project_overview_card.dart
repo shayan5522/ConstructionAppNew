@@ -1,6 +1,7 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
+import '../../CustomWidgets/custom_text_widget.dart';
 
 class ProjectOverviewComponent extends StatelessWidget {
   const ProjectOverviewComponent({super.key});

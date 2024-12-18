@@ -1,15 +1,7 @@
-import 'package:constructionapp/Components/OccupiedPropertyComponents/CommonComponents/occupied_custom_card.dart';
-import 'package:constructionapp/Components/OccupiedPropertyComponents/CommonComponents/occupied_image_selector.dart';
-import 'package:constructionapp/Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
-import 'package:constructionapp/Controllers/checkbox_controller.dart';
-import 'package:constructionapp/Controllers/image_box_controller.dart';
-import 'package:constructionapp/CustomWidgets/custom_checkboxes.dart';
-import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/lovenge_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
-import '../../CustomWidgets/custom_text_widget.dart';
+import 'lovenge_screen.dart';
 
 class KitchenScreen extends StatelessWidget {
   const KitchenScreen({super.key});

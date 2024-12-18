@@ -1,7 +1,7 @@
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/major_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import 'major_work_screen.dart';
 
 class ExternalWorkScreen extends StatelessWidget {
   const ExternalWorkScreen({super.key});

@@ -1,5 +1,6 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_text_widget.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;

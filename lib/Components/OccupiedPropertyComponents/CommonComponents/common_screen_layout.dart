@@ -1,9 +1,9 @@
-import 'package:constructionapp/CustomWidgets/custom_elevated_button.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../Controllers/checkbox_controller.dart';
 import '../../../CustomWidgets/custom_checkboxes.dart';
+import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_form_field.dart';
+import '../../../CustomWidgets/custom_text_widget.dart';
 import 'occupied_custom_card.dart';
 import 'occupied_image_selector.dart';
 import 'occupied_submit_buttons.dart';

@@ -1,6 +1,6 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/CustomWidgets/custon_drawer.dart';
 import 'package:flutter/material.dart';
+
+import '../../CustomWidgets/custom_text_widget.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});

@@ -1,7 +1,7 @@
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/bedroom1_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import 'bedroom1_screen.dart';
 
 class HallwayScreen extends StatelessWidget {
   const HallwayScreen({super.key});

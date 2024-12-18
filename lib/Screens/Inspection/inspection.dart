@@ -1,8 +1,8 @@
-import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../CustomWidgets/custom_buttons.dart';
+import '../OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'inspection_form.dart';
 
 class InspectionScreen extends StatefulWidget {

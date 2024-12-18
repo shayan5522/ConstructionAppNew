@@ -1,5 +1,6 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomOccupiedCard extends StatelessWidget {
   final String title;
