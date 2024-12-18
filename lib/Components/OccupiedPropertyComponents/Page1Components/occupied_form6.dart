@@ -1,9 +1,7 @@
-import 'package:constructionapp/CustomWidgets/custom_checkboxes.dart';
-import 'package:constructionapp/CustomWidgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../Controllers/checkbox_controller.dart';
+import '../../../CustomWidgets/custom_checkboxes.dart';
+import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';
 
 class OccupiedForm6 extends StatelessWidget {

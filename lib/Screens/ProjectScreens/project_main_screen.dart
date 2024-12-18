@@ -1,10 +1,9 @@
-import 'package:constructionapp/Components/ProjectComponents/project_overview_card.dart';
-import 'package:constructionapp/Components/ProjectComponents/survey_screen.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Components/ProjectComponents/project_overview_card.dart';
+import '../../CustomWidgets/custom_text_widget.dart';
 import '../Inspection/inspection.dart';
 
 class ProjectsScreen extends StatelessWidget {

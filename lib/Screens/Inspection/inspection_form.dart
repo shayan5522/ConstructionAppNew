@@ -1,6 +1,4 @@
-import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
-import 'package:constructionapp/CustomWidgets/custon_drawer.dart';
-import 'package:constructionapp/Screens/Inspection/project_details.dart';
+import 'package:TotalSurvey/Screens/Inspection/project_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,6 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../../CustomWidgets/custom_buttons.dart';
 import '../BottomBarScreens/home_screen.dart';
 
 class InspectionFormScreen extends StatefulWidget {

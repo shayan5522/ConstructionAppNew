@@ -1,8 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:constructionapp/Screens/BottomBarScreens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import '../CustomWidgets/custom_snackbar.dart';
+import '../Screens/BottomBarScreens/home_screen.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,15 +38,13 @@ class AuthController extends GetxController {
       });
 
       isLoading.value = false;
-
-      Get.snackbar('Success', 'Signup successful!');
+      customSnackBar(Get.context!, "Success", "Signup successful!");
       Get.to(()=>const HomeScreen());
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
-      Get.snackbar('Error', e.message ?? 'An error occurred');
     } catch (e) {
       isLoading.value = false;
-      Get.snackbar('Error', 'An unexpected error occurred');
+      customSnackBar(Get.context!,'Error','An unexpected error occurred');
     }
   }
 }

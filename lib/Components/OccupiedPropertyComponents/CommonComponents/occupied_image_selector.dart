@@ -1,7 +1,7 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Controllers/image_box_controller.dart';
+import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomImageSelector extends StatelessWidget {
   final int maxImages;

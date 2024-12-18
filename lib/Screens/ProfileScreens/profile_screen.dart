@@ -1,142 +1,150 @@
-import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/Screens/ProfileScreens/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../CustomWidgets/custom_snackbar.dart';
+import '../BottomBarScreens/home_screen.dart';
+import '../../Controllers/profile_controller.dart'; // Adjust the path to your ProfileController
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+
+  // Use GetX to access the ProfileController
+  final ProfileController _profileController = Get.put(ProfileController());
+
+  Future<void> _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Get.off(() => const HomeScreen());
+      customSnackBar(Get.context!, 'Success', 'Logged out successfully');
+    } catch (e) {
+      customSnackBar(Get.context!, 'Error', 'Failed to logout. Try again.');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const CustomTextWidget(
-          text: 'Profile',
-            color: Colors.black,
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
+        foregroundColor: Colors.white,
+        title: const Text("Profile"),
+        backgroundColor: Colors.teal,
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            const CircleAvatar(
-              radius: 60,
-              backgroundImage: AssetImage('assets/profile_picture.jpg'),
-            ),
-            const SizedBox(height: 15),
-            const CustomTextWidget(
-              text: 'Orville E Beckford',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            const SizedBox(height: 5),
-            CustomTextWidget(
-              text: 'Inspector at totalsurvey.co.uk.\nPassionate about safety and quality.',
-              textAlign: TextAlign.center,
-                fontSize: 14,
-                color: Colors.grey[600]!,
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'First Name',
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                      ),
+      body: Obx(() {
+        if (_profileController.isLoading.value) {
+          // Show loading indicator while fetching user data
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final userData = _profileController.userData.value;
+
+        if (userData == null) {
+          return const Center(
+            child: Text("No user data available"),
+          );
+        }
+
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                // Circle Avatar for Profile Image
+                const CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage('assets/images/icons/app_logo.jpg'),
+                ),
+                const SizedBox(height: 20),
+                // User Profile Information
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _profileDetailRow(
+                          icon: Icons.person,
+                          label: 'Name',
+                          value: '${userData.firstName} ${userData.lastName}',
+                        ),
+                        const SizedBox(height: 10),
+                        _profileDetailRow(
+                          icon: Icons.email,
+                          label: 'Email',
+                          value: userData.email,
+                        ),
+                        const SizedBox(height: 10),
+                        _profileDetailRow(
+                          icon: Icons.transgender,
+                          label: 'Gender',
+                          value: userData.gender,
+                        ),
+                        const SizedBox(height: 10),
+                        _profileDetailRow(
+                          icon: Icons.calendar_today,
+                          label: 'Age',
+                          value: userData.age,
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Surname',
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none),
-                      ),
+                ),
+                const SizedBox(height: 30),
+                // Logout Button
+                ElevatedButton.icon(
+                  onPressed: _logout,
+                  icon: const Icon(Icons.logout),
+                  label: const Text("Logout"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Username',
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  hintText: 'Label',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none),
-                ),
-                items: ['Option 1', 'Option 2', 'Option 3']
-                    .map((e) => DropdownMenuItem(
-                  value: e,
-                  child: CustomTextWidget(text: e),
-                ))
-                    .toList(),
-                onChanged: (value) {},
-              ),
-            ),
-            const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  hintText: 'Birthday',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none),
-                ),
-                items: ['Birthday']
-                    .map((e) => DropdownMenuItem(
-                  value: e,
-                  child: CustomTextWidget(text: e),
-                ))
-                    .toList(),
-                onChanged: (value) {},
-              ),
-            ),
-            CustomButton(text: "SignUp", onPressed: (){
-              Get.to(()=>SignupScreen());
-            })
-          ],
+          ),
+        );
+      }),
+    );
+  }
+
+  // Helper widget for profile details
+  Widget _profileDetailRow({required IconData icon, required String label, required String value}) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.teal),
+        const SizedBox(width: 10),
+        Text(
+          '$label: ',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
-      ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black54,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }

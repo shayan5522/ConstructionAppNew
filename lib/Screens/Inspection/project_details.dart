@@ -1,9 +1,10 @@
-import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
-import 'package:constructionapp/CustomWidgets/custom_snackbar.dart';
-import 'package:constructionapp/Screens/BottomBarScreens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../CustomWidgets/custom_buttons.dart';
+import '../../CustomWidgets/custom_snackbar.dart';
+import '../BottomBarScreens/home_screen.dart';
 
 class ProjectDetailsScreen extends StatelessWidget {
   const ProjectDetailsScreen({super.key});

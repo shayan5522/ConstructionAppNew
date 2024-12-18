@@ -1,9 +1,9 @@
-import 'package:constructionapp/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
-import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
+import '../../../CustomWidgets/custom_form_field.dart';
 import '../../../CustomWidgets/custom_radio_button.dart';
+import '../../../CustomWidgets/custom_text_widget.dart';
 
 class OccupiedForm2 extends StatefulWidget {
   const OccupiedForm2({super.key});

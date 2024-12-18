@@ -6,6 +6,7 @@
 class AssetsRes {
   AssetsRes._();
 
-  static const String PLUGIN_NAME = 'constructionapp';
+  static const String PLUGIN_NAME = 'TotalSurvey';
   static const String PLUGIN_VERSION = '1.0.0+1';
+  static const String APP_LOGO = 'assets/images/icons/app_logo.jpg';
 }

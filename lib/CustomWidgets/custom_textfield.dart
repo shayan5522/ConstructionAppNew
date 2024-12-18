@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
+  final TextEditingController? controller;
 
   const CustomTextField({super.key,
     required this.labelText,
@@ -14,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.onSaved,
+    this.controller,
   });
 
   @override
@@ -27,6 +29,7 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       onSaved: onSaved,
+      controller: controller,
     );
   }
 }

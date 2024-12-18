@@ -1,7 +1,7 @@
-import 'package:constructionapp/Screens/OccupiedPropertyScreens/hallway_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import 'hallway_screen.dart';
 
 class LoungeScreen extends StatelessWidget {
   const LoungeScreen({super.key});
