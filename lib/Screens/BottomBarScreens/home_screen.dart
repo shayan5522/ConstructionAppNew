@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/CustomWidgets/custon_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,40 +13,6 @@ import '../Setting/setting.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  Future<void> _handleProfileNavigation(BuildContext context) async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      // Navigate to ProfileScreen if the user is logged in
-      Get.to(() => ProfileScreen());
-    } else {
-      // Show a dialog asking the user to log in or sign up
-      Get.dialog(
-        AlertDialog(
-          title: const Text("Account Required"),
-          content: const Text(
-              "You need an account to access the profile. Do you want to log in or sign up?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Get.back(); // Close the dialog
-                Get.to(() => LoginScreen()); // Navigate to LoginScreen
-              },
-              child: const Text("Log In"),
-            ),
-            TextButton(
-              onPressed: () {
-                Get.back(); // Close the dialog
-                Get.to(() => const SignupScreen()); // Navigate to SignupScreen
-              },
-              child: const Text("Sign Up"),
-            ),
-          ],
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       color: Colors.white,
-                      onPressed: () => _handleProfileNavigation(context),
+                      onPressed: () => NavigationHelper.handleProfileNavigation(context),
                       icon: const Icon(Icons.person),
                     ),
                   ),

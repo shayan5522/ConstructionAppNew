@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../CustomWidgets/custom_buttons.dart';
-import '../../CustomWidgets/custom_snackbar.dart';
-import '../BottomBarScreens/home_screen.dart';
+import 'project_details_controller.dart';
 
 class ProjectDetailsScreen extends StatelessWidget {
   const ProjectDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Bind the controller
+    final ProjectDetailsController controller = Get.put(ProjectDetailsController());
+
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
@@ -45,7 +46,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                         color: const Color(0xFFF2F6F2),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -53,9 +54,21 @@ class ProjectDetailsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            _buildInputField("Project Name", "Enter project name"),
-                            _buildInputField("UPRN", "Enter unique property number number"),
-                            _buildInputField("Address", "Enter address"),
+                            _buildInputField(
+                              "Project Name",
+                              "Enter project name",
+                                  (value) => controller.projectName.value = value,
+                            ),
+                            _buildInputField(
+                              "UPRN",
+                              "Enter unique property number",
+                                  (value) => controller.uprn.value = value,
+                            ),
+                            _buildInputField(
+                              "Address",
+                              "Enter address",
+                                  (value) => controller.address.value = value,
+                            ),
                           ],
                         ),
                       ),
@@ -69,7 +82,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       "User Information",
                       style: GoogleFonts.nunito(
                         fontSize: 18,
@@ -79,7 +92,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Container(
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                         color: const Color(0xFFF2F6F2),
                         borderRadius: BorderRadius.circular(15.0),
                       ),
@@ -87,14 +100,26 @@ class ProjectDetailsScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            _buildInputField("Surveyor's Name", "Enter name"),
-                            _buildInputField("Contact Details", "Enter email / phone no"),
-                            _buildInputField("Property/Building Manager", "Property/Building Manager"),
+                            _buildInputField(
+                              "Surveyor's Name",
+                              "Enter name",
+                                  (value) => controller.surveyorName.value = value,
+                            ),
+                            _buildInputField(
+                              "Contact Details",
+                              "Enter email / phone no",
+                                  (value) => controller.contactDetails.value = value,
+                            ),
+                            _buildInputField(
+                              "Property/Building Manager",
+                              "Enter manager's name",
+                                  (value) => controller.propertyManager.value = value,
+                            ),
                           ],
                         ),
                       ),
                     )
-                ],
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -103,7 +128,7 @@ class ProjectDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
+                    Text(
                       "Building Orientation",
                       style: GoogleFonts.nunito(
                         fontSize: 18,
@@ -134,73 +159,47 @@ class ProjectDetailsScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          hint: Text(
-                            "Select Property Type",
-                            style: TextStyle(color: Colors.grey.shade500),
-                          ),
-                          items: ["Residential", "Commercial", "Industrial"]
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                          },
+                    Obx(() {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey.shade300),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Legislation and Regulations",
-                      style: GoogleFonts.nunito(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Key Laws Related to Inspection",
-                      style: GoogleFonts.nunito(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    _buildLegislationTile("Housing Act Guidelines for Social Housing"),
-                    const SizedBox(height: 10),
-                    _buildLegislationTile("Brief Description with Clickable Links"),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: controller.selectedPropertyType.value.isEmpty
+                                ? null
+                                : controller.selectedPropertyType.value,
+                            hint: Text(
+                              "Select Property Type",
+                              style: TextStyle(color: Colors.grey.shade500),
+                            ),
+                            items: ["Residential", "Commercial", "Industrial"]
+                                .map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              controller.setPropertyType(value!);
+                            },
+                          ),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: CustomButton(text: "Complete Survey Inspection",
-                    onPressed: (){
-                      customSnackBar(context, "Success", "Survey Completed Successfully!");
-                      Get.to(()=>const HomeScreen());
-                    }),
+                child: CustomButton(
+                  text: "Complete Survey Inspection",
+                  onPressed: controller.completeSurveyInspection,
+                ),
               ),
             ],
           ),
@@ -209,41 +208,13 @@ class ProjectDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLegislationTile(String title) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.link, color: Colors.teal, size: 20),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey.shade600,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-  }
-
-  Widget _buildInputField(String label, String hintText) {
+  Widget _buildInputField(String label, String hintText, Function(String) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style:  GoogleFonts.nunito(
+          style: GoogleFonts.nunito(
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: Colors.black87,
@@ -251,11 +222,12 @@ class ProjectDetailsScreen extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         TextField(
+          onChanged: onChanged,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey[400]),
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12.0, vertical: 10.0),
+            contentPadding:
+            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(
@@ -268,4 +240,4 @@ class ProjectDetailsScreen extends StatelessWidget {
       ],
     );
   }
-
+}
