@@ -1,4 +1,4 @@
-import 'package:TotalSurvey/Screens/Inspection/project_details.dart';
+import 'package:TotalSurvey/Screens/Inspection/add_project_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -258,13 +258,16 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  CustomButton(text: "Save Inspection",
+                  // CustomButton(text: "Save Inspection",
+                  //     onPressed: (){Get.to(()=>const ProjectDetailsScreen());}
+                  // ),
+                  CustomButton(text: "Next",
                       onPressed: (){Get.to(()=>const ProjectDetailsScreen());}
                   ),
                   const SizedBox(height: 15),
-                  CustomButton(text: "Save and Exit",solidColor: Colors.white,
-                      onPressed: (){Get.to(()=>const HomeScreen());}
-                  ),
+                  // CustomButton(text: "Save and Exit",solidColor: Colors.white,
+                  //     onPressed: (){Get.to(()=>const HomeScreen());}
+                  // ),
                 ],
               ),
             ),
