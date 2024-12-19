@@ -3,15 +3,11 @@ import 'package:get/get.dart';
 
 import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
-<<<<<<< HEAD
 import '../main_screen.dart';
-=======
 import 'mechnical_work_screen.dart';
->>>>>>> f7bcff88e97375a43323d746bb2d6be7a5759258
 
 class Bedroom4Screen extends StatelessWidget {
-  Bedroom4Screen({super.key});
-  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
+  const Bedroom4Screen({super.key});
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom4ChecklistData = [

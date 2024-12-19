@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
-<<<<<<< HEAD
 import '../main_screen.dart';
-=======
 import 'major_work_screen.dart';
->>>>>>> f7bcff88e97375a43323d746bb2d6be7a5759258
 
 class ExternalWorkScreen extends StatelessWidget {
-  ExternalWorkScreen({super.key});
-  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
+  const ExternalWorkScreen({super.key});
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> externalWorkChecklistData = [

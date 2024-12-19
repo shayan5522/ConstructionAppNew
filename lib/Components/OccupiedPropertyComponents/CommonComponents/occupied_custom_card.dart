@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import 'package:constructionapp/CustomWidgets/custom_elevated_button.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-=======
->>>>>>> f7bcff88e97375a43323d746bb2d6be7a5759258
 import 'package:flutter/material.dart';
-
+import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomOccupiedCard extends StatelessWidget {
