@@ -123,7 +123,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       },
 
                       onContinuePressed: () {
-                        Get.to(() =>  ViewProjectDetailsScreen());
+                        Get.to(() =>  ViewProjectDetailsScreen(
+                          projectId: projectId,
+                          projectData: project,
+                        ));
                       },
                     );
                   },
