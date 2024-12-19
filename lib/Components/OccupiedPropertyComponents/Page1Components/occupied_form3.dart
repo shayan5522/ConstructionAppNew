@@ -1,10 +1,13 @@
+import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OccupiedForm3 extends StatelessWidget {
-  const OccupiedForm3({super.key});
+import '../../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 
+class OccupiedForm3 extends StatelessWidget {
+  OccupiedForm3({super.key});
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,64 +32,95 @@ class OccupiedForm3 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  buildServiceSection('Electric', 'kWh'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomTextWidget(
+                        text:  'Electrical ',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(height: 10),
+                      CustomTextFormField(
+                        hint: 'Enter location e.g service room',
+                        label: 'Location',
+                        controller:_formController.electricLocationController ,
+                      ),
+                      const SizedBox(height: 10),
+                      const CustomTextWidget(
+                        text: 'Readings',
+                        fontSize: 12, color: Colors.black54,
+                      ),
+                      const SizedBox(height: 5),
+                      CustomTextFormField(
+                        hint: 'Kwh',
+                        label: 'Reading',
+                        controller:_formController.electricReadingController ,
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20),
-                  buildServiceSection('Gas', 'm³'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomTextWidget(
+                        text:  'Gas ',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(height: 10),
+                      CustomTextFormField(
+                        hint: 'Enter location e.g service room',
+                        label: 'Location',
+                        controller:_formController.gasLocationController,
+                      ),
+                      const SizedBox(height: 10),
+                      const CustomTextWidget(
+                        text: 'Readings',
+                        fontSize: 12, color: Colors.black54,
+                      ),
+                      const SizedBox(height: 5),
+                      CustomTextFormField(
+                        hint: 'Kwh',
+                        label: 'Reading',
+                        controller:_formController.gasReadingController ,
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20),
-                  buildServiceSection('Water', 'liters'),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomTextWidget(
+                        text:  'Water',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      const SizedBox(height: 10),
+                      CustomTextFormField(
+                        hint: 'Enter location e.g service room',
+                        label: 'Location',
+                        controller:_formController.waterLocationController,
+                      ),
+                      const SizedBox(height: 10),
+                      const CustomTextWidget(
+                        text: 'Readings',
+                        fontSize: 12, color: Colors.black54,
+                      ),
+                      const SizedBox(height: 5),
+                      CustomTextFormField(
+                        hint: 'Kwh',
+                        label: 'Reading',
+                        controller:_formController.waterLocationController,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget buildServiceSection(String title, String unit) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CustomTextWidget(
-         text:  title,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-        const SizedBox(height: 10),
-        const CustomTextWidget(
-         text: 'Location',
-         fontSize: 12, color: Colors.black54,
-        ),
-        const SizedBox(height: 5),
-        TextField(
-          decoration: InputDecoration(
-            hintText: 'Enter location e.g service room',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none,
-            ),
-            filled: true,
-            fillColor: Colors.white,
-          ),
-        ),
-        const SizedBox(height: 10),
-        const CustomTextWidget(
-          text: 'Readings',
-          fontSize: 12, color: Colors.black54,
-        ),
-        const SizedBox(height: 5),
-        TextField(
-          decoration: InputDecoration(
-            hintText: unit,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: BorderSide.none,
-            ),
-            filled: true,
-            fillColor: Colors.white,
-          ),
-        ),
-      ],
     );
   }
 }

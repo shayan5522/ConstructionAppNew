@@ -50,9 +50,9 @@ class CustomOccupiedCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                           ),
                           const SizedBox(height: 8),
-                          Row(
-                            children: options,
-                          ),
+                          Wrap(
+                            children:options,
+                          )
                         ],
                       ),
                     ),

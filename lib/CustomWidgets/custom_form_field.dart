@@ -5,7 +5,9 @@ class CustomTextFormField extends StatelessWidget {
   final String hint;
   final String label;
   final Widget? leading;
-  const CustomTextFormField({super.key, required this.hint, required this.label,this.leading});
+  final int? maxLines;
+  final TextEditingController? controller;
+  const CustomTextFormField({super.key, required this.hint, required this.label,this.leading,this.controller,this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +16,15 @@ class CustomTextFormField extends StatelessWidget {
       children: [
         CustomTextWidget(text:  label, fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black),
         const SizedBox(height: 5),
-        TextField(
+        TextFormField(
+          controller: controller,
+          maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hint,
             label:leading ,
             filled: true,
             hintStyle: const TextStyle(
-              color: Colors.black12,
+              color: Colors.black38,
               fontSize: 14,
             ),
             fillColor: Colors.grey[200],

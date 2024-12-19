@@ -22,16 +22,17 @@ class CustomCheckboxes extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Obx(() => Checkbox(
-            value: controller.isChecked.value,
-            onChanged: (value) {
-              controller.toggleCheckbox();
-            },
-            activeColor: Colors.green,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-          )),
+          Obx(() =>
+              Checkbox(
+                value: controller.isChecked.value,
+                onChanged: (value) {
+                  controller.toggleCheckbox();
+                },
+                activeColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+              )),
           CustomTextWidget(
             text: label,
             fontSize: 12,

@@ -1,8 +1,9 @@
+import 'package:constructionapp/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
-import '../../../Controllers/checkbox_controller.dart';
-import '../../../CustomWidgets/custom_checkboxes.dart';
+import 'package:get/get.dart';
+import '../../../CustomWidgets/custom_radio_button.dart';
 
 class OccupiedForm2 extends StatefulWidget {
   const OccupiedForm2({super.key});
@@ -13,7 +14,7 @@ class OccupiedForm2 extends StatefulWidget {
 
 class _OccupiedForm2State extends State<OccupiedForm2> {
   final _formKey = GlobalKey<FormState>();
-
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,30 +40,77 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "Void / occupied Address",hint:  "Enter Address"),
+                    CustomTextFormField(
+                        label: "Void / occupied Address",
+                        hint:  "Enter Address",
+                        controller: _formController.occupiedAddressController ,
+                    ),
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "Date",hint:  "DD/MM/YY"),
+                    CustomTextFormField(
+                        label: "Date",
+                        hint:  "DD/MM/YY",
+                        controller: _formController.dateController,
+                    ),
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "Target program",hint:  "Enter Target program"),
+                    CustomTextFormField(
+                        label: "Target program",
+                        hint:  "Enter Target program",
+                        controller: _formController.targetProgramController,
+                    ),
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "Asbestos survey",hint:  "Enter Asbestos survey"),
+                    CustomTextFormField(
+                        label: "Asbestos survey",
+                        hint:  "Enter Asbestos survey",
+                        controller: _formController.absoluteSurveyController,
+                    ),
                     const SizedBox(height: 16),
                     const CustomTextFormField(label: "EPC Required",hint:  "Enter EPC Required"),
                     const SizedBox(height: 16),
-                    const CustomTextWidget(
-                     text:  "PIR",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    Row(
+                  Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomCheckboxes(label: "Yes",controller: CheckboxController(),),
-                        CustomCheckboxes(label: "No",controller: CheckboxController(),),
-                        CustomCheckboxes(label: "N/A",controller: CheckboxController(),),
+                        const CustomTextWidget(
+                          text: "PIR",
+                          fontSize: 16, fontWeight: FontWeight.w500,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            CustomRadioButton<String>(
+                              value: "Yes",
+                              groupValue: _formController.pir.value,
+                              label: "Yes",
+                              onChanged: (value) => _formController.pir.value = value!,
+                              activeColor: Colors.green,
+                            ),
+                            const SizedBox(width: 16),
+                            CustomRadioButton<String>(
+                              value: "No",
+                              groupValue: _formController.pir.value,
+                              label: "No",
+                              onChanged: (value) => _formController.pir.value = value!,
+                              activeColor: Colors.red,
+                            ),
+                            const SizedBox(width: 16),
+                            CustomRadioButton<String>(
+                              value: "N/A",
+                              groupValue: _formController.pir.value,
+                              label: "N/A",
+                              onChanged: (value) => _formController.pir.value = value!,
+                              activeColor: Colors.blue,
+                            ),
+                          ],
+                        ),
                       ],
-                    ),
+                    );
+                  }),
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "Gas test",hint:  "Enter Gas test"),
+                    CustomTextFormField(
+                        label: "Gas test",
+                        hint:  "Enter Gas test",
+                        controller: _formController.gasTestController,
+                    ),
                   ],
                 ),
               ),

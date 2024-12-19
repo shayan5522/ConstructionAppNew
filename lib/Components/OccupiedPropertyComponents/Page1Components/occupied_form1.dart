@@ -1,5 +1,7 @@
+import 'package:constructionapp/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OccupiedForm1 extends StatefulWidget {
   const OccupiedForm1({super.key});
@@ -10,9 +12,7 @@ class OccupiedForm1 extends StatefulWidget {
 
 class _OccupiedForm1State extends State<OccupiedForm1> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _clientNameController = TextEditingController();
-  final TextEditingController _contractorController = TextEditingController();
-  final TextEditingController _contractDetailsController = TextEditingController();
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _OccupiedForm1State extends State<OccupiedForm1> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      controller: _clientNameController,
+                      controller: _formController.clientNameController,
                       decoration: InputDecoration(
                         hintText: "Enter client name",
                         hintStyle: const TextStyle(
@@ -77,7 +77,7 @@ class _OccupiedForm1State extends State<OccupiedForm1> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      controller: _contractorController,
+                      controller: _formController.principalContractorController,
                       decoration: InputDecoration(
                         hintText: "Enter Principle contractor",
                         hintStyle: const TextStyle(
@@ -107,7 +107,7 @@ class _OccupiedForm1State extends State<OccupiedForm1> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
-                      controller: _contractDetailsController,
+                      controller: _formController.contractController,
                       maxLines: 4,
                       decoration: InputDecoration(
                         hintText: "Enter contract details",

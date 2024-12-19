@@ -36,9 +36,9 @@ class OpeningSheetScreen extends StatelessWidget {
           children: [
             const OccupiedForm1(),
             const OccupiedForm2(),
-            const OccupiedForm3(),
+            OccupiedForm3(),
             const OccupiedForm4(),
-            const OccupiedForm5(),
+            OccupiedForm5(),
             const OccupiedForm6(),
             const SizedBox(height: 50,),
             OccupiedSubmitButtons(

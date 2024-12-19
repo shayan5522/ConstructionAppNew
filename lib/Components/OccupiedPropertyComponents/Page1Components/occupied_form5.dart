@@ -2,12 +2,13 @@ import 'package:constructionapp/CustomWidgets/custom_checkboxes.dart';
 import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import '../../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../../Controllers/checkbox_controller.dart';
 
 class OccupiedForm5 extends StatelessWidget {
-  const OccupiedForm5({super.key});
-
+  OccupiedForm5({super.key});
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,19 +28,22 @@ class OccupiedForm5 extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomTextFormField(
+                      CustomTextFormField(
                           hint: 'Number of Door',
                           label: 'Front Door',
+                          controller:_formController.frontDoorController ,
                       ),
                       const SizedBox(height: 10,),
-                      const CustomTextFormField(
+                     CustomTextFormField(
                         hint: 'Number of Locks',
                         label: 'Other Locks',
+                        controller: _formController.otherLocksController,
                       ),
                       const SizedBox(height: 10,),
-                      const CustomTextFormField(
+                      CustomTextFormField(
                         hint: ' Enter FOB',
                         label: 'FOB',
+                        controller: _formController.fOBController,
                       ),
                       const SizedBox(height: 10,),
                       const CustomTextWidget(
@@ -49,9 +53,18 @@ class OccupiedForm5 extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          CustomCheckboxes(label: "Yes",controller: CheckboxController(),),
-                          CustomCheckboxes(label: "No",controller: CheckboxController(),),
-                          CustomCheckboxes(label: "N/A",controller: CheckboxController(),),
+                          CustomCheckboxes(
+                            label: "Yes",
+                            controller: CheckboxController(),
+                          ),
+                          CustomCheckboxes(
+                            label: "No",
+                            controller: CheckboxController(),
+                          ),
+                          CustomCheckboxes(
+                            label: "N/A",
+                            controller: CheckboxController(),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 10,),
