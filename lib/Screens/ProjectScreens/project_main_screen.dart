@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../BackendFunctions/VoidBackend/fetch_projects.dart';
 import '../../Components/ProjectComponents/project_overview_card.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
 import '../Inspection/inspection.dart';
@@ -19,46 +20,13 @@ class ProjectsScreen extends StatefulWidget {
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-  Future<List<Map<String, dynamic>>> fetchProjects() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      throw Exception("User not logged in");
-    }
-
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    final userDoc = await firestore.collection('users').doc(user.uid).get();
-    final String firstName = userDoc.data()?['firstName'] ?? 'Unknown';
-
-    // Debug log to check the first name
-    print('User first name: $firstName');
-
-    final snapshot = await firestore
-        .collection('VoidProperty')
-        .doc(firstName)
-        .collection('Projects')
-        .get();
-    if (snapshot.docs.isEmpty) {
-      print('No projects found.');
-      return [];
-    }
-
-    return snapshot.docs.map((doc) {
-      print('Document ID: ${doc.id}, Data: ${doc.data()}'); // Debug log
-      return {
-        ...doc.data(),
-        'id': doc.id,
-      };
-    }).toList();
-  }
-
 
   late Future<List<Map<String, dynamic>>> _projectsFuture;
 
   @override
   void initState() {
     super.initState();
-    _projectsFuture = fetchProjects();
+    _projectsFuture = fetchUserProjects();
   }
 
   @override
@@ -140,17 +108,16 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   itemCount: projects.length,
                   itemBuilder: (context, index) {
                     final project = projects[index];
-                    final projectId = project['id'];
-
+                    //print("project data: $project");
+                    final projectId = project['projectId'];
                     return ProjectCardNew(
                       projectTitle: project['projectName'] ?? "Unnamed Project",
-                      projectRef: project['uprn'] ?? "No reference",
+                      projectRef: project['uprn'] ?? "No uprn",
                       statusText: project['status'] ?? "Unknown",
                       statusColor: const Color(0xFFFFC7C2),
                       onEditPressed: () {
-                        print('Project ID before navigation: $projectId');
                         Get.to(() => EditProjectDetailsScreen(
-                          projectId: "b7w5SwEGVmelWdEBLfti",
+                          projectId: projectId,
                           projectData: project,
                         ));
                       },
