@@ -6,32 +6,23 @@ import 'package:get/get_core/src/get_main.dart';
 Future<List<Map<String, dynamic>>> fetchUserProjects() async {
   try {
     final user = FirebaseAuth.instance.currentUser;
+    print('user is: $user');
 
     if (user == null) {
       throw Exception("User not logged in.");
     }
 
-    // Retrieve the user's firstName from Firestore
-    final userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-
-    if (!userDoc.exists) {
-      throw Exception("User document not found.");
-    }
-
-    final String firstName = userDoc['firstName'];
-
-    // Fetch all projects from the subcollection
     final querySnapshot = await FirebaseFirestore.instance
         .collection('VoidProperty')
-        .doc(firstName)
+        .doc(user.uid)
         .collection('Projects')
-        .orderBy('createdAt', descending: true) // Sort by newest first
         .get();
 
-    // Convert the query results into a list of project maps
+    print('Number of projects fetched: ${querySnapshot.docs.length}');
+
     return querySnapshot.docs.map((doc) {
       final data = doc.data();
-      data['projectId'] = doc.id; // Include the document ID
+      data['projectId'] = doc.id;
       return data;
     }).toList();
   } catch (e) {
@@ -39,3 +30,6 @@ Future<List<Map<String, dynamic>>> fetchUserProjects() async {
     return [];
   }
 }
+
+
+

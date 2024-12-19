@@ -67,7 +67,7 @@ class _EditProjectDetailsScreenState extends State<EditProjectDetailsScreen> {
       try {
         await _firestore
             .collection('VoidProperty')
-            .doc(widget.projectData['firstName'])
+            .doc(widget.projectData['userId'])
             .collection('Projects')
             .doc(widget.projectId)
             .update({
@@ -77,7 +77,6 @@ class _EditProjectDetailsScreenState extends State<EditProjectDetailsScreen> {
           'surveyorName': _surveyorNameController.text.trim(),
           'contactDetails': _contactDetailsController.text.trim(),
           'propertyManager': _propertyManagerController.text.trim(),
-          'propertyType': _propertyTypeController.text.trim(),
         });
 
         Get.snackbar(
@@ -125,7 +124,6 @@ class _EditProjectDetailsScreenState extends State<EditProjectDetailsScreen> {
               _buildTextField("Surveyor Name", _surveyorNameController),
               _buildTextField("Contact Details", _contactDetailsController),
               _buildTextField("Property Manager", _propertyManagerController),
-              _buildTextField("Property Type", _propertyTypeController),
               const SizedBox(height: 20),
               CustomButton(text: "Save Changes", onPressed: _updateProjectDetails),
             ],

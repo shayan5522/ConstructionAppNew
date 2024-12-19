@@ -50,7 +50,7 @@ class ProjectDetailsController extends GetxController {
         'propertyType': selectedPropertyType.value,
       };
 
-      await _firestore.collection('VoidProperty').doc(firstName).collection('Projects').add(projectDetails);
+      await _firestore.collection('VoidProperty').doc(user.uid).collection('Projects').add(projectDetails);
 
       Get.snackbar("Success", "Project details saved successfully!");
       Get.to(()=>const HomeScreen());
