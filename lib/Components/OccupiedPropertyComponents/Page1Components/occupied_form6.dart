@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get/get.dart';
 import '../../../Controllers/checkbox_controller.dart';
 import '../../../Controllers/loft_work_controller.dart';
 import '../../../CustomDialogs/loft_work_dialog.dart';
+=======
+import '../../../Controllers/checkbox_controller.dart';
+>>>>>>> f7bcff88e97375a43323d746bb2d6be7a5759258
 import '../../../CustomWidgets/custom_checkboxes.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';

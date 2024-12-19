@@ -1,8 +1,9 @@
-import 'package:constructionapp/CustomWidgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Controllers/auth_controller.dart';
+import '../../CustomWidgets/custom_buttons.dart';
+import '../../CustomWidgets/custom_text_widget.dart';
 import '../../CustomWidgets/custom_textfield.dart';
-import 'auth_controller.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -35,7 +36,14 @@ class SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Signup'),
+        title: const CustomTextWidget(
+          text: 'SignUp',
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.teal,
         centerTitle: true,
       ),
       body: Obx(() {
@@ -49,6 +57,21 @@ class SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 20),
+                const CustomTextWidget(
+                  text: 'Create your Account!',
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                const CustomTextWidget(
+                  text: 'Create account to enjoy our app!.',
+                  fontSize: 16,
+                  color: Colors.grey,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
                 CustomTextField(
                   labelText: 'First Name',
                   validator: (value) {

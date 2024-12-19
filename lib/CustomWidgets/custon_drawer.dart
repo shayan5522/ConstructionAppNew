@@ -1,9 +1,8 @@
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/Screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../Screens/ProfileScreens/profile_screen.dart';
+import '../Screens/main_screen.dart';
+import 'custom_text_widget.dart';
 
 
 class CustomDrawer extends StatelessWidget {
@@ -25,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
             Get.off(MainScreen());
           },),
           DrawerItem(icon: Icons.add_task, title: 'New Inspection',onPressed: (){
-            Get.to(const ProfileScreen());
+            Get.to( ProfileScreen());
           },),
 
           DrawerItem(icon: Icons.pending_actions, title: 'Pending Inspections',onPressed: (){},),

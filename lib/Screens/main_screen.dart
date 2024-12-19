@@ -1,8 +1,8 @@
-import 'package:constructionapp/Screens/BottomBarScreens/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controllers/bottom_bar_controller.dart';
 import 'BottomBarScreens/home_screen.dart';
+import 'BottomBarScreens/notifications_screen.dart';
 
 class MainScreen extends StatelessWidget {
   final BottomNavController navController = Get.put(BottomNavController());

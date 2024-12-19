@@ -1,12 +1,12 @@
-import 'package:constructionapp/Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
-import 'package:constructionapp/Controllers/checkbox_controller.dart';
-import 'package:constructionapp/CustomWidgets/custom_checkboxes.dart';
-import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
-import 'package:constructionapp/Screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
+import '../../Controllers/checkbox_controller.dart';
+import '../../CustomWidgets/custom_checkboxes.dart';
 import '../../CustomWidgets/custom_elevated_button.dart';
 import '../../CustomWidgets/custom_form_field.dart';
+import '../../CustomWidgets/custom_text_widget.dart';
+import '../main_screen.dart';
 
 class MajorWorkScreen extends StatelessWidget {
   MajorWorkScreen({super.key});

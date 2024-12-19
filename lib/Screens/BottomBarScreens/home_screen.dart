@@ -1,15 +1,51 @@
-import 'package:constructionapp/Screens/ProjectScreens/project_main_screen.dart';
-import 'package:constructionapp/Screens/Setting/help.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Inspection/inspection.dart';
+import '../ProfileScreens/login_screen.dart';
 import '../ProfileScreens/profile_screen.dart';
+import '../ProfileScreens/register.dart';
+import '../ProjectScreens/project_main_screen.dart';
+import '../Setting/help.dart';
 import '../Setting/setting.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  Future<void> _handleProfileNavigation(BuildContext context) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Navigate to ProfileScreen if the user is logged in
+      Get.to(() => ProfileScreen());
+    } else {
+      // Show a dialog asking the user to log in or sign up
+      Get.dialog(
+        AlertDialog(
+          title: const Text("Account Required"),
+          content: const Text(
+              "You need an account to access the profile. Do you want to log in or sign up?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back(); // Close the dialog
+                Get.to(() => LoginScreen()); // Navigate to LoginScreen
+              },
+              child: const Text("Log In"),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.back(); // Close the dialog
+                Get.to(() => const SignupScreen()); // Navigate to SignupScreen
+              },
+              child: const Text("Sign Up"),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +89,18 @@ class HomeScreen extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.green.shade200,
                     radius: 18,
-                    child:  IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
                       color: Colors.white,
-                      onPressed: (){ Get.to(()=>const ProfileScreen());},
+                      onPressed: () => _handleProfileNavigation(context),
                       icon: const Icon(Icons.person),
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 10),
             const TabBar(
               indicatorColor: Colors.teal,
               labelColor: Colors.teal,

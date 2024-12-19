@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:constructionapp/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form1.dart';
 import 'package:constructionapp/Components/OccupiedPropertyComponents/Page1Components/occupied_form2.dart';
@@ -9,9 +10,19 @@ import 'package:constructionapp/Controllers/loading_controller.dart';
 import 'package:constructionapp/CustomWidgets/custom_snackbar.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:constructionapp/Screens/OccupiedPropertyScreens/kitchen_screen.dart';
+=======
+>>>>>>> f7bcff88e97375a43323d746bb2d6be7a5759258
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form1.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form2.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form3.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form4.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form5.dart';
+import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form6.dart';
+import '../../CustomWidgets/custom_text_widget.dart';
+import 'kitchen_screen.dart';
 
 class OpeningSheetScreen extends StatelessWidget {
   OpeningSheetScreen({super.key});
