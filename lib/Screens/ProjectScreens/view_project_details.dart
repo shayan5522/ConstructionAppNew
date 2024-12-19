@@ -5,9 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ViewProjectDetailsScreen extends StatelessWidget {
+  final String projectId;
+  final Map<String, dynamic> projectData;
+
+  ViewProjectDetailsScreen({
+    Key? key,
+    required this.projectId,
+    required this.projectData,
+  }) : super(key: key);
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  ViewProjectDetailsScreen({Key? key}) : super(key: key);
 
   Future<List<Map<String, dynamic>>> fetchProjectDetails() async {
     final user = FirebaseAuth.instance.currentUser;
@@ -16,19 +23,14 @@ class ViewProjectDetailsScreen extends StatelessWidget {
       Get.snackbar("Error", "User not logged in.");
       return [];
     }
-
-    final userDoc = await _firestore.collection('users').doc(user.uid).get();
-    final String firstName = userDoc.data()?['firstName'] ?? 'Unknown';
-
     final querySnapshot = await _firestore
         .collection('VoidProperty')
-        .doc(firstName)
+        .doc(user.uid)
         .collection('Projects')
         .get();
 
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

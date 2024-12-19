@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../main_screen.dart';
 import 'bedroom2_screen.dart';
@@ -10,70 +9,76 @@ class Bedroom1Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom1ChecklistData = [
       {
-        'title': 'Bedroom1 Redecoration',
+        'title': 'Strip Out Floor Covering ?',
         'selectedQuantity': 'Main',
         'selectedCost': 'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Mastic / Sealants?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New Vinyl Floor And Threshold? ',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Wallpaper Removal?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Plastering to Wall / Ceiling?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New 0.5 HR fire door?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New Ply Flush Door to Cupboard?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New Door Furniture?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Ease And Adjust Door?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Renew Skirting ?',
+        'selectedQuantity': 'Main',
+        'selectedCost':'Main',
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },      {
+        'title': 'Window Restricts?',
         'selectedQuantity': 'Main',
         'selectedCost':'Main',
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
@@ -83,7 +88,7 @@ class Bedroom1Screen extends StatelessWidget {
 
     return CommonScreenLayout(
       appBarTitle: 'Bedroom 1',
-      sectionTitle: 'Bedroom 1 Section',
+      sectionTitle: 'Bedroom 1 Measurements',
       checklistData: bedroom1ChecklistData,
       totalCost: '420000',
       skipButton: (){
