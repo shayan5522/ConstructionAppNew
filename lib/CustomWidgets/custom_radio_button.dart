@@ -28,15 +28,14 @@ class CustomRadioButton<T> extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 20,
-            height: 20,
+            width: 19,
+            height: 19,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: isSelected ? activeColor : Colors.grey, width: 2),
               color: isSelected ? activeColor : Colors.transparent,
             ),
-            child: isSelected
-                ? Center(child: Container(
+            child: isSelected ? Center(child: Container(
                 width: 10,
                 height: 10,
                 decoration: const BoxDecoration(
@@ -44,14 +43,14 @@ class CustomRadioButton<T> extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            )
-                : null,
+            ) : null,
           ),
           const SizedBox(width: 8),
           Text(
             label,
             style: labelStyle.copyWith(
               color: isSelected ? activeColor : Colors.black87,
+              fontSize: 13,
             ),
           ),
         ],

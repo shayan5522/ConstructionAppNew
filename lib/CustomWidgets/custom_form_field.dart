@@ -6,8 +6,21 @@ class CustomTextFormField extends StatelessWidget {
   final String label;
   final Widget? leading;
   final int? maxLines;
+  final TextInputType? type;
+  final bool readOnly;
   final TextEditingController? controller;
-  const CustomTextFormField({super.key, required this.hint, required this.label,this.leading,this.controller,this.maxLines});
+  final GestureTapCallback? onTap;
+  const CustomTextFormField({
+    super.key,
+    required this.hint,
+    required this.label,
+    this.leading,
+    this.controller,
+    this.maxLines,
+    this.type = TextInputType.text,
+    this.readOnly = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +30,9 @@ class CustomTextFormField extends StatelessWidget {
         CustomTextWidget(text:  label, fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black),
         const SizedBox(height: 5),
         TextFormField(
+          keyboardType: type,
+          onTap: onTap,
+          readOnly: readOnly,
           controller: controller,
           maxLines: maxLines,
           decoration: InputDecoration(

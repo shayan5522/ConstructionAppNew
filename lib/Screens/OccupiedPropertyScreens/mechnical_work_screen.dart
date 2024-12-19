@@ -1,12 +1,13 @@
 import 'package:constructionapp/Screens/OccupiedPropertyScreens/external_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import '../main_screen.dart';
 
 class MechanicalElectricalScreen extends StatelessWidget {
-  const MechanicalElectricalScreen({super.key});
-
+  MechanicalElectricalScreen({super.key});
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> mechanicalElectricalChecklistData = [
@@ -17,7 +18,6 @@ class MechanicalElectricalScreen extends StatelessWidget {
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
-      // Add more items as needed
     ];
 
     return CommonScreenLayout(
@@ -25,9 +25,16 @@ class MechanicalElectricalScreen extends StatelessWidget {
       sectionTitle: 'Mechanical and Electrical Work Section',
       checklistData: mechanicalElectricalChecklistData,
       totalCost: '600000',
-      submitButton:(){
-        Get.to(const ExternalWorkScreen());
+      skipButton: (){
+        Get.to(ExternalWorkScreen());
       },
+      submitButton:(){
+        Get.to(ExternalWorkScreen());
+      },
+      saveExit: (){
+        Get.off(MainScreen());
+      },
+      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Wiring Quantity',
       textFieldHint2: 'Additional Notes',
     );

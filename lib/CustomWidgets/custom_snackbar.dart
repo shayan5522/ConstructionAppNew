@@ -1,6 +1,6 @@
+import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 
-// Function to show a custom SnackBar
 void customSnackBar(BuildContext context, String title, String message) {
   final snackBar = SnackBar(
     duration: const Duration(seconds: 2),
@@ -11,18 +11,14 @@ void customSnackBar(BuildContext context, String title, String message) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
+              CustomTextWidget(
+                text: title,
                   color: Colors.white70,
                   fontWeight: FontWeight.bold,
-                ),
               ),
-              Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white70,
-                ),
+              CustomTextWidget(
+               text:  message,
+                color: Colors.white70,
               ),
             ],
           ),

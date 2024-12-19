@@ -47,7 +47,7 @@ class _InspectionScreenState extends State<InspectionScreen> {
                 child: CustomButton(
                   text: "Occupied Property",
                     onPressed: (){
-                      Get.to(const OpeningSheetScreen());
+                      Get.to(OpeningSheetScreen());
                     }
                 ),
               ),

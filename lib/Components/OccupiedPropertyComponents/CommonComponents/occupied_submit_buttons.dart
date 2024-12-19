@@ -4,8 +4,9 @@ import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../Screens/main_screen.dart';
 
 class OccupiedSubmitButtons extends StatelessWidget {
-  final VoidCallback nextPage ;
-  const OccupiedSubmitButtons({super.key,required this.nextPage});
+  final VoidCallback nextPage;
+  final VoidCallback saveExist;
+  const OccupiedSubmitButtons({super.key,required this.nextPage, required this.saveExist});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,7 @@ class OccupiedSubmitButtons extends StatelessWidget {
             text: 'Save & Exit',
             textColor: Colors.black,
             borderRadius: 40,
-            onPressed: (){
-              Get.off(MainScreen());
-            },
+            onPressed: saveExist,
             width: Get.width,
             height: 60,
             fontSize: 20,

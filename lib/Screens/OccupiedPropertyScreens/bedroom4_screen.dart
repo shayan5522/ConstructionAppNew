@@ -2,11 +2,13 @@ import 'package:constructionapp/Screens/OccupiedPropertyScreens/mechnical_work_s
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import '../main_screen.dart';
 
 class Bedroom4Screen extends StatelessWidget {
-  const Bedroom4Screen({super.key});
-
+  Bedroom4Screen({super.key});
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom4ChecklistData = [
@@ -87,9 +89,16 @@ class Bedroom4Screen extends StatelessWidget {
       sectionTitle: 'Bedroom 4 Section',
       checklistData: bedroom4ChecklistData,
       totalCost: '350000',
-      submitButton:(){
-        Get.to(const MechanicalElectricalScreen());
+      skipButton: (){
+        Get.to(MechanicalElectricalScreen());
       },
+      submitButton:(){
+        Get.to(MechanicalElectricalScreen());
+      },
+      saveExit: (){
+        Get.off(MainScreen());
+      },
+      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Width X Length',
       textFieldHint2: 'Additional Notes',
     );

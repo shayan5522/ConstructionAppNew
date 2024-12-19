@@ -17,22 +17,22 @@ class CustomCheckboxes extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        controller.toggleCheckbox();
+        controller.toggleCheckbox(label);
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Obx(() =>
-              Checkbox(
-                value: controller.isChecked.value,
-                onChanged: (value) {
-                  controller.toggleCheckbox();
-                },
-                activeColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-              )),
+          Obx(() => Checkbox(
+            value: controller.isChecked(label),
+            onChanged: (value) {
+              controller.toggleCheckbox(label);
+              print(value);
+            },
+            activeColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          )),
           CustomTextWidget(
             text: label,
             fontSize: 12,

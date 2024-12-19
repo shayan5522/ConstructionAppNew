@@ -53,7 +53,9 @@ class MajorWorkScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(12.0),
                 child: CustomElevatedButton(
                   text: 'Skip This Session',
-                  onPressed: () {},
+                  onPressed: () {
+                      Get.off(MainScreen());
+                  },
                   width: 300,
                   height: 45,
                   backgroundColor: Colors.tealAccent,
@@ -129,7 +131,10 @@ class MajorWorkScreen extends StatelessWidget {
               OccupiedSubmitButtons(
                   nextPage: (){
                     Get.off(MainScreen());
-                  }
+                  },
+                 saveExist: (){
+                   Get.off(MainScreen());
+                 },
               )
             ],
           ),

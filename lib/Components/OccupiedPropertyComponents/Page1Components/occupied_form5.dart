@@ -4,7 +4,7 @@ import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
-import '../../../Controllers/checkbox_controller.dart';
+import '../../../CustomWidgets/custom_radio_button.dart';
 
 class OccupiedForm5 extends StatelessWidget {
   OccupiedForm5({super.key});
@@ -32,12 +32,14 @@ class OccupiedForm5 extends StatelessWidget {
                           hint: 'Number of Door',
                           label: 'Front Door',
                           controller:_formController.frontDoorController ,
+                          type: TextInputType.number,
                       ),
                       const SizedBox(height: 10,),
                      CustomTextFormField(
                         hint: 'Number of Locks',
                         label: 'Other Locks',
                         controller: _formController.otherLocksController,
+                        type: TextInputType.number,
                       ),
                       const SizedBox(height: 10,),
                       CustomTextFormField(
@@ -51,22 +53,35 @@ class OccupiedForm5 extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
-                      Row(
-                        children: [
-                          CustomCheckboxes(
-                            label: "Yes",
-                            controller: CheckboxController(),
-                          ),
-                          CustomCheckboxes(
-                            label: "No",
-                            controller: CheckboxController(),
-                          ),
-                          CustomCheckboxes(
-                            label: "N/A",
-                            controller: CheckboxController(),
-                          ),
-                        ],
-                      ),
+                     Obx((){
+                       return Row(
+                         children: [
+                           CustomRadioButton<String>(
+                             value: "Yes",
+                             groupValue: _formController.grill.value,
+                             label: "Yes",
+                             onChanged: (value) =>  _formController.grill.value = value!,
+                             activeColor: Colors.green,
+                           ),
+                           const SizedBox(width: 16),
+                           CustomRadioButton<String>(
+                             value: "No",
+                             groupValue:  _formController.grill.value,
+                             label: "No",
+                             onChanged: (value) =>  _formController.grill.value = value!,
+                             activeColor: Colors.red,
+                           ),
+                           const SizedBox(width: 16),
+                           CustomRadioButton<String>(
+                             value: "N/A",
+                             groupValue:  _formController.grill.value,
+                             label: "N/A",
+                             onChanged: (value) =>  _formController.grill.value = value!,
+                             activeColor: Colors.blue,
+                           ),
+                         ],
+                       );
+                     }),
                       const SizedBox(height: 10,),
                     ],
                   )

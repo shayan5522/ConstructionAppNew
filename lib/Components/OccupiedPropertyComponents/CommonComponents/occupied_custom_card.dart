@@ -1,3 +1,4 @@
+import 'package:constructionapp/CustomWidgets/custom_elevated_button.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -69,19 +70,17 @@ class CustomOccupiedCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 0,
+              bottom: 10,
               left: 15,
-              child: TextButton(
-                onPressed: onAddNote,
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
+              child: CustomElevatedButton(
+                  text: 'Add Note',
+                  fontSize: 10,
+                  icon: Icons.add,
                   backgroundColor: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                child: const CustomTextWidget(text: 'Add note +',color: Colors.white,),
-              ),
+                  width: 112,
+                  height: 40,
+                  onPressed: onAddNote,
+              )
             ),
           ],
         ),

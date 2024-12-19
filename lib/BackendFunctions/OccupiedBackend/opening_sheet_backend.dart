@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,10 +34,11 @@ class OpeningSheetFormController extends GetxController {
   final TextEditingController frontDoorController = TextEditingController();
   final TextEditingController otherLocksController = TextEditingController();
   final TextEditingController fOBController = TextEditingController();
-  var steelGrills = false.obs;
+  var grill = ''.obs;
 
   // Form 6: Additional Checkboxes
-  var loftWorks = <String, bool>{}.obs;
+  var  loftWorksCheckboxes = <String>[].obs;
+
 
   Future<void> saveFormDataToDatabase() async {
     try {
@@ -61,10 +64,19 @@ class OpeningSheetFormController extends GetxController {
         "frontDoor": frontDoorController.text,
         "otherLocks": otherLocksController.text,
         "FOB": fOBController.text,
-        "steelGrills": steelGrills.value,
-        "additionalChecks": loftWorks,
+        "steelGrills": grill.value,
+        // "additionalChecks": loftWorksCheckboxes,
       };
-      print("Saving Form Data: $formData");
+      await FirebaseFirestore.instance.
+           collection('OccupiedData')
+          .doc(clientNameController.text)
+          .set({});
+      await FirebaseFirestore.instance.
+           collection('OccupiedData')
+          .doc(clientNameController.text)
+          .collection('Data')
+          .doc('OpeningSheet')
+          .set(formData);
     } catch (e) {
       print("Error saving form data: $e");
     }

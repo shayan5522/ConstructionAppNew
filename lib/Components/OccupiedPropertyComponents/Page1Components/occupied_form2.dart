@@ -47,9 +47,24 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                     ),
                     const SizedBox(height: 16),
                     CustomTextFormField(
-                        label: "Date",
-                        hint:  "DD/MM/YY",
-                        controller: _formController.dateController,
+                      label: "Date",
+                      hint: "Select Date",
+                      controller: _formController.dateController,
+                      readOnly: true,
+                      onTap: () async {
+                        DateTime? selectedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                        );
+                        if (selectedDate != null) {
+                          _formController.dateController.text =
+                          "${selectedDate.day.toString().padLeft(2, '0')}/"
+                              "${selectedDate.month.toString().padLeft(2, '0')}/"
+                              "${selectedDate.year}";
+                        }
+                      },
                     ),
                     const SizedBox(height: 16),
                     CustomTextFormField(
@@ -81,7 +96,9 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                               value: "Yes",
                               groupValue: _formController.pir.value,
                               label: "Yes",
-                              onChanged: (value) => _formController.pir.value = value!,
+                              onChanged: (value){
+                                _formController.pir.value = value!;
+                              },
                               activeColor: Colors.green,
                             ),
                             const SizedBox(width: 16),
@@ -89,7 +106,9 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                               value: "No",
                               groupValue: _formController.pir.value,
                               label: "No",
-                              onChanged: (value) => _formController.pir.value = value!,
+                              onChanged: (value){
+                                _formController.pir.value = value!;
+                              },
                               activeColor: Colors.red,
                             ),
                             const SizedBox(width: 16),
@@ -97,7 +116,9 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                               value: "N/A",
                               groupValue: _formController.pir.value,
                               label: "N/A",
-                              onChanged: (value) => _formController.pir.value = value!,
+                              onChanged: (value){
+                                _formController.pir.value = value!;
+                                },
                               activeColor: Colors.blue,
                             ),
                           ],

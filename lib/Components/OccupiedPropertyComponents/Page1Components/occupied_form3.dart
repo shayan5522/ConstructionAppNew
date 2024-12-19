@@ -2,7 +2,6 @@ import 'package:constructionapp/CustomWidgets/custom_form_field.dart';
 import 'package:constructionapp/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 
 class OccupiedForm3 extends StatelessWidget {
@@ -56,6 +55,7 @@ class OccupiedForm3 extends StatelessWidget {
                         hint: 'Kwh',
                         label: 'Reading',
                         controller:_formController.electricReadingController ,
+                        type: TextInputType.number,
                       ),
                     ],
                   ),
@@ -84,6 +84,7 @@ class OccupiedForm3 extends StatelessWidget {
                         hint: 'Kwh',
                         label: 'Reading',
                         controller:_formController.gasReadingController ,
+                        type: TextInputType.number,
                       ),
                     ],
                   ),
@@ -111,7 +112,8 @@ class OccupiedForm3 extends StatelessWidget {
                       CustomTextFormField(
                         hint: 'Kwh',
                         label: 'Reading',
-                        controller:_formController.waterLocationController,
+                        controller:_formController.waterReadingController,
+                        type: TextInputType.number,
                       ),
                     ],
                   ),

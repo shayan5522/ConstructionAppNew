@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import '../main_screen.dart';
 import 'bedroom2_screen.dart';
 class Bedroom1Screen extends StatelessWidget {
-  const Bedroom1Screen({super.key});
-
+  Bedroom1Screen({super.key});
+  final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom1ChecklistData = [
@@ -85,9 +87,16 @@ class Bedroom1Screen extends StatelessWidget {
       sectionTitle: 'Bedroom 1 Section',
       checklistData: bedroom1ChecklistData,
       totalCost: '420000',
-      submitButton:(){
-        Get.to(const Bedroom2Screen());
+      skipButton: (){
+        Get.to(Bedroom2Screen());
       },
+      submitButton:(){
+        Get.to(Bedroom2Screen());
+      },
+      saveExit: (){
+        Get.off(MainScreen());
+      },
+      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Width X Length',
       textFieldHint2: 'Additional Notes',
     );
