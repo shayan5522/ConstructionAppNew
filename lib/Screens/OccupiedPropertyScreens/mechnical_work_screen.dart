@@ -11,23 +11,58 @@ class MechanicalElectricalScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> mechanicalElectricalChecklistData = [
       {
-        'title': 'Redecoration',
+        'title': 'CP12,Boiler Commissioning,New Cooker Gas Supply?',
         'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
+        'selectedCost': 'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Boiler Only Renewal?',
         'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
+        'selectedCost': 'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Boiler Only Relocation To Different Room?',
         'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Upgrade Main Water Supply For Comb Boiler?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Pipe Work?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Radiator ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Radiator Valve?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Main Water Supply To Property?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
@@ -39,15 +74,13 @@ class MechanicalElectricalScreen extends StatelessWidget {
 
     return CommonScreenLayout(
       appBarTitle: 'Mechanical & Electrical Work',
-      sectionTitle: 'Mechanical and Electrical Work Section',
+      sectionTitle: 'Checklist',
       checklistData: mechanicalElectricalChecklistData,
       totalCost: '600000',
       skipButton: (){
         Get.to(const ExternalWorkScreen());
       },
-      submitButton:(){
-        Get.to(const ExternalWorkScreen());
-      },
+      submitButton:(){},
       saveExit: (){
         Get.off(MainScreen());
       },

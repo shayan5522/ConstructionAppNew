@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
@@ -11,21 +11,76 @@ class Bedroom2Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom2ChecklistData = [
       {
-        'title': 'Redecoration',
+        'title': 'Strip Out Floor Covering ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Mastic / Sealants?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New Vinyl Floor And Treshold? ',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Wallpaper Removal?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Plastering to Wall / Ceiling?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New 0.5 HR fire door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Ply Flush Door to Cupboard?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Door Furniture?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease And Adjust Door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Skirting ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },      {
+        'title': 'Window Restricts?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
@@ -39,15 +94,13 @@ class Bedroom2Screen extends StatelessWidget {
 
     return CommonScreenLayout(
       appBarTitle: 'Bedroom 2',
-      sectionTitle: 'Bedroom 2 Section',
+      sectionTitle: 'Bedroom 2 Measurements',
       checklistData: bedroom2ChecklistData,
       totalCost: '400000',
       skipButton: (){
         Get.to(const Bedroom3Screen());
       },
-      submitButton:(){
-        Get.to(const Bedroom3Screen());
-      },
+      submitButton:(){},
       saveExit: (){
         Get.off(MainScreen());
       },

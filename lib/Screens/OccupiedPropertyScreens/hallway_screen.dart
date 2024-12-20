@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
 import '../main_screen.dart';
@@ -12,21 +11,105 @@ class HallwayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> hallwayChecklistData = [
       {
-        'title': 'Redecoration',
+        'title': 'Strip out floor covering?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Mastic/Sealants?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New vinyl floor and threshold strip?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Wallpaper removal?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Redecoration?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Plastering to walls/Ceilings?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Remove fixature and fittings?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New 0.5HR fire door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New ply flush door to cupboard?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New door furniture?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease and adjust door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew skirting?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Window Repairs?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew double glazed panel?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease and adjust window?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
@@ -40,14 +123,13 @@ class HallwayScreen extends StatelessWidget {
 
     return CommonScreenLayout(
       appBarTitle: 'Hallway',
-      sectionTitle: 'Hallway Section',
+      sectionTitle: 'HALL STAIRS & LANDING Measurements',
       checklistData: hallwayChecklistData,
       totalCost: '345800',
       skipButton: (){
         Get.to(const Bedroom1Screen());
       },
       submitButton:(){
-        Get.to(const Bedroom1Screen());
       },
       saveExit: (){
         Get.off(MainScreen());

@@ -13,21 +13,76 @@ class Bedroom4Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom4ChecklistData = [
       {
-        'title': 'Redecoration',
+        'title': 'Strip Out Floor Covering ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost': 'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Mastic / Sealants?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'New Vinyl Floor And Threshold? ',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Wallpaper Removal?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Plastering to Wall / Ceiling?',
+        'selectedQuantity': 'Main'.obs,
+         'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New 0.5 HR fire door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Ply Flush Door to Cupboard?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Door Furniture?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease And Adjust Door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Skirting ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },      {
+        'title': 'Window Restricts?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
@@ -41,14 +96,13 @@ class Bedroom4Screen extends StatelessWidget {
 
     return CommonScreenLayout(
       appBarTitle: 'Bedroom 4',
-      sectionTitle: 'Bedroom 4 Section',
+      sectionTitle: 'Bedroom 4 Measurements',
       checklistData: bedroom4ChecklistData,
       totalCost: '350000',
       skipButton: (){
         Get.to(const MechanicalElectricalScreen());
       },
       submitButton:(){
-        Get.to(const MechanicalElectricalScreen());
       },
       saveExit: (){
         Get.off(MainScreen());

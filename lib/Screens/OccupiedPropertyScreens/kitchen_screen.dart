@@ -11,21 +11,91 @@ class KitchenScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> kitchenChecklistData = [
       {
-        'title': 'Redecoration',
+        'title': 'Redecoration?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Plastering To Wall/Ceiling',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
-        'title': 'Redecoration',
+        'title': 'Remove Fixtures And Fittings?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New 0.5HR Fire Door ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Ply Flush Door To Cupboard?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Perko Closer ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Fire Strips ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'New Door Furniture?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease And Adjust Door?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Skirting ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Window Restrictors ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main',
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Renew Double Glazed Panel ?',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
+        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
+        'costOptions': ['Main', 'Low', 'Medium', 'High'],
+      },
+      {
+        'title': 'Ease And Adjust Window ?',
         'selectedQuantity': 'Main'.obs,
         'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
@@ -43,8 +113,6 @@ class KitchenScreen extends StatelessWidget {
       checklistData: kitchenChecklistData,
       totalCost: '548949',
       submitButton:(){
-        print(field2Controller.text);
-        print(field1Controller.text);
       },
       skipButton: (){
         Get.to(const LoungeScreen());
