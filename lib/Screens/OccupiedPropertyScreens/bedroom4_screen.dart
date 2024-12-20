@@ -89,15 +89,14 @@ class Bedroom4Screen extends StatelessWidget {
       checklistData: bedroom4ChecklistData,
       totalCost: '350000',
       skipButton: (){
-        Get.to(MechanicalElectricalScreen());
+        Get.to(const MechanicalElectricalScreen());
       },
       submitButton:(){
-        Get.to(MechanicalElectricalScreen());
+        Get.to(const MechanicalElectricalScreen());
       },
       saveExit: (){
         Get.off(MainScreen());
       },
-      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Width X Length',
       textFieldHint2: 'Additional Notes',
     );

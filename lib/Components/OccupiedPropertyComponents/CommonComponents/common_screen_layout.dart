@@ -16,7 +16,6 @@ class CommonScreenLayout extends StatelessWidget {
   final VoidCallback submitButton;
   final String textFieldHint1;
   final String textFieldHint2;
-  RxString selectedRadio;
   final VoidCallback? skipButton;
   final VoidCallback? addNote;
   final VoidCallback saveExit;
@@ -30,13 +29,20 @@ class CommonScreenLayout extends StatelessWidget {
     required this.submitButton,
     required this.textFieldHint1,
     required this.textFieldHint2,
-    required this.selectedRadio,
     this.skipButton,
     this.addNote,
     required this.saveExit,
   });
+
   @override
   Widget build(BuildContext context) {
+    final checklistState = checklistData.map((data) {
+      return {
+        ...data,
+        'selectedRadio': 'Yes'.obs,
+      };
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -61,9 +67,7 @@ class CommonScreenLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomImageSelector(),
-              const SizedBox(
-                height: 40,
-              ),
+              const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
@@ -78,9 +82,7 @@ class CommonScreenLayout extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               CustomTextWidget(
                 text: sectionTitle,
                 fontSize: 24,
@@ -125,39 +127,42 @@ class CommonScreenLayout extends StatelessWidget {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: checklistData.length,
+                      itemCount: checklistState.length,
                       itemBuilder: (context, index) {
-                        final data = checklistData[index];
+                        final data = checklistState[index];
                         return Column(
                           children: [
                             CustomOccupiedCard(
                               title: data['title'],
                               options: [
-                                Obx((){
+                                Obx(() {
                                   return Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       CustomRadioButton<String>(
                                         value: "Yes",
-                                        groupValue: selectedRadio.value,
+                                        groupValue: data['selectedRadio'].value,
                                         label: "Yes",
-                                        onChanged: (value) => selectedRadio.value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
-                                      const SizedBox(width: 8,),
+                                      const SizedBox(width: 8),
                                       CustomRadioButton<String>(
                                         value: "No",
-                                        groupValue: selectedRadio.value,
+                                        groupValue: data['selectedRadio'].value,
                                         label: "No",
-                                        onChanged: (value) => selectedRadio.value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
-                                      const SizedBox(width: 9,),
+                                      const SizedBox(width: 9),
                                       CustomRadioButton<String>(
                                         value: "N/A",
-                                        groupValue: selectedRadio.value,
+                                        groupValue: data['selectedRadio'].value,
                                         label: "N/A",
-                                        onChanged: (value) => selectedRadio.value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                     ],
@@ -168,7 +173,7 @@ class CommonScreenLayout extends StatelessWidget {
                               quantityOptions: data['quantityOptions'],
                               selectedCost: data['selectedCost'],
                               costOptions: data['costOptions'],
-                              onAddNote: (){},
+                              onAddNote: () {},
                             ),
                             const SizedBox(height: 10),
                           ],
@@ -201,3 +206,4 @@ class CommonScreenLayout extends StatelessWidget {
     );
   }
 }
+

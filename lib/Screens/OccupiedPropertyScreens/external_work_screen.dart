@@ -95,7 +95,6 @@ class ExternalWorkScreen extends StatelessWidget {
       saveExit: (){
         Get.off(MainScreen());
       },
-      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Work Area',
       textFieldHint2: 'Additional Notes',
     );

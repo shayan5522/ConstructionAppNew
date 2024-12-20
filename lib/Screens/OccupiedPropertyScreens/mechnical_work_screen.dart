@@ -32,7 +32,6 @@ class MechanicalElectricalScreen extends StatelessWidget {
       saveExit: (){
         Get.off(MainScreen());
       },
-      selectedRadio: 'yes'.obs,
       textFieldHint1: 'Wiring Quantity',
       textFieldHint2: 'Additional Notes',
     );
