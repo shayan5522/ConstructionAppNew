@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../Controllers/check_list_controller.dart';
 import '../../../CustomWidgets/custom_form_field.dart';
 import '../../../CustomWidgets/custom_radio_button.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
@@ -19,6 +20,8 @@ class CommonScreenLayout extends StatelessWidget {
   final VoidCallback? skipButton;
   final VoidCallback? addNote;
   final VoidCallback saveExit;
+  final TextEditingController field1Controller;
+  final TextEditingController field2Controller;
 
   CommonScreenLayout({
     super.key,
@@ -32,16 +35,13 @@ class CommonScreenLayout extends StatelessWidget {
     this.skipButton,
     this.addNote,
     required this.saveExit,
+    required this.field1Controller,
+    required this.field2Controller,
   });
-
+  final ChecklistController checklistController = Get.put(ChecklistController());
   @override
   Widget build(BuildContext context) {
-    final checklistState = checklistData.map((data) {
-      return {
-        ...data,
-        'selectedRadio': 'Yes'.obs,
-      };
-    }).toList();
+    checklistController.initializeChecklist(checklistData);
 
     return Scaffold(
       appBar: AppBar(
@@ -100,14 +100,17 @@ class CommonScreenLayout extends StatelessWidget {
                     children: [
                       CustomTextFormField(
                         hint: textFieldHint1,
-                        label: textFieldHint1,
-                        leading: const Icon(Icons.help),
+                        label:textFieldHint1,
+                        leading: const Icon(Icons.height_rounded),
+                        controller: field1Controller,
                       ),
+                      const SizedBox(height: 10,),
                       CustomTextFormField(
                         hint: textFieldHint2,
-                        label: textFieldHint2,
-                        leading: const Icon(Icons.help),
-                      )
+                        label:textFieldHint2,
+                        leading: const Icon(Icons.height_rounded),
+                        controller: field2Controller,
+                      ),
                     ],
                   ),
                 ),
@@ -127,9 +130,10 @@ class CommonScreenLayout extends StatelessWidget {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: checklistState.length,
+                      itemCount: checklistController.checklistState.length,
                       itemBuilder: (context, index) {
-                        final data = checklistState[index];
+                        final data = checklistController.checklistState[index];
+                        final data2 = checklistData[index];
                         return Column(
                           children: [
                             CustomOccupiedCard(
@@ -170,9 +174,9 @@ class CommonScreenLayout extends StatelessWidget {
                                 })
                               ],
                               selectedQuantity: data['selectedQuantity'],
-                              quantityOptions: data['quantityOptions'],
+                              quantityOptions: data2['quantityOptions'],
                               selectedCost: data['selectedCost'],
-                              costOptions: data['costOptions'],
+                              costOptions: data2['costOptions'],
                               onAddNote: () {},
                             ),
                             const SizedBox(height: 10),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomOccupiedCard extends StatelessWidget {
   final String title;
   final List<Widget> options;
-  final String selectedQuantity;
+  final RxString selectedQuantity;
   final List<String> quantityOptions;
-  final String selectedCost;
+  final RxString selectedCost;
   final List<String> costOptions;
   final VoidCallback onAddNote;
 
@@ -46,13 +47,13 @@ class CustomOccupiedCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextWidget(
-                           text:  title,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                            text: title,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                           const SizedBox(height: 8),
                           Wrap(
-                            children:options,
+                            children: options,
                           )
                         ],
                       ),
@@ -70,9 +71,9 @@ class CustomOccupiedCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 10,
-              left: 15,
-              child: CustomElevatedButton(
+                bottom: 10,
+                left: 15,
+                child: CustomElevatedButton(
                   text: 'Add Note',
                   fontSize: 10,
                   icon: Icons.add,
@@ -80,7 +81,7 @@ class CustomOccupiedCard extends StatelessWidget {
                   width: 112,
                   height: 40,
                   onPressed: onAddNote,
-              )
+                )
             ),
           ],
         ),
@@ -88,12 +89,14 @@ class CustomOccupiedCard extends StatelessWidget {
     );
   }
 
-  Widget buildDropdown(String label, String value, List<String> options) {
+  Widget buildDropdown(String label, RxString value, List<String> options) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextWidget(
-         text:  label, fontWeight: FontWeight.bold, fontSize: 12,
+          text: label,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
         ),
         const SizedBox(height: 4),
         Container(
@@ -104,19 +107,26 @@ class CustomOccupiedCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: value,
-              isDense: true,
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              items: options.map((item) => DropdownMenuItem(
-                value: item,
-                child: CustomTextWidget(text: item),
-              )).toList(),
-              onChanged: (val) {},
-            ),
+            child: Obx(() {
+              return DropdownButton<String>(
+                value: value.value, // Reactive value
+                isDense: true,
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+                items: options.map((item) => DropdownMenuItem(
+                  value: item,
+                  child: CustomTextWidget(text: item),
+                )).toList(),
+                onChanged: (val) {
+                  if (val != null) {
+                    value.value = val;
+                  }
+                },
+              );
+            }),
           ),
         ),
       ],
     );
   }
 }
+

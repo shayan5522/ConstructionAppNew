@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import '../../Controllers/check_list_controller.dart';
 import '../main_screen.dart';
 import 'bedroom2_screen.dart';
 class Bedroom1Screen extends StatelessWidget {
@@ -10,76 +11,31 @@ class Bedroom1Screen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom1ChecklistData = [
       {
-        'title': 'Bedroom1 Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost': 'Main',
+        'title': 'Redecoration',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
         'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
         'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
     ];
+
+    final ChecklistController checklistController = Get.put(ChecklistController());
+    final TextEditingController field1Controller = TextEditingController();
+    final TextEditingController field2Controller = TextEditingController();
 
     return CommonScreenLayout(
       appBarTitle: 'Bedroom 1',
@@ -97,6 +53,8 @@ class Bedroom1Screen extends StatelessWidget {
       },
       textFieldHint1: 'Width X Length',
       textFieldHint2: 'Additional Notes',
+      field1Controller: field1Controller,
+      field2Controller: field2Controller,
     );
   }
 }

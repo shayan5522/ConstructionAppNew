@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? controller;
   final GestureTapCallback? onTap;
+
   const CustomTextFormField({
     super.key,
     required this.hint,
@@ -28,7 +29,6 @@ class CustomTextFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextWidget(text:  label, fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black),
         const SizedBox(height: 5),
         TextFormField(
           keyboardType: type,
@@ -38,7 +38,8 @@ class CustomTextFormField extends StatelessWidget {
           maxLines: maxLines,
           decoration: InputDecoration(
             hintText: hint,
-            label:leading ,
+            prefixIcon: leading,
+            label:CustomTextWidget(text:  label, fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black38),
             filled: true,
             hintStyle: const TextStyle(
               color: Colors.black38,

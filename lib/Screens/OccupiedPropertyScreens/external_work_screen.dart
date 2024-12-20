@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
+import '../../Controllers/check_list_controller.dart';
 import '../main_screen.dart';
 import 'major_work_screen.dart';
 
@@ -10,76 +11,31 @@ class ExternalWorkScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> externalWorkChecklistData = [
       {
-        'title': 'External Landscaping',
-        'selectedQuantity': 'Main',
-        'selectedCost': 'Main',
+        'title': 'Redecoration',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
         'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
       {
         'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Redecoration',
-        'selectedQuantity': 'Main',
-        'selectedCost':'Main',
+        'selectedQuantity': 'Main'.obs,
+        'selectedCost':'Main'.obs,
         'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
         'costOptions': ['Main', 'Low', 'Medium', 'High'],
       },
     ];
+
+    final ChecklistController checklistController = Get.put(ChecklistController());
+    final TextEditingController field1Controller = TextEditingController();
+    final TextEditingController field2Controller = TextEditingController();
 
     return CommonScreenLayout(
       appBarTitle: 'External Work',
@@ -97,6 +53,8 @@ class ExternalWorkScreen extends StatelessWidget {
       },
       textFieldHint1: 'Work Area',
       textFieldHint2: 'Additional Notes',
+      field1Controller: field1Controller,
+      field2Controller: field2Controller,
     );
   }
 }
