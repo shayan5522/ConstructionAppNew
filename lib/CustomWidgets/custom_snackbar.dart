@@ -14,11 +14,14 @@ void customSnackBar(BuildContext context, String title, String message) {
               CustomTextWidget(
                 text: title,
                   color: Colors.white70,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
+                fontSize: 15,
               ),
               CustomTextWidget(
                text:  message,
                 color: Colors.white70,
+                fontWeight: FontWeight.w200,
+                fontSize: 12,
               ),
             ],
           ),
