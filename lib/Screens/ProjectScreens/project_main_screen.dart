@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../BackendFunctions/VoidBackend/fetch_projects.dart';
 import '../../Components/ProjectComponents/project_overview_card.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
@@ -23,10 +23,31 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
 
   late Future<List<Map<String, dynamic>>> _projectsFuture;
 
+
   @override
   void initState() {
     super.initState();
     _projectsFuture = fetchUserProjects();
+  }
+
+  Future<void> deleteProject({required projectId}) async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    try {
+      await FirebaseFirestore.instance
+          .collection('VoidProperty')
+          .doc(user!.uid)
+          .collection('Projects')
+          .doc(projectId)
+          .delete();
+      customSnackBar(context, "Success", "Project deleted successfully!");
+
+      setState(() {
+        _projectsFuture = fetchUserProjects();
+      });
+    } catch (error) {
+      customSnackBar(context, "Error", "Failed to delete project");
+      print("Failed to delete project: $error");
+    }
   }
 
   @override
@@ -57,6 +78,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               statusColor: const Color(0xFFFFC7C2),
               onEditPressed: () {},
               onContinuePressed: () {},
+              onDeletePressed: () {  },
             ),
             ProjectCardNew(
               projectTitle: "Project Alfa",
@@ -65,6 +87,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               statusColor: const Color(0xFF17E7D0),
               onEditPressed: () {},
               onContinuePressed: () {},
+              onDeletePressed: () {  },
             ),
             ProjectCardNew(
               projectTitle: "Project Alfa",
@@ -73,6 +96,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               statusColor: const Color(0xFFFFEB9E),
               onEditPressed: () {},
               onContinuePressed: () {},
+              onDeletePressed: () {  },
             ),
             const SizedBox(height: 15),
             Align(
@@ -108,11 +132,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   itemCount: projects.length,
                   itemBuilder: (context, index) {
                     final project = projects[index];
-                    //print("project data: $project");
                     final projectId = project['projectId'];
                     return ProjectCardNew(
                       projectTitle: project['projectName'] ?? "Unnamed Project",
-                      projectRef: project['uprn'] ?? "No uprn",
+                      projectRef: project['UPRN'] ?? "No uprn",
                       statusText: project['status'] ?? "Unknown",
                       statusColor: const Color(0xFFFFC7C2),
                       onEditPressed: () {
@@ -121,19 +144,47 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                           projectData: project,
                         ));
                       },
-
                       onContinuePressed: () {
                         Get.to(() =>  ViewProjectDetailsScreen(
                           projectId: projectId,
                           projectData: project,
                         ));
                       },
+                      onDeletePressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Delete Project", style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+                              content: Text(
+                                "Are you sure you want to delete this project?",
+                                style: GoogleFonts.nunito(),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    await deleteProject(projectId: projectId);
+                                  },
+                                  child: Text("Delete", style: TextStyle(color: Colors.red)),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+
                     );
                   },
                 );
               },
             ),
-
           ],
         ),
       ),
@@ -158,22 +209,22 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          FloatingActionButton.extended(
-            backgroundColor: Colors.white,
-            onPressed: () {},
-            label: const Row(
-              children: [
-                Icon(Icons.history, color: Colors.black),
-                SizedBox(width: 8),
-                CustomTextWidget(
-                  text: 'View Past Projects',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ],
-            ),
-          ),
+          // FloatingActionButton.extended(
+          //   backgroundColor: Colors.white,
+          //   onPressed: () {},
+          //   label: const Row(
+          //     children: [
+          //       Icon(Icons.history, color: Colors.black),
+          //       SizedBox(width: 8),
+          //       CustomTextWidget(
+          //         text: 'View Past Projects',
+          //         fontSize: 14,
+          //         fontWeight: FontWeight.w600,
+          //         color: Colors.black,
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -187,6 +238,7 @@ class ProjectCardNew extends StatelessWidget {
   final Color statusColor;
   final VoidCallback onEditPressed;
   final VoidCallback onContinuePressed;
+  final VoidCallback onDeletePressed;
 
   const ProjectCardNew({
     Key? key,
@@ -196,6 +248,7 @@ class ProjectCardNew extends StatelessWidget {
     required this.statusColor,
     required this.onEditPressed,
     required this.onContinuePressed,
+    required this.onDeletePressed,
   }) : super(key: key);
 
   @override
@@ -226,25 +279,16 @@ class ProjectCardNew extends StatelessWidget {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: onEditPressed,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Row(
+                  children: [
+                    IconButton(onPressed: onEditPressed,
+                      icon: Icon(Icons.edit,color: Colors.teal,),
                     ),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.edit, color: Colors.white, size: 16),
-                      SizedBox(width: 4),
-                      Text(
-                        "Edit",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
+                    IconButton(onPressed: onDeletePressed,
+                      icon: Icon(Icons.delete,color: Colors.red,),
+                    ),
+                  ],
+                )
               ],
             ),
             Text(
