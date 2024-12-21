@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Controllers/auth_controller.dart';
 import '../../CustomWidgets/custom_buttons.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
 import '../../CustomWidgets/custom_textfield.dart';
+import '../main_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -42,9 +44,16 @@ class SignupScreenState extends State<SignupScreen> {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
+        leading: IconButton(
+            onPressed: (){
+              Get.offAll(()=>MainScreen());
+            },
+            icon: Icon(CupertinoIcons.back)
+        ),
         foregroundColor: Colors.white,
         backgroundColor: Colors.teal,
         centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Obx(() {
         return _authController.isLoading.value

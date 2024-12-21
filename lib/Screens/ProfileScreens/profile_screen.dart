@@ -1,11 +1,16 @@
+import 'package:TotalSurvey/CustomDialogs/custom_dialogue.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
+import 'package:TotalSurvey/Screens/ProfileScreens/register.dart';
+import 'package:TotalSurvey/Screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../CustomWidgets/custom_snackbar.dart';
 import '../BottomBarScreens/home_screen.dart';
 import '../../Controllers/profile_controller.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -15,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Future<void> _logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.off(() => const HomeScreen());
+      Get.off(() =>  MainScreen());
       customSnackBar(Get.context!, 'Success', 'Logged out successfully');
     } catch (e) {
       customSnackBar(Get.context!, 'Error', 'Failed to logout. Try again.');
@@ -33,7 +38,6 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Obx(() {
         if (_profileController.isLoading.value) {
-          // Show loading indicator while fetching user data
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -42,10 +46,26 @@ class ProfileScreen extends StatelessWidget {
         final userData = _profileController.userData.value;
 
         if (userData == null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Get.dialog(CustomDialog(
+              title: "Account Required",
+              message: "You need an account to access the profile. Do you want to login in or signup",
+              loginButtonText: "Login",
+              signupButtonText: "SignUp",
+              onLogin: () {
+                Get.offAll(LoginScreen());
+              },
+              onSignup: () {
+                Get.offAll(SignupScreen());
+              },
+            ));
+          });
           return const Center(
-            child: Text("No user data available"),
+            child: CircularProgressIndicator(),
           );
         }
+
+
 
         return SingleChildScrollView(
           child: Padding(

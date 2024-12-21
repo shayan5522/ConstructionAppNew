@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
-=======
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,9 +62,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           children: [
             const ProjectOverviewComponent(),
             const SizedBox(height: 20),
-<<<<<<< HEAD
-            OccupiedProjectsDataScreen(),
-=======
+           // OccupiedProjectsDataScreen(),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -106,7 +101,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               onContinuePressed: () {},
               onDeletePressed: () {  },
             ),
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
             const SizedBox(height: 15),
             Align(
               alignment: Alignment.bottomLeft,
@@ -289,26 +283,11 @@ class ProjectCardNew extends StatelessWidget {
                     IconButton(onPressed: onEditPressed,
                       icon: Icon(Icons.edit,color: Colors.teal,),
                     ),
-<<<<<<< HEAD
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.edit, color: Colors.white, size: 16),
-                      SizedBox(width: 4),
-                      CustomTextWidget(
-                        text: "Edit",
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-=======
                     IconButton(onPressed: onDeletePressed,
                       icon: Icon(Icons.delete,color: Colors.red,),
                     ),
                   ],
-                )
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
+                ),
               ],
             ),
             CustomTextWidget(

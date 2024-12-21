@@ -1,4 +1,6 @@
 import 'package:TotalSurvey/Screens/ProfileScreens/register.dart';
+import 'package:TotalSurvey/Screens/main_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       // Navigate to HomeScreen after successful login
-      Get.off(() => const HomeScreen());
+      Get.offAll(() =>  MainScreen());
     } on FirebaseAuthException catch (e) {
       // Show error message
       Get.snackbar('Login Error', e.message ?? 'Failed to login');
@@ -61,6 +63,13 @@ class _LoginScreenState extends State<LoginScreen> {
           fontSize: 22,
           fontWeight: FontWeight.bold,
           color: Colors.white,
+        ),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: (){
+            Get.offAll(()=>MainScreen());
+        },
+            icon: Icon(CupertinoIcons.back)
         ),
         foregroundColor: Colors.white,
         backgroundColor: Colors.teal,
