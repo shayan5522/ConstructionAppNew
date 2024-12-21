@@ -9,7 +9,6 @@ class ProjectDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Bind the controller
     final ProjectDetailsController controller = Get.put(ProjectDetailsController());
 
     return Scaffold(

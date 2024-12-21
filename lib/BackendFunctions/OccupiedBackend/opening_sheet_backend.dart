@@ -69,12 +69,12 @@ class OpeningSheetFormController extends GetxController {
       };
       await FirebaseFirestore.instance.
            collection('OccupiedData')
-          .doc(clientNameController.text)
+          .doc('gggdsgsvghsvghvcdghvcgdh')
           .set({});
       await FirebaseFirestore.instance.
            collection('OccupiedData')
-          .doc(clientNameController.text)
-          .collection('Data')
+          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .collection('Projects')
           .doc('OpeningSheet')
           .set(formData);
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../Controllers/check_list_controller.dart';
 import '../../../CustomWidgets/custom_form_field.dart';
@@ -13,7 +14,7 @@ class CommonScreenLayout extends StatelessWidget {
   final String appBarTitle;
   final String sectionTitle;
   final List<Map<String, dynamic>> checklistData;
-  final String totalCost;
+  final Widget? totalCost;
   final VoidCallback submitButton;
   final String textFieldHint1;
   final String textFieldHint2;
@@ -22,7 +23,6 @@ class CommonScreenLayout extends StatelessWidget {
   final VoidCallback saveExit;
   final TextEditingController field1Controller;
   final TextEditingController field2Controller;
-
   CommonScreenLayout({
     super.key,
     required this.appBarTitle,
@@ -133,7 +133,6 @@ class CommonScreenLayout extends StatelessWidget {
                       itemCount: checklistController.checklistState.length,
                       itemBuilder: (context, index) {
                         final data = checklistController.checklistState[index];
-                        final data2 = checklistData[index];
                         return Column(
                           children: [
                             CustomOccupiedCard(
@@ -147,8 +146,7 @@ class CommonScreenLayout extends StatelessWidget {
                                         value: "Yes",
                                         groupValue: data['selectedRadio'].value,
                                         label: "Yes",
-                                        onChanged: (value) =>
-                                        data['selectedRadio'].value = value!,
+                                        onChanged: (value) => data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                       const SizedBox(width: 8),
@@ -156,8 +154,7 @@ class CommonScreenLayout extends StatelessWidget {
                                         value: "No",
                                         groupValue: data['selectedRadio'].value,
                                         label: "No",
-                                        onChanged: (value) =>
-                                        data['selectedRadio'].value = value!,
+                                        onChanged: (value) => data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                       const SizedBox(width: 9),
@@ -165,19 +162,17 @@ class CommonScreenLayout extends StatelessWidget {
                                         value: "N/A",
                                         groupValue: data['selectedRadio'].value,
                                         label: "N/A",
-                                        onChanged: (value) =>
-                                        data['selectedRadio'].value = value!,
+                                        onChanged: (value) => data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                     ],
                                   );
                                 })
                               ],
-                              selectedQuantity: data['selectedQuantity'],
-                              quantityOptions: data2['quantityOptions'],
-                              selectedCost: data['selectedCost'],
-                              costOptions: data2['costOptions'],
+                              costController: data['costController'],
+                              quantityController: data['quantityController'],
                               onAddNote: () {},
+                              prefixIcon: Icon(FontAwesomeIcons.dollarSign),
                             ),
                             const SizedBox(height: 10),
                           ],
@@ -189,10 +184,7 @@ class CommonScreenLayout extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          CustomTextWidget(
-                              text: 'Total Cost : $totalCost',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
+                          totalCost!,
                         ],
                       ),
                     ),

@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_launcher_icons/main.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomOccupiedCard extends StatelessWidget {
   final String title;
   final List<Widget> options;
-  final RxString selectedQuantity;
-  final List<String> quantityOptions;
-  final RxString selectedCost;
-  final List<String> costOptions;
+  final TextEditingController quantityController;
+  final TextEditingController costController;
   final VoidCallback onAddNote;
+  final Icon? prefixIcon;
 
   const CustomOccupiedCard({
     super.key,
     required this.title,
     required this.options,
-    required this.selectedQuantity,
-    required this.quantityOptions,
-    required this.selectedCost,
-    required this.costOptions,
+    required this.quantityController,
+    required this.costController,
     required this.onAddNote,
+    this.prefixIcon,
   });
 
   @override
@@ -61,9 +59,9 @@ class CustomOccupiedCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        buildDropdown('Quantity', selectedQuantity, quantityOptions),
+                        buildTextFormField('Quantity', quantityController),
                         const SizedBox(height: 12),
-                        buildDropdown('Cost', selectedCost, costOptions),
+                        buildTextFormField('Cost', costController),
                       ],
                     ),
                   ],
@@ -89,7 +87,7 @@ class CustomOccupiedCard extends StatelessWidget {
     );
   }
 
-  Widget buildDropdown(String label, RxString value, List<String> options) {
+  Widget buildTextFormField(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,32 +99,25 @@ class CustomOccupiedCard extends StatelessWidget {
         const SizedBox(height: 4),
         Container(
           height: 40,
+          width: 120,
           padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade300),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: DropdownButtonHideUnderline(
-            child: Obx(() {
-              return DropdownButton<String>(
-                value: value.value, // Reactive value
-                isDense: true,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
-                items: options.map((item) => DropdownMenuItem(
-                  value: item,
-                  child: CustomTextWidget(text: item),
-                )).toList(),
-                onChanged: (val) {
-                  if (val != null) {
-                    value.value = val;
-                  }
-                },
-              );
-            }),
+          child: TextFormField(
+            controller: controller,
+            style: const TextStyle(fontSize: 14, color: Colors.black),
+            decoration:  InputDecoration(
+              prefixIcon:prefixIcon,
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 8),
+            ),
+            keyboardType: TextInputType.number,
           ),
         ),
       ],
     );
   }
 }
-

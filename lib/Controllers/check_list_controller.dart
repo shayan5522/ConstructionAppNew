@@ -8,8 +8,8 @@ class ChecklistController extends GetxController {
       checklistData.map((data) {
         return {
           'title': data['title'],
-          'selectedQuantity': data['selectedQuantity'],
-          'selectedCost': data['selectedCost'],
+          'costController': data['costController'],
+          'quantityController': data['quantityController'],
           'selectedRadio': 'Yes'.obs,
         };
       }).toList(),

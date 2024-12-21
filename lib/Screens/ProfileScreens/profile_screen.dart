@@ -1,15 +1,15 @@
+import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../CustomWidgets/custom_snackbar.dart';
 import '../BottomBarScreens/home_screen.dart';
-import '../../Controllers/profile_controller.dart'; // Adjust the path to your ProfileController
+import '../../Controllers/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  // Use GetX to access the ProfileController
   final ProfileController _profileController = Get.put(ProfileController());
 
   Future<void> _logout() async {
@@ -121,26 +121,21 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Helper widget for profile details
   Widget _profileDetailRow({required IconData icon, required String label, required String value}) {
     return Row(
       children: [
         Icon(icon, color: Colors.teal),
         const SizedBox(width: 10),
-        Text(
-          '$label: ',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+        CustomTextWidget(
+         text:  '$label: ',
+          fontWeight: FontWeight.bold,
             fontSize: 16,
-          ),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(
+          child: CustomTextWidget(
+           text:  value,
               fontSize: 16,
               color: Colors.black54,
-            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),

@@ -1,107 +1,118 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
+import '../../Controllers/total_cost_controller.dart';
+import '../../CustomDialogs/custom_progress_idicator_page.dart';
+import '../../CustomWidgets/custom_snackbar.dart';
+import '../../CustomWidgets/custom_text_widget.dart';
 import '../main_screen.dart';
 import 'bedroom4_screen.dart';
 
 class Bedroom3Screen extends StatelessWidget {
-  const Bedroom3Screen({super.key});
+  Bedroom3Screen({super.key});
+  final FirebaseService _firebaseService = new FirebaseService();
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom3ChecklistData = [
-      {
-        'title': 'Strip Out Floor Covering ?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost': 'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Mastic / Sealants?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'New Vinyl Floor And Threshold? ',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Wallpaper Removal?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Plastering to Wall / Ceiling?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'New 0.5 HR fire door?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'New Ply Flush Door to Cupboard?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'New Door Furniture?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Ease And Adjust Door?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
-      {
-        'title': 'Renew Skirting ?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },      {
-        'title': 'Window Restricts?',
-        'selectedQuantity': 'Main'.obs,
-        'selectedCost':'Main'.obs,
-        'quantityOptions': ['Main', 'Sub', 'Extra', 'Additional'],
-        'costOptions': ['Main', 'Low', 'Medium', 'High'],
-      },
+      {'title': 'Strip Out Floor Covering ?'},
+      {'title': 'Mastic / Sealants?'},
+      {'title': 'New Vinyl Floor And Threshold? '},
+      {'title': 'Wallpaper Removal?'},
+      {'title': 'Plastering to Wall / Ceiling?'},
+      {'title': 'New 0.5 HR fire door?'},
+      {'title': 'New Ply Flush Door to Cupboard?'},
+      {'title': 'New Door Furniture?'},
+      {'title': 'Ease And Adjust Door?'},
+      {'title': 'Renew Skirting ?'},
+      {'title': 'Window Restricts?'},
     ];
-
 
     final ChecklistController checklistController = Get.put(ChecklistController());
     final TextEditingController field1Controller = TextEditingController();
     final TextEditingController field2Controller = TextEditingController();
+    final TotalCostController totalCostController = Get.put(TotalCostController());
+
+    List<TextEditingController> costControllers = List.generate(
+      bedroom3ChecklistData.length, (_) => TextEditingController(),
+    );
+    List<TextEditingController> quantityControllers = List.generate(
+      bedroom3ChecklistData.length, (_) => TextEditingController(),
+    );
+
+    for (int i = 0; i < bedroom3ChecklistData.length; i++) {
+      costControllers[i].addListener(() {
+        totalCostController.updateTotalCost(costControllers, quantityControllers);
+      });
+      quantityControllers[i].addListener(() {
+        totalCostController.updateTotalCost(costControllers, quantityControllers);
+      });
+    }
 
     return CommonScreenLayout(
       appBarTitle: 'Bedroom 3',
       sectionTitle: 'Bedroom 3 Measurements',
-      checklistData: bedroom3ChecklistData,
-      totalCost: '380000',
+      checklistData: bedroom3ChecklistData.map((item){
+        final int index = bedroom3ChecklistData.indexOf(item);
+        return {
+          ...item,
+          'costController': costControllers[index],
+          'quantityController': quantityControllers[index],
+        };
+      }).toList(),
+      totalCost:Obx((){
+        return CustomTextWidget(
+            text: 'Total Cost : ${totalCostController.totalCost.value.toStringAsFixed(2)}',
+            fontSize: 18,
+            fontWeight: FontWeight.w600
+        );
+      }),
       skipButton: (){
-        Get.to(const Bedroom4Screen());
+        Get.to(Bedroom4Screen());
       },
-      submitButton:(){},
+      submitButton: () async {
+        bool isValid = true;
+        List<Map<String, dynamic>> finalData = [];
+
+        for (int i = 0; i < bedroom3ChecklistData.length; i++) {
+          if (costControllers[i].text.isEmpty || quantityControllers[i].text.isEmpty) {
+            isValid = false;
+            break;
+          }
+          final data = {
+            'title': bedroom3ChecklistData[i]['title'],
+            'selectedRadio': checklistController.checklistState[i]['selectedRadio'] ?? null,
+            'cost': costControllers[i].text,
+            'quantity': quantityControllers[i].text,
+          };
+          finalData.add(data);
+        }
+        if (!isValid) {
+          customSnackBar(context, 'Missing Data', 'Please fill in all the fields before submitting.');
+          return;
+        }
+        if (field1Controller.text.isEmpty || field2Controller.text.isEmpty) {
+          customSnackBar(context, 'Missing Notes', 'Please enter additional notes and dimensions.');
+          return;
+        }
+        Get.to(() => const ProgressIndicatorPage(message: 'Submitting your data...'));
+        try {
+          await _firebaseService.saveChecklistData(
+            checklistData: finalData,
+            title: 'Bedroom 3',
+            field1: field1Controller.text,
+            field2: field2Controller.text,
+            totalCost: totalCostController.totalCost.value,
+          );
+          Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
+          await Future.delayed(const Duration(seconds: 2));
+          Get.to(Bedroom4Screen());
+        } catch (e) {
+          Get.back();
+          customSnackBar(context, 'Error', 'Failed to submit data. Please try again.');
+        }
+      },
       saveExit: (){
         Get.off(MainScreen());
       },

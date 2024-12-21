@@ -7,6 +7,7 @@ class CustomTextWidget extends StatelessWidget {
   final FontWeight fontWeight;
   final Color color;
   final TextAlign textAlign;
+  final TextOverflow? overflow;
 
   const CustomTextWidget({
     super.key,
@@ -15,6 +16,7 @@ class CustomTextWidget extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.color = Colors.black,
     this.textAlign = TextAlign.start,
+    this.overflow,
   });
 
   @override
@@ -27,6 +29,7 @@ class CustomTextWidget extends StatelessWidget {
         fontWeight: fontWeight,
         color: color,
       ),
+      overflow: overflow,
     );
   }
 }

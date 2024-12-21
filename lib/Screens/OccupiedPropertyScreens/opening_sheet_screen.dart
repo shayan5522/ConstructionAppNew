@@ -55,22 +55,21 @@ class OpeningSheetScreen extends StatelessWidget {
                   ? const CircularProgressIndicator()
                   : OccupiedSubmitButtons(
                   nextPage: () async {
-                      // _loadingController.startLoading(true);
-                      // try {
-                      //   await _formController.saveFormDataToDatabase();
-                      //   Get.to(KitchenScreen());
-                      // } catch (e) {
-                      //   customSnackBar(context, 'Error', '$e');
-                      // } finally {
-                      //   _loadingController.startLoading(false);
-                      // }
-                    Get.to(const KitchenScreen());
+                      _loadingController.startLoading(true);
+                      try {
+                        await _formController.saveFormDataToDatabase();
+                        Get.to(KitchenScreen());
+                      } catch (e) {
+                        customSnackBar(context, 'Error', '$e');
+                      } finally {
+                        _loadingController.startLoading(false);
+                      }
                     },
                   saveExist: () async {
                       _loadingController.startLoading(true);
                       try {
                         await _formController.saveFormDataToDatabase();
-                        Get.to(const KitchenScreen());
+                        Get.to(KitchenScreen());
                       } catch (e) {
                         customSnackBar(context, 'Error', '$e');
                       } finally {
