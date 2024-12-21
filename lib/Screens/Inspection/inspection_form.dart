@@ -6,11 +6,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 import 'dart:io';
 import '../../CustomWidgets/custom_buttons.dart';
 
 class InspectionFormScreen extends StatefulWidget {
   const InspectionFormScreen({super.key});
+
   @override
   _InspectionFormScreenState createState() => _InspectionFormScreenState();
 }
@@ -20,9 +22,12 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
   DateTime? _selectedDay;
 
   bool isLoading = false;
+
   File? _selectedImage1;
   File? _selectedImage2;
   File? _selectedImage3;
+
+  List<String> publicUrls = [];
 
   Future<void> _pickImage(int imageSlot) async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -36,35 +41,49 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
     }
   }
 
-  Future<void> _uploadImages() async {
-    final supabase = Supabase.instance.client;
+  void _uploadImages(String projectId) async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
 
-    final images = {
-      'image1': _selectedImage1,
-      'image2': _selectedImage2,
-      'image3': _selectedImage3,
-    };
+      final supabase = Supabase.instance.client;
+      final images = {
+        'image1': _selectedImage1,
+        'image2': _selectedImage2,
+        'image3': _selectedImage3,
+      };
+    publicUrls.clear();
+      for (var entry in images.entries) {
+        final image = entry.value;
+        if (image == null) continue;
+        final fileName =
+            '${entry.key}_${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
 
-    for (var entry in images.entries) {
-      final image = entry.value;
-      if (image == null) continue;
+        // Use the dynamic project ID as the folder name
+        final filePath = '${projectId}/$fileName';
+        await supabase.storage.from('images').upload(filePath, image);
 
-      final fileName = '${entry.key}_${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
-      try {
-        await supabase.storage.from('images').upload(fileName, image);
-
-        final publicUrl = supabase.storage.from('images').getPublicUrl(fileName);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Image Uploaded successfully')),
-        );
-        Get.to(()=>const ProjectDetailsScreen());
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Upload failed try again later')),
-        );
+        final publicUrl = supabase.storage.from('images').getPublicUrl(filePath);
+        publicUrls.add(publicUrl);
+        print('Uploaded ${entry.key}: $publicUrl');
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('All images uploaded successfully!')),
+      );
+      Get.to(() => ProjectDetailsScreen(argument: publicUrls,));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred during upload.')),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
   }
+
 
   Widget _buildLargeImagePicker({required File? image, required int imageSlot}) {
     return GestureDetector(
@@ -240,13 +259,20 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
+                  isLoading
+                      ? CircularProgressIndicator(
+                    color: Colors.tealAccent,
+                  )
+                      :
                   CustomButton(text: "Next",
                       onPressed: (){
                     if(_selectedImage1 == null || _selectedImage2 ==null  || _selectedImage3 == null){
+
                       customSnackBar(context, "Error", "Please select images first");
                     }
                     else{
-                      _uploadImages();
+                      final projectId = Uuid().v4();
+                      _uploadImages(projectId);
                     }
                       },
                   ),
