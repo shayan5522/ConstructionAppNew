@@ -1,3 +1,5 @@
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // Ensure this package is added
 import 'package:TotalSurvey/Screens/Inspection/add_project_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,22 +7,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
 import '../../CustomWidgets/custom_buttons.dart';
-import '../BottomBarScreens/home_screen.dart';
 
 class InspectionFormScreen extends StatefulWidget {
   const InspectionFormScreen({super.key});
-
   @override
   _InspectionFormScreenState createState() => _InspectionFormScreenState();
 }
 
 class _InspectionFormScreenState extends State<InspectionFormScreen> {
-
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
+  bool isLoading = false;
   File? _selectedImage1;
   File? _selectedImage2;
   File? _selectedImage3;
@@ -34,6 +33,36 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
         if (imageSlot == 2) _selectedImage2 = File(pickedFile.path);
         if (imageSlot == 3) _selectedImage3 = File(pickedFile.path);
       });
+    }
+  }
+
+  Future<void> _uploadImages() async {
+    final supabase = Supabase.instance.client;
+
+    final images = {
+      'image1': _selectedImage1,
+      'image2': _selectedImage2,
+      'image3': _selectedImage3,
+    };
+
+    for (var entry in images.entries) {
+      final image = entry.value;
+      if (image == null) continue;
+
+      final fileName = '${entry.key}_${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}';
+      try {
+        await supabase.storage.from('images').upload(fileName, image);
+
+        final publicUrl = supabase.storage.from('images').getPublicUrl(fileName);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Image Uploaded successfully')),
+        );
+        Get.to(()=>const ProjectDetailsScreen());
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Upload failed try again later')),
+        );
+      }
     }
   }
 
@@ -64,8 +93,6 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       ),
     );
   }
-
-  // Smaller image pickers
   Widget _buildSmallImagePicker({required File? image, required int imageSlot}) {
     return GestureDetector(
       onTap: () => _pickImage(imageSlot),
@@ -142,10 +169,8 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
             _buildLargeImagePicker(image: _selectedImage1, imageSlot: 1),
             const SizedBox(height: 10),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -210,64 +235,21 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
                 ],
               ),
             ),
-
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Title",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: (){},
-                          child: const Text(
-                            "See All",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.teal,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      _buildSectionCard("Living Room", "Room/Area 01"),
-                      const SizedBox(width: 10),
-                      _buildSectionCard("Kitchen", "Room/Area 02"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  // CustomButton(text: "Save Inspection",
-                  //     onPressed: (){Get.to(()=>const ProjectDetailsScreen());}
-                  // ),
                   CustomButton(text: "Next",
-                      onPressed: (){Get.to(()=>const ProjectDetailsScreen());}
+                      onPressed: (){
+                    if(_selectedImage1 == null || _selectedImage2 ==null  || _selectedImage3 == null){
+                      customSnackBar(context, "Error", "Please select images first");
+                    }
+                    else{
+                      _uploadImages();
+                    }
+                      },
                   ),
-                  const SizedBox(height: 15),
-                  // CustomButton(text: "Save and Exit",solidColor: Colors.white,
-                  //     onPressed: (){Get.to(()=>const HomeScreen());}
-                  // ),
                 ],
               ),
             ),
@@ -277,7 +259,6 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       ),
     );
   }
-
   Widget _buildChecklistItem(String title) {
     return Row(
       children: [
@@ -295,51 +276,4 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       ],
     );
   }
-
-  Widget _buildSectionCard(String title, String subtitle) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              blurRadius: 5,
-              spreadRadius: 2,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.home, color: Colors.teal, size: 20),
-                const SizedBox(width: 5),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Text(
-              subtitle,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-  }
+}
