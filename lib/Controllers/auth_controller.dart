@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:TotalSurvey/Screens/main_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,7 @@ class AuthController extends GetxController {
 
       isLoading.value = false;
       customSnackBar(Get.context!, "Success", "Signup successful!");
-      Get.to(()=>const HomeScreen());
+      Get.to(()=> MainScreen());
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
     } catch (e) {

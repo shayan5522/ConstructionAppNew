@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Column(
@@ -78,10 +78,6 @@ class HomeScreen extends StatelessWidget {
                   text: "Inspections",
                 ),
                 Tab(
-                  icon: Icon(Icons.swap_horiz, size: 28),
-                  text: "Regulations",
-                ),
-                Tab(
                   icon: Icon(Icons.settings_outlined, size: 28),
                   text: "Settings",
                 ),
@@ -96,7 +92,6 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   ProjectsScreen(),
                   InspectionScreen(),
-                  Center(child: Text("Regulations Tab Content")),
                   SettingScreen(),
                   HelpScreen(),
                 ],

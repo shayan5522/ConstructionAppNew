@@ -1,3 +1,6 @@
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
+import 'package:TotalSurvey/Screens/ProfileScreens/profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controllers/bottom_bar_controller.dart';
@@ -6,12 +9,15 @@ import 'BottomBarScreens/notifications_screen.dart';
 
 class MainScreen extends StatelessWidget {
   final BottomNavController navController = Get.put(BottomNavController());
+  User? user = FirebaseAuth.instance.currentUser;
+
   final List<Widget> pages = [
     const NotificationScreen(),
     const HomeScreen(),
-    const Center(child: Text('Back Screen', style: TextStyle(fontSize: 20))),
-  ]; MainScreen({super.key});
+    ProfileScreen(),
+  ];
 
+  MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,17 @@ class MainScreen extends StatelessWidget {
             () => BottomNavigationBar(
           backgroundColor: Colors.white,
           currentIndex: navController.currentIndex.value,
-          onTap: navController.changeIndex,
+          onTap: (index) {
+            if (index == 2 && user == null) {
+              customSnackBar(
+                context,
+                "Access Denied",
+                "You must be logged in to access the Profile screen.",
+              );
+              return;
+            }
+            navController.changeIndex(index);
+          },
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -43,17 +59,18 @@ class MainScreen extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: _buildNavIcon(
-                icon: Icons.arrow_back,
+                icon: Icons.person,
                 index: 2,
                 navController: navController,
               ),
-              label: 'Back',
+              label: 'Profile',
             ),
           ],
         ),
       ),
     );
   }
+
   Widget _buildNavIcon({
     required IconData icon,
     required int index,
@@ -87,7 +104,6 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     );
-
   }
-
 }
+
