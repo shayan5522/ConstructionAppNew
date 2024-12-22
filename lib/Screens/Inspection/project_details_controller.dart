@@ -1,4 +1,5 @@
 import 'package:TotalSurvey/Screens/BottomBarScreens/home_screen.dart';
+import 'package:TotalSurvey/Screens/main_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,7 @@ class ProjectDetailsController extends GetxController {
      await _firestore.collection('VoidProperty').doc(user.uid).collection('Projects').add(projectDetails);
 
       Get.snackbar("Success", "Project details saved successfully!");
-      Get.to(()=>const HomeScreen());
+      Get.to(()=>MainScreen());
       resetForm();
     } catch (e) {
       Get.snackbar("Error", "Failed to save project details: $e");

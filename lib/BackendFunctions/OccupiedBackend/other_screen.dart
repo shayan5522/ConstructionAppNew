@@ -30,7 +30,10 @@ class FirebaseService {
       await FirebaseFirestore.instance
           .collection('OccupiedData')
           .doc(_formController.projectName.text)
-          .set({});
+          .set({
+             'userid':user!.uid,
+            'projectName':_formController.projectName.text,
+            });
 
       await FirebaseFirestore.instance
           .collection('OccupiedData')
@@ -63,7 +66,10 @@ class FirebaseService {
       await FirebaseFirestore.instance
           .collection('OccupiedData')
           .doc(_formController.projectName.text)
-          .set({});
+          .set({
+           'userid':user!.uid,
+            'projectName':_formController.projectName.text,
+           });
 
       await FirebaseFirestore.instance
           .collection('OccupiedData')

@@ -1,7 +1,11 @@
+import 'package:TotalSurvey/CustomDialogs/custom_dialogue.dart';
+import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../CustomWidgets/custom_buttons.dart';
+import '../../CustomWidgets/custom_snackbar.dart';
 import '../OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'inspection_form.dart';
 
@@ -22,7 +26,7 @@ class _InspectionScreenState extends State<InspectionScreen> {
     'Bungalow': false,
     'Other': false,
   };
-
+ User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +37,11 @@ class _InspectionScreenState extends State<InspectionScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20,),
-              Text(
-                "What type of survey would you like to conduct?",
-                style: GoogleFonts.poppins(
+              CustomTextWidget(
+               text:  "What type of survey would you like to conduct?",
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
-                ),
               ),
               const SizedBox(height: 15),
 
@@ -47,8 +49,17 @@ class _InspectionScreenState extends State<InspectionScreen> {
                 child: CustomButton(
                   text: "Occupied Property",
                     onPressed: (){
-                      Get.to(OpeningSheetScreen());
-                    }
+                     if(user == null){
+                       customSnackBar(
+                         context,
+                         "Access Denied",
+                         "You must be logged in to access the Profile screen.",
+                       );
+                     }else{
+                       Get.to(OpeningSheetScreen());
+                     }
+
+                   }
                 ),
               ),
               const SizedBox(height: 15),

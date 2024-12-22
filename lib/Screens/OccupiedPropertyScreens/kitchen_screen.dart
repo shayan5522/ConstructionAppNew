@@ -1,12 +1,13 @@
+import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/other_screen.dart';
 import 'package:TotalSurvey/Controllers/total_cost_controller.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/adding_image.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
 import '../../Controllers/currencey_controller.dart';
-import '../../Controllers/loading_controller.dart';
 import '../../CustomDialogs/custom_progress_idicator_page.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
 import '../main_screen.dart';
@@ -15,6 +16,8 @@ import 'lovenge_screen.dart';
 class KitchenScreen extends StatelessWidget {
   KitchenScreen({super.key});
   final FirebaseService _firebaseService = new FirebaseService();
+  final ImageUploadController _imageUploadController = Get.put(ImageUploadController());
+  final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> kitchenChecklistData = [
@@ -107,6 +110,8 @@ class KitchenScreen extends StatelessWidget {
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
           );
+
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(LoungeScreen());

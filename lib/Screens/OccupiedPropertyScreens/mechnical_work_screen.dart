@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/adding_image.dart';
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
@@ -14,6 +16,8 @@ import 'external_work_screen.dart';
 class MechanicalElectricalScreen extends StatelessWidget {
   MechanicalElectricalScreen({super.key});
   final FirebaseService _firebaseService = new FirebaseService();
+  final ImageUploadController _imageUploadController = Get.put(ImageUploadController());
+  final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> mechanicalElectricalChecklistData = [
@@ -104,6 +108,7 @@ class MechanicalElectricalScreen extends StatelessWidget {
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
           );
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(ExternalWorkScreen());
@@ -147,6 +152,7 @@ class MechanicalElectricalScreen extends StatelessWidget {
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
           );
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(MainScreen());

@@ -1,14 +1,19 @@
-import 'package:TotalSurvey/CustomWidgets/custon_navigation.dart';
+import 'package:TotalSurvey/CustomDialogs/custom_dialogue.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Inspection/inspection.dart';
+import '../ProfileScreens/login_screen.dart';
+import '../ProfileScreens/profile_screen.dart';
+import '../ProfileScreens/register.dart';
 import '../ProjectScreens/project_main_screen.dart';
 import '../Setting/help.dart';
 import '../Setting/setting.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key});
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -55,7 +60,26 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       color: Colors.white,
-                      onPressed: () => NavigationHelper.handleProfileNavigation(context),
+                      onPressed: (){
+                        if (user != null) {
+                        Get.to(() => ProfileScreen());
+                        } else {
+                          Get.dialog(
+                            CustomDialog(
+                                title: 'Account Required',
+                                message: "You need an account to access the profile. Do you want to log in or sign up?",
+                                loginButtonText: 'Login',
+                                signupButtonText: 'Create Account',
+                                onLogin: (){
+                                  Get.to(() => const LoginScreen());
+                                },
+                                onSignup: (){
+                                  Get.to(() => const SignupScreen());
+                                }
+                            ),
+                          );
+                        }
+                      },
                       icon: const Icon(Icons.person),
                     ),
                   ),

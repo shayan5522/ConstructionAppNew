@@ -24,7 +24,6 @@ class CustomImageSelector extends StatelessWidget {
                 maxImages,
                     (index) {
                   if (index < imageController.images.length) {
-                    // Display selected images
                     return Stack(
                       clipBehavior: Clip.none,
                       children: [

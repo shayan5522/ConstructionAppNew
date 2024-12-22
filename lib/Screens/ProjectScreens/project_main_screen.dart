@@ -1,6 +1,7 @@
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_docs_details.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   late Future<List<Map<String, dynamic>>> _projectsFuture;
   final OccupiedProjectFetchingController _projectFetchingController =
       Get.put(OccupiedProjectFetchingController());
+
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -32,7 +35,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   }
 
   Future<void> deleteProject({required projectId}) async {
-    User? user = await FirebaseAuth.instance.currentUser;
     try {
       await FirebaseFirestore.instance
           .collection('VoidProperty')
@@ -63,12 +65,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                "Current Projects",
-                style: GoogleFonts.nunito(
+              child: CustomTextWidget(
+                  text:"Current Projects",
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                ),
               ),
             ),
             const SizedBox(height: 15),
@@ -84,7 +84,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       statusText: '',
                       statusColor: Colors.green,
                       onEditPressed: (){},
-                      onContinuePressed: (){},
+                      onContinuePressed: (){
+                        Get.to(OccupiedProjectDocs(projectName: _projectFetchingController.mainDocNames[index]));
+                      },
                       onDeletePressed: (){},
                   );
                 },
@@ -288,20 +290,6 @@ class ProjectCardNew extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              width: 100,
-              height: 50,
-              child: Card(
-                color: statusColor,
-                child: Center(
-                  child: CustomTextWidget(
-                    text: statusText,
-                    fontSize: 14,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
             ElevatedButton(
               onPressed: onContinuePressed,
               style: ElevatedButton.styleFrom(

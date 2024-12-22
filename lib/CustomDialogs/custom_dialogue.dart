@@ -1,5 +1,5 @@
+import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
@@ -40,19 +40,16 @@ class CustomDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              title,
-              style: titleStyle ??
-                  GoogleFonts.nunito(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            CustomTextWidget(
+              text: title,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
             const SizedBox(height: 10),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: messageStyle ?? GoogleFonts.nunito(fontSize: 16),
+            CustomTextWidget(
+              text: message,
+              textAlign: TextAlign.justify,
+              fontSize: 16,
             ),
             const SizedBox(height: 20),
             Row(
@@ -66,13 +63,10 @@ class CustomDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text(
-                    loginButtonText,
-                    style: buttonTextStyle ??
-                        GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  child: CustomTextWidget(
+                    text: loginButtonText,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 ElevatedButton(
@@ -83,13 +77,10 @@ class CustomDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text(
-                    signupButtonText,
-                    style: buttonTextStyle ??
-                        GoogleFonts.nunito(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  child: CustomTextWidget(
+                   text:  signupButtonText,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],

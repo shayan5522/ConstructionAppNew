@@ -1,6 +1,8 @@
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/external_work_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/adding_image.dart';
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
@@ -17,7 +19,8 @@ class HallwayScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseService _firebaseService = new FirebaseService();
-
+    final ImageUploadController _imageUploadController = Get.put(ImageUploadController());
+    final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
     List<Map<String, dynamic>> hallwayChecklistData = [
       {'title': 'Strip out floor covering?',},
       {'title': 'Mastic/Sealants?',},
@@ -114,6 +117,7 @@ class HallwayScreen extends StatelessWidget {
             totalCost: totalCostController.totalCost.value,
 
           );
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(Bedroom1Screen());
@@ -158,6 +162,7 @@ class HallwayScreen extends StatelessWidget {
             totalCost: totalCostController.totalCost.value,
 
           );
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(MainScreen());

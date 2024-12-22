@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
 
   final List<Widget> pages = [
     const NotificationScreen(),
-    const HomeScreen(),
+    HomeScreen(),
     ProfileScreen(),
   ];
 

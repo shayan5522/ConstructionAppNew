@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/adding_image.dart';
+import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
@@ -14,6 +16,8 @@ import 'bedroom3_screen.dart';
 class Bedroom2Screen extends StatelessWidget {
   Bedroom2Screen({super.key});
   final FirebaseService _firebaseService = new FirebaseService();
+  final ImageUploadController _imageUploadController = Get.put(ImageUploadController());
+  final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> bedroom2ChecklistData = [
@@ -107,6 +111,7 @@ class Bedroom2Screen extends StatelessWidget {
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
           );
+          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(Bedroom3Screen());
@@ -141,6 +146,7 @@ class Bedroom2Screen extends StatelessWidget {
           customSnackBar(context, 'Missing Notes', 'Please enter additional notes and dimensions.');
           return;
         }
+        _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
         Get.to(() => const ProgressIndicatorPage(message: 'Submitting your data...'));
         try {
           await _firebaseService.saveChecklistData(
