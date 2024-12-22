@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class FirebaseService {
+  User? user = FirebaseAuth.instance.currentUser;
   Future<void> saveChecklistData({
     required List<Map<String, dynamic>> checklistData,
     required String title,
@@ -10,7 +11,6 @@ class FirebaseService {
     required String field2,
     required double totalCost,
   }) async {
-    User? user = FirebaseAuth.instance.currentUser;
 
     // if (user == null) {
     //   throw Exception("No user is logged in");
@@ -42,6 +42,38 @@ class FirebaseService {
              "field2": field2,
              "totalCost": totalCost,
           });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> saveMajorListData({
+    required String title,
+    required String field1,
+    required String field2,
+    required List<String> Data,
+}) async{
+
+    // if (user == null) {
+    //   throw Exception("No user is logged in");
+    // }
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('OccupiedData')
+          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .set({});
+
+      await FirebaseFirestore.instance
+          .collection('OccupiedData')
+          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .collection('Projects')
+          .doc(title)
+          .set({
+           'checkedPoints': Data,
+           "Estimated Project Value": field1,
+           "Checked Produce By": field2,
+      });
     } catch (e) {
       rethrow;
     }

@@ -16,7 +16,7 @@ class OpeningSheetFormController extends GetxController {
   final TextEditingController absoluteSurveyController = TextEditingController();
   final TextEditingController epcRequiredController = TextEditingController();
   var pir = ''.obs;
- final TextEditingController gasTestController = TextEditingController();
+  final TextEditingController gasTestController = TextEditingController();
 
   // Form 3: Utility Readings
   final TextEditingController electricLocationController = TextEditingController();

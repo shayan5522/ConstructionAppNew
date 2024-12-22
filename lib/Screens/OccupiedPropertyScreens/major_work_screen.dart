@@ -1,5 +1,9 @@
+import 'package:TotalSurvey/Controllers/loading_controller.dart';
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/occupied_submit_buttons.dart';
 import '../../Controllers/checkbox_controller.dart';
 import '../../CustomWidgets/custom_checkboxes.dart';
@@ -10,14 +14,15 @@ import '../main_screen.dart';
 
 class MajorWorkScreen extends StatelessWidget {
   MajorWorkScreen({super.key});
+  final CheckboxController checkboxController = Get.put(CheckboxController());
+  final TextEditingController projectValueController = TextEditingController();
+  final TextEditingController produceByController = TextEditingController();
+  FirebaseService _firebaseService = new FirebaseService();
+  final LoadingController _loadingController = Get.put(LoadingController());
+
   final List<Map<String, dynamic>> majorWorkCheckList = [
     {'title': 'Design', 'checked': false},
     {'title': 'Construction', 'checked': false},
-    {'title': 'Painting', 'checked': false},
-    {'title': 'Electrical', 'checked': false},
-    {'title': 'Plumbing', 'checked': false},
-    {'title': 'Mechanical', 'checked': false},
-    {'title': 'Safety', 'checked': false},
     {'title': 'Painting', 'checked': false},
     {'title': 'Electrical', 'checked': false},
     {'title': 'Plumbing', 'checked': false},
@@ -54,7 +59,7 @@ class MajorWorkScreen extends StatelessWidget {
                 child: CustomElevatedButton(
                   text: 'Skip This Session',
                   onPressed: () {
-                      Get.off(MainScreen());
+                    Get.off(MainScreen());
                   },
                   width: 300,
                   height: 45,
@@ -74,7 +79,7 @@ class MajorWorkScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(13.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,12 +87,14 @@ class MajorWorkScreen extends StatelessWidget {
                       CustomTextFormField(
                         hint: 'Estimated Project Value',
                         label: 'Estimated Project Value',
-                        leading: Icon(Icons.help),
+                        leading: Icon(FontAwesomeIcons.moneyBill),
+                        controller: projectValueController,
                       ),
                       CustomTextFormField(
                         hint: 'Check Produce By',
                         label: 'Check Produce By',
                         leading: Icon(Icons.help),
+                        controller: produceByController,
                       ),
                     ],
                   ),
@@ -118,7 +125,7 @@ class MajorWorkScreen extends StatelessWidget {
                             children: [
                               CustomCheckboxes(
                                 label: checklistItem['title'],
-                                controller: CheckboxController(),
+                                controller: checkboxController,
                               ),
                               const Divider(),
                             ],
@@ -128,14 +135,58 @@ class MajorWorkScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              OccupiedSubmitButtons(
-                  nextPage: (){
-                    Get.off(MainScreen());
-                  },
-                 saveExist: (){
-                   Get.off(MainScreen());
-                 },
-              )
+              Obx(() {
+                return _loadingController.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : OccupiedSubmitButtons(
+
+                        nextPage: () {
+                          _loadingController.startLoading(true);
+                          final checkedValues = checkboxController
+                              .selectedLabels.entries
+                              .where((entry) => entry.value == true)
+                              .map((entry) => entry.key)
+                              .toList();
+                          try {
+                            _firebaseService.saveMajorListData(
+                              title: 'Major work',
+                              field1: projectValueController.text,
+                              field2: produceByController.text,
+                              Data: checkedValues,
+                            );
+                          } catch (e) {
+                            customSnackBar(context, 'Error', '$e');
+                          } finally {
+                            _loadingController.startLoading(false);
+                          }
+                          Get.off(MainScreen());
+                        },
+
+                        saveExist: () {
+                          _loadingController.startLoading(true);
+                          final checkedValues = checkboxController
+                              .selectedLabels.entries
+                              .where((entry) => entry.value == true)
+                              .map((entry) => entry.key)
+                              .toList();
+                          try {
+                            _firebaseService.saveMajorListData(
+                              title: 'Major work',
+                              field1: projectValueController.text,
+                              field2: produceByController.text,
+                              Data: checkedValues,
+                            );
+                            Get.off(MainScreen());
+                          } catch (e) {
+                            customSnackBar(context, 'Error', '$e');
+                          } finally {
+                            _loadingController.startLoading(false);
+                          }
+                        },
+                      );
+              }),
             ],
           ),
         ),

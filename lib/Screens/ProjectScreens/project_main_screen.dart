@@ -1,12 +1,12 @@
+import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
+import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../BackendFunctions/VoidBackend/fetch_projects.dart';
 import '../../Components/ProjectComponents/project_overview_card.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
@@ -20,8 +20,9 @@ class ProjectsScreen extends StatefulWidget {
 }
 
 class _ProjectsScreenState extends State<ProjectsScreen> {
-
   late Future<List<Map<String, dynamic>>> _projectsFuture;
+  final OccupiedProjectFetchingController _projectFetchingController =
+  Get.put(OccupiedProjectFetchingController());
 
   @override
   void initState() {
@@ -39,50 +40,14 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           children: [
             const ProjectOverviewComponent(),
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Current Projects",
-                style: GoogleFonts.nunito(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            ProjectCardNew(
-              projectTitle: "Project Beta",
-              projectRef: "Ref#12345",
-              statusText: "Pending",
-              statusColor: const Color(0xFFFFC7C2),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-            ),
-            ProjectCardNew(
-              projectTitle: "Project Alfa",
-              projectRef: "Ref#12345",
-              statusText: "Completed",
-              statusColor: const Color(0xFF17E7D0),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-            ),
-            ProjectCardNew(
-              projectTitle: "Project Alfa",
-              projectRef: "Ref#12345",
-              statusText: "In progress",
-              statusColor: const Color(0xFFFFEB9E),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-            ),
+            OccupiedProjectsDataScreen(),
             const SizedBox(height: 15),
             Align(
               alignment: Alignment.bottomLeft,
-              child: Text(
-                "Void Property Projects",
-                style: GoogleFonts.nunito(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+              child: CustomTextWidget(
+                text:  "Void Property Projects",
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
             FutureBuilder<List<Map<String, dynamic>>>(
@@ -216,13 +181,11 @@ class ProjectCardNew extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      projectTitle,
-                      style: GoogleFonts.nunito(
+                    CustomTextWidget(
+                      text: projectTitle,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                      ),
                     ),
                   ],
                 ),
@@ -238,21 +201,19 @@ class ProjectCardNew extends StatelessWidget {
                     children: [
                       Icon(Icons.edit, color: Colors.white, size: 16),
                       SizedBox(width: 4),
-                      Text(
-                        "Edit",
-                        style: TextStyle(color: Colors.white),
+                      CustomTextWidget(
+                        text: "Edit",
+                        color: Colors.white,
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            Text(
-              "UPRN# $projectRef",
-              style: GoogleFonts.nunito(
+            CustomTextWidget(
+              text: "UPRN# $projectRef",
                 fontSize: 14,
                 color: Colors.grey.shade600,
-              ),
             ),
             const SizedBox(height: 8),
             ElevatedButton(
@@ -268,7 +229,7 @@ class ProjectCardNew extends StatelessWidget {
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("View Inspection"),
+                  CustomTextWidget(text: "View Inspection"),
                   Icon(Icons.play_arrow, size: 18),
                 ],
               ),

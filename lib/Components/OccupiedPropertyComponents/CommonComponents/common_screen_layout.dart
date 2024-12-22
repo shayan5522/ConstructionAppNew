@@ -76,8 +76,7 @@ class CommonScreenLayout extends StatelessWidget {
               // Currency Selector
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Obx(() {
-                  return Row(
+                child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const CustomTextWidget(
@@ -86,8 +85,7 @@ class CommonScreenLayout extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ],
-                  );
-                }),
+                  ),
               ),
               const SizedBox(height: 10),
               Padding(
@@ -138,32 +136,34 @@ class CommonScreenLayout extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const CustomTextWidget(
-                      text: "Select Currency",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    DropdownButton<String>(
-                      value: currencyController.selectedCurrency.value,
-                      items: const [
-                        DropdownMenuItem(value: 'Dollar', child: CustomTextWidget(text: 'Dollar')),
-                        DropdownMenuItem(value: 'Pound', child: CustomTextWidget(text: 'Pound')),
-                        DropdownMenuItem(value: 'Euro', child: CustomTextWidget(text: 'Euro')),
-                      ],
-                      onChanged: (value) {
-                        if (value != null) {
-                          currencyController.updateCurrency(value);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              Obx((){
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const CustomTextWidget(
+                        text: "Select Currency",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      DropdownButton<String>(
+                        value: currencyController.selectedCurrency.value,
+                        items: const [
+                          DropdownMenuItem(value: 'Dollar', child: CustomTextWidget(text: 'Dollar')),
+                          DropdownMenuItem(value: 'Pound', child: CustomTextWidget(text: 'Pound')),
+                          DropdownMenuItem(value: 'Euro', child: CustomTextWidget(text: 'Euro')),
+                        ],
+                        onChanged: (value) {
+                          if (value != null) {
+                            currencyController.updateCurrency(value);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }),
               const CustomTextWidget(
                 text: "Check Lists",
                 fontSize: 18,
