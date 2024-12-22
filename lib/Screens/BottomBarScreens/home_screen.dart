@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                                 title: 'Account Required',
                                 message: "You need an account to access the profile. Do you want to log in or sign up?",
                                 loginButtonText: 'Login',
-                                signupButtonText: 'Create Account',
+                                signupButtonText: 'SignUp',
                                 onLogin: (){
                                   Get.to(() => const LoginScreen());
                                 },

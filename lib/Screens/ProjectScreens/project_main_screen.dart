@@ -87,7 +87,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                         Get.to(OccupiedProjectDocs(projectName: _projectFetchingController.mainDocNames[index]));
                       },
                       onDeletePressed: (){
-                        deleteProject(projectId:  _projectFetchingController.mainDocNames[index]);
+                        _deleteProjectController.deleteOccupiedProject(projectId: _projectFetchingController.mainDocNames[index], userId: user!.uid);
                       },
                   );
                 },
