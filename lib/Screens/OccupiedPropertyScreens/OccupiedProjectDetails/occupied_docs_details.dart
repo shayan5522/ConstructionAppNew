@@ -1,10 +1,19 @@
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/external_work_screen.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/hallway_screen.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/kitchen_screen.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/mechnical_work_screen.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/opening_sheet_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../bedroom1_screen.dart';
+import '../bedroom2_screen.dart';
+import '../bedroom3_screen.dart';
+import '../bedroom4_screen.dart';
+import '../lovenge_screen.dart';
+import '../major_work_screen.dart';
 
 class OccupiedProjectDocs extends StatelessWidget {
   final String projectName;
@@ -37,7 +46,7 @@ class OccupiedProjectDocs extends StatelessWidget {
           }
           final documents = snapshot.data?.docs ?? [];
           final totalDocuments = documents.length;
-          final status = totalDocuments < 8 ? "Pending" : "Completed";
+          final status = totalDocuments < 11 ? "Pending" : "Completed";
 
           return Column(
             children: [
@@ -59,32 +68,33 @@ class OccupiedProjectDocs extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              if (totalDocuments < 8)
+              if (totalDocuments < 11)
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.all(16),
                   child: ElevatedButton(
                     onPressed: () {
-                      bool hasKitchen = documents.any((doc) => doc.id.toLowerCase() == 'kitchen');
-                      bool hasOpeningSheet = documents.any((doc) => doc.id.toLowerCase() == 'opening sheet');
-                      bool hasHallway = documents.any((doc) => doc.id.toLowerCase() == 'hallway');
-                      bool lounge = documents.any((doc) => doc.id.toLowerCase() == 'kitchen');
-                      bool bedroom1 = documents.any((doc) => doc.id.toLowerCase() == 'opening sheet');
-                      bool bedroom2= documents.any((doc) => doc.id.toLowerCase() == 'hallway');
-                      bool bedroom3 = documents.any((doc) => doc.id.toLowerCase() == 'kitchen');
-                      bool bedroom4 = documents.any((doc) => doc.id.toLowerCase() == 'opening sheet');
-                      bool mechanical = documents.any((doc) => doc.id.toLowerCase() == 'hallway');
-                      bool electrical = documents.any((doc) => doc.id.toLowerCase() == 'hallway');
+                      final screens = {
+                        'opening sheet': OpeningSheetScreen(),
+                        'kitchen screen': KitchenScreen(),
+                        'lounge screen': LoungeScreen(),
+                        'hallway screen': HallwayScreen(),
+                        'bedroom 1': Bedroom1Screen(),
+                        'bedroom 2': Bedroom2Screen(),
+                        'bedroom 3': Bedroom3Screen(),
+                        'bedroom 4': Bedroom4Screen(),
+                        'mechanical screen': MechanicalElectricalScreen(),
+                        'External Screen': ExternalWorkScreen(),
+                        'major work': MajorWorkScreen(),
+                      };
 
-                      if (hasKitchen) {
-                        Get.to(KitchenScreen());
-                      } else if (hasOpeningSheet) {
-                        Get.to(OpeningSheetScreen());
-                      } else if (hasHallway) {
-                        Get.to(HallwayScreen());
-                      } else {
-                        Get.snackbar('Error', 'No required documents found.');
+                      for (var doc in screens.keys) {
+                        if (!documents.any((document) => document.id.toLowerCase() == doc)) {
+                          Get.to(screens[doc]);
+                          return;
+                        }
                       }
+                      customSnackBar(context, 'Success', 'All Inspections Completed');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.tealAccent.shade700,

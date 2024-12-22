@@ -110,8 +110,7 @@ class KitchenScreen extends StatelessWidget {
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
           );
-
-          _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
+          await _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
           await Future.delayed(const Duration(seconds: 2));
           Get.to(LoungeScreen());

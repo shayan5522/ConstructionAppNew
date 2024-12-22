@@ -1,53 +1,72 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../BackendFunctions/Other/occupied_counter_backend.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
 
-class ProjectOverviewComponent extends StatelessWidget {
-  const ProjectOverviewComponent({super.key});
+class ProjectOverviewComponent extends StatefulWidget {
+  ProjectOverviewComponent({super.key});
+  @override
+  State<ProjectOverviewComponent> createState() => _ProjectOverviewComponentState();
+}
 
+class _ProjectOverviewComponentState extends State<ProjectOverviewComponent> {
+  final DocumentController documentController = Get.put(DocumentController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    documentController.fetchDocuments();
+  }
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Container(
-          width: 350,
-          height: 300,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Column(
+      child: Container(
+        width: 350,
+        height: 300,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Obx(() {
+          final completedProjects = documentController.mainDocs
+              .where((doc) => doc['subDocCount'] == 11)
+              .length;
+          final pendingProjects = documentController.mainDocs.length - completedProjects;
+
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: CustomTextWidget(
-                  text: "Projects overview",
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                  text: "Projects Overview",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
                 ),
               ),
-              const Row(
+              Row(
                 children: [
-                  CustomTextWidget(
+                  const CustomTextWidget(
                     text: "Total projects ",
-                      fontSize: 16,
-                      color: Colors.black87,
+                    fontSize: 16,
+                    color: Colors.black87,
                   ),
                   CustomTextWidget(
-                    text: "30",
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    text: "${documentController.mainDocs.length}",
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ],
               ),
@@ -62,7 +81,7 @@ class ProjectOverviewComponent extends StatelessWidget {
                           sections: [
                             PieChartSectionData(
                               color: Colors.tealAccent,
-                              value: 10,
+                              value: completedProjects.toDouble(),
                               title: 'Completed',
                               radius: 55,
                               titleStyle: const TextStyle(
@@ -72,19 +91,8 @@ class ProjectOverviewComponent extends StatelessWidget {
                               ),
                             ),
                             PieChartSectionData(
-                              color: Colors.yellowAccent,
-                              value: 10,
-                              title: 'In Progress',
-                              radius: 55,
-                              titleStyle: const TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            PieChartSectionData(
                               color: Colors.pinkAccent,
-                              value: 10,
+                              value: pendingProjects.toDouble(),
                               title: 'Pending',
                               radius: 55,
                               titleStyle: const TextStyle(
@@ -98,24 +106,19 @@ class ProjectOverviewComponent extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _LegendItem(
                           color: Colors.tealAccent,
                           label: "Completed",
-                          value: "10",
-                        ),
-                        _LegendItem(
-                          color: Colors.yellowAccent,
-                          label: "In progress",
-                          value: "10",
+                          value: "$completedProjects",
                         ),
                         _LegendItem(
                           color: Colors.pinkAccent,
                           label: "Pending",
-                          value: "10",
+                          value: "$pendingProjects",
                         ),
                       ],
                     ),
@@ -123,8 +126,9 @@ class ProjectOverviewComponent extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
+          );
+        }),
+      ),
     );
   }
 }
@@ -150,7 +154,7 @@ class _LegendItem extends StatelessWidget {
           CircleAvatar(radius: 6, backgroundColor: color),
           const SizedBox(width: 8),
           CustomTextWidget(
-           text:  label,
+            text: label,
             fontSize: 14,
           ),
           const SizedBox(width: 4),

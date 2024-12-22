@@ -1,5 +1,4 @@
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
-import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_docs_details.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
@@ -61,17 +60,16 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
-            const ProjectOverviewComponent(),
+            ProjectOverviewComponent(),
             const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerLeft,
               child: CustomTextWidget(
-                  text:"Current Projects",
+                  text:"Occupied Projects",
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
               ),
             ),
-            const SizedBox(height: 15),
             Obx(() {
               return ListView.builder(
                 shrinkWrap: true,

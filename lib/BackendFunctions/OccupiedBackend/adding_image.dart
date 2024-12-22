@@ -12,7 +12,7 @@ class ImageUploadController extends GetxController {
   File? selectedImage3;
   var publicUrls = <String>[].obs;
 
-  final ImageController imageController = Get.find<ImageController>();
+  final ImageController imageController = Get.put(ImageController());
 
   void assignImagesFromController() {
     if (imageController.images.isNotEmpty) {
