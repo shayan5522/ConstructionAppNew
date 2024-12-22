@@ -1,4 +1,4 @@
-package com.example.constructionapp
+package com.xavics.totalsurvey
 
 import io.flutter.embedding.android.FlutterActivity
 
