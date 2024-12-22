@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/CustomWidgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +41,18 @@ class _OccupiedForm1State extends State<OccupiedForm1> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const CustomTextWidget(
+                      text: "Client Name",
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
+                    CustomTextFormField(
+                        hint: 'Project Name',
+                        label: 'Project',
+                        controller: _formController.projectName,
+                    ),
+                    const SizedBox(height: 5),
                     const CustomTextWidget(
                       text: "Client Name",
                       fontSize: 16,

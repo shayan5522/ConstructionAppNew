@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +8,7 @@ class OpeningSheetFormController extends GetxController {
   final TextEditingController clientNameController = TextEditingController();
   final TextEditingController principalContractorController = TextEditingController();
   final TextEditingController contractController = TextEditingController();
+  final TextEditingController projectName = TextEditingController();
 
   // Form 2: Occupied Details
   final TextEditingController occupiedAddressController = TextEditingController();
@@ -44,6 +45,7 @@ class OpeningSheetFormController extends GetxController {
     try {
       final formData = {
         "clientName": clientNameController.text,
+        "projectName": projectName.text,
         "principalContractor": principalContractorController.text,
         "contract": contractController.text,
         "occupiedAddress": occupiedAddressController.text,
@@ -65,18 +67,24 @@ class OpeningSheetFormController extends GetxController {
         "otherLocks": otherLocksController.text,
         "FOB": fOBController.text,
         "steelGrills": grill.value,
-        // "additionalChecks": loftWorksCheckboxes,
+        "additionalChecks": loftWorksCheckboxes,
       };
+      User? user = FirebaseAuth.instance.currentUser;
       await FirebaseFirestore.instance.
            collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
-          .set({});
+          .doc(projectName.text)
+          .set({
+             'userid':user!.uid,
+             'projectName':projectName.text,
+          });
+
       await FirebaseFirestore.instance.
            collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .doc(projectName.text)
           .collection('Projects')
           .doc('OpeningSheet')
           .set(formData);
+
     } catch (e) {
       print("Error saving form data: $e");
     }

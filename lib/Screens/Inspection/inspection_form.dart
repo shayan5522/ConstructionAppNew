@@ -1,5 +1,5 @@
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // Ensure this package is added
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:TotalSurvey/Screens/Inspection/add_project_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

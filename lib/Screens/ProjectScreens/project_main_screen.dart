@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
-=======
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,13 +23,12 @@ class ProjectsScreen extends StatefulWidget {
 class _ProjectsScreenState extends State<ProjectsScreen> {
   late Future<List<Map<String, dynamic>>> _projectsFuture;
   final OccupiedProjectFetchingController _projectFetchingController =
-  Get.put(OccupiedProjectFetchingController());
-
-
+      Get.put(OccupiedProjectFetchingController());
   @override
   void initState() {
     super.initState();
     _projectsFuture = fetchUserProjects();
+    _projectFetchingController.fetchData();
   }
 
   Future<void> deleteProject({required projectId}) async {
@@ -65,9 +61,6 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           children: [
             const ProjectOverviewComponent(),
             const SizedBox(height: 20),
-<<<<<<< HEAD
-            OccupiedProjectsDataScreen(),
-=======
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -78,40 +71,30 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            ProjectCardNew(
-              projectTitle: "Project Beta",
-              projectRef: "Ref#12345",
-              statusText: "Pending",
-              statusColor: const Color(0xFFFFC7C2),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-              onDeletePressed: () {  },
-            ),
-            ProjectCardNew(
-              projectTitle: "Project Alfa",
-              projectRef: "Ref#12345",
-              statusText: "Completed",
-              statusColor: const Color(0xFF17E7D0),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-              onDeletePressed: () {  },
-            ),
-            ProjectCardNew(
-              projectTitle: "Project Alfa",
-              projectRef: "Ref#12345",
-              statusText: "In progress",
-              statusColor: const Color(0xFFFFEB9E),
-              onEditPressed: () {},
-              onContinuePressed: () {},
-              onDeletePressed: () {  },
-            ),
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
+            const SizedBox(height: 15),
+            Obx(() {
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _projectFetchingController.mainDocNames.length,
+                itemBuilder: (context, index) {
+                  return ProjectCardNew(
+                      projectTitle: _projectFetchingController.mainDocNames[index],
+                      projectRef: _projectFetchingController.mainDocNames[index],
+                      statusText: '',
+                      statusColor: Colors.green,
+                      onEditPressed: (){},
+                      onContinuePressed: (){},
+                      onDeletePressed: (){},
+                  );
+                },
+              );
+            }),
             const SizedBox(height: 15),
             Align(
               alignment: Alignment.bottomLeft,
               child: CustomTextWidget(
-                text:  "Void Property Projects",
+                text: "Void Property Projects",
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -130,9 +113,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 final projects = snapshot.data ?? [];
 
                 if (projects.isEmpty) {
-                  return const Center(child: Text("No Void Property Projects found."));
+                  return const Center(
+                      child: Text("No Void Property Projects found."));
                 }
-
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -147,22 +130,24 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                       statusColor: const Color(0xFFFFC7C2),
                       onEditPressed: () {
                         Get.to(() => EditProjectDetailsScreen(
-                          projectId: projectId,
-                          projectData: project,
-                        ));
+                              projectId: projectId,
+                              projectData: project,
+                            ));
                       },
                       onContinuePressed: () {
-                        Get.to(() =>  ViewProjectDetailsScreen(
-                          projectId: projectId,
-                          projectData: project,
-                        ));
+                        Get.to(() => ViewProjectDetailsScreen(
+                              projectId: projectId,
+                              projectData: project,
+                            ));
                       },
                       onDeletePressed: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Delete Project", style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+                              title: Text("Delete Project",
+                                  style: GoogleFonts.nunito(
+                                      fontWeight: FontWeight.bold)),
                               content: Text(
                                 "Are you sure you want to delete this project?",
                                 style: GoogleFonts.nunito(),
@@ -172,21 +157,22 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+                                  child: Text("Cancel",
+                                      style: TextStyle(color: Colors.grey)),
                                 ),
                                 TextButton(
                                   onPressed: () async {
                                     Navigator.of(context).pop();
                                     await deleteProject(projectId: projectId);
                                   },
-                                  child: Text("Delete", style: TextStyle(color: Colors.red)),
+                                  child: Text("Delete",
+                                      style: TextStyle(color: Colors.red)),
                                 ),
                               ],
                             );
                           },
                         );
                       },
-
                     );
                   },
                 );
@@ -278,45 +264,52 @@ class ProjectCardNew extends StatelessWidget {
                   children: [
                     CustomTextWidget(
                       text: projectTitle,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    IconButton(onPressed: onEditPressed,
-                      icon: Icon(Icons.edit,color: Colors.teal,),
-                    ),
-<<<<<<< HEAD
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.edit, color: Colors.white, size: 16),
-                      SizedBox(width: 4),
-                      CustomTextWidget(
-                        text: "Edit",
-                        color: Colors.white,
+                    IconButton(
+                      onPressed: onEditPressed,
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.teal,
                       ),
-                    ],
-                  ),
-                ),
-=======
-                    IconButton(onPressed: onDeletePressed,
-                      icon: Icon(Icons.delete,color: Colors.red,),
+                    ),
+                    IconButton(
+                      onPressed: onDeletePressed,
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
                     ),
                   ],
                 )
->>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
               ],
             ),
             CustomTextWidget(
               text: "UPRN# $projectRef",
-                fontSize: 14,
-                color: Colors.grey.shade600,
+              fontSize: 14,
+              color: Colors.grey.shade600,
             ),
             const SizedBox(height: 8),
+            SizedBox(
+              width: 100,
+              height: 50,
+              child: Card(
+                color: statusColor,
+                child: Center(
+                  child: CustomTextWidget(
+                    text: statusText,
+                    fontSize: 14,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             ElevatedButton(
               onPressed: onContinuePressed,
               style: ElevatedButton.styleFrom(

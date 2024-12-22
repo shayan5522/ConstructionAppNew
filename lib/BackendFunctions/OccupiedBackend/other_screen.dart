@@ -1,9 +1,11 @@
+import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class FirebaseService {
   User? user = FirebaseAuth.instance.currentUser;
+  final OpeningSheetFormController _formController =  Get.put(OpeningSheetFormController());
   Future<void> saveChecklistData({
     required List<Map<String, dynamic>> checklistData,
     required String title,
@@ -11,7 +13,6 @@ class FirebaseService {
     required String field2,
     required double totalCost,
   }) async {
-
     // if (user == null) {
     //   throw Exception("No user is logged in");
     // }
@@ -28,12 +29,12 @@ class FirebaseService {
 
       await FirebaseFirestore.instance
           .collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .doc(_formController.projectName.text)
           .set({});
 
       await FirebaseFirestore.instance
           .collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .doc(_formController.projectName.text)
           .collection('Projects')
           .doc(title)
           .set({
@@ -61,12 +62,12 @@ class FirebaseService {
     try {
       await FirebaseFirestore.instance
           .collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .doc(_formController.projectName.text)
           .set({});
 
       await FirebaseFirestore.instance
           .collection('OccupiedData')
-          .doc('gggdsgsvghsvghvcdghvcgdh')
+          .doc(_formController.projectName.text)
           .collection('Projects')
           .doc(title)
           .set({
