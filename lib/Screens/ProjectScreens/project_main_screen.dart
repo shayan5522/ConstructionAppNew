@@ -272,22 +272,14 @@ class ProjectCardNew extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: onEditPressed,
-                      icon: Icon(
-                        Icons.edit,
-                        color: Colors.teal,
-                      ),
+                    IconButton(onPressed: onEditPressed,
+                      icon: Icon(Icons.edit,color: Colors.teal,),
                     ),
-                    IconButton(
-                      onPressed: onDeletePressed,
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
+                    IconButton(onPressed: onDeletePressed,
+                      icon: Icon(Icons.delete,color: Colors.red,),
                     ),
                   ],
-                )
+                ),
               ],
             ),
             CustomTextWidget(
