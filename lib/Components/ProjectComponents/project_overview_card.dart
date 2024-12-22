@@ -51,7 +51,7 @@ class _ProjectOverviewComponentState extends State<ProjectOverviewComponent> {
               const Padding(
                 padding: EdgeInsets.only(bottom: 8),
                 child: CustomTextWidget(
-                  text: "Projects Overview",
+                  text: " Occupied Projects Overview",
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.teal,

@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/CustomWidgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
@@ -53,7 +54,27 @@ class OpeningSheetScreen extends StatelessWidget {
             Obx(() {
               return _loadingController.isLoading.value
                   ? const CircularProgressIndicator()
-                  : OccupiedSubmitButtons(
+                  :
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(
+                        text: "Next",
+                        onPressed: ()async{
+                          _loadingController.startLoading(true);
+                          try {
+                            await _formController.saveFormDataToDatabase();
+                            Get.to(KitchenScreen());
+                          } catch (e) {
+                            customSnackBar(context, 'Error', '$e');
+                          } finally {
+                            _loadingController.startLoading(false);
+                          }
+                        }
+                    ),
+                  );
+
+              OccupiedSubmitButtons(
+
                   nextPage: () async {
                       _loadingController.startLoading(true);
                       try {
