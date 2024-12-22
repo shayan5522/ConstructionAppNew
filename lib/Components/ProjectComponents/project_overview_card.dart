@@ -7,18 +7,20 @@ import '../../CustomWidgets/custom_text_widget.dart';
 
 class ProjectOverviewComponent extends StatefulWidget {
   ProjectOverviewComponent({super.key});
+
   @override
   State<ProjectOverviewComponent> createState() => _ProjectOverviewComponentState();
 }
 
 class _ProjectOverviewComponentState extends State<ProjectOverviewComponent> {
   final DocumentController documentController = Get.put(DocumentController());
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     documentController.fetchDocuments();
   }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -39,10 +41,9 @@ class _ProjectOverviewComponentState extends State<ProjectOverviewComponent> {
           ],
         ),
         child: Obx(() {
-          final completedProjects = documentController.mainDocs
-              .where((doc) => doc['subDocCount'] == 11)
-              .length;
-          final pendingProjects = documentController.mainDocs.length - completedProjects;
+          final completedProjects = documentController.completedProjectsCount.value;
+          final pendingProjects = documentController.pendingProjectsCount.value;
+          final totalProjects = completedProjects + pendingProjects;
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +65,7 @@ class _ProjectOverviewComponentState extends State<ProjectOverviewComponent> {
                     color: Colors.black87,
                   ),
                   CustomTextWidget(
-                    text: "${documentController.mainDocs.length}",
+                    text: "$totalProjects",
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

@@ -115,7 +115,7 @@ class HallwayScreen extends StatelessWidget {
             field1: field1Controller.text,
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
-
+            imageUrls: _imageUploadController.publicUrls,
           );
           _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));
@@ -160,7 +160,7 @@ class HallwayScreen extends StatelessWidget {
             field1: field1Controller.text,
             field2: field2Controller.text,
             totalCost: totalCostController.totalCost.value,
-
+            imageUrls: _imageUploadController.publicUrls,
           );
           _imageUploadController.uploadImages(_openingSheetFormController.projectName.text);
           Get.to(() => const ProgressIndicatorPage(message: 'Data submitted successfully!'));

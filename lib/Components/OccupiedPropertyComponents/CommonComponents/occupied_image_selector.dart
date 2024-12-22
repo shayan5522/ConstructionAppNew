@@ -5,7 +5,7 @@ import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomImageSelector extends StatelessWidget {
   final int maxImages;
-  const CustomImageSelector({super.key, this.maxImages = 4});
+  const CustomImageSelector({super.key, this.maxImages = 3});
 
   @override
   Widget build(BuildContext context) {

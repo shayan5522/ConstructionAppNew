@@ -3,12 +3,22 @@ import 'package:TotalSurvey/Screens/ProfileScreens/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../BackendFunctions/Other/occupied_counter_backend.dart';
 import '../Controllers/bottom_bar_controller.dart';
 import 'BottomBarScreens/home_screen.dart';
 import 'BottomBarScreens/notifications_screen.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+
+  MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   final BottomNavController navController = Get.put(BottomNavController());
+  final DocumentController documentController = Get.put(DocumentController());
   User? user = FirebaseAuth.instance.currentUser;
 
   final List<Widget> pages = [
@@ -17,8 +27,12 @@ class MainScreen extends StatelessWidget {
     ProfileScreen(),
   ];
 
-  MainScreen({super.key});
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    documentController.fetchDocuments();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

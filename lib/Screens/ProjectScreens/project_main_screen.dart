@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/delete_project.dart';
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_docs_details.dart';
@@ -24,7 +25,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   late Future<List<Map<String, dynamic>>> _projectsFuture;
   final OccupiedProjectFetchingController _projectFetchingController =
       Get.put(OccupiedProjectFetchingController());
-
+  final DeleteProjectController _deleteProjectController = Get.put(DeleteProjectController());
   User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
@@ -78,14 +79,16 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                 itemBuilder: (context, index) {
                   return ProjectCardNew(
                       projectTitle: _projectFetchingController.mainDocNames[index],
-                      projectRef: _projectFetchingController.mainDocNames[index],
+                      projectRef: '#NPR 28176',
                       statusText: '',
                       statusColor: Colors.green,
                       onEditPressed: (){},
                       onContinuePressed: (){
                         Get.to(OccupiedProjectDocs(projectName: _projectFetchingController.mainDocNames[index]));
                       },
-                      onDeletePressed: (){},
+                      onDeletePressed: (){
+                        deleteProject(projectId:  _projectFetchingController.mainDocNames[index]);
+                      },
                   );
                 },
               );

@@ -72,27 +72,12 @@ class CommonScreenLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomImageSelector(),
-              const SizedBox(height: 20),
-              // Currency Selector
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const CustomTextWidget(
-                        text: "Select Currency:",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ],
-                  ),
-              ),
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: CustomElevatedButton(
-                    text: 'Skip This Session',
+                    text: 'Skip This Section',
                     onPressed: skipButton!,
                     width: 300,
                     height: 45,

@@ -1,5 +1,8 @@
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_docs_details_screen.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_major_work_details.dart';
+import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_opening_sheet_details.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/external_work_screen.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/hallway_screen.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/kitchen_screen.dart';
@@ -75,17 +78,16 @@ class OccupiedProjectDocs extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       final screens = {
-                        'opening sheet': OpeningSheetScreen(),
                         'kitchen screen': KitchenScreen(),
-                        'lounge screen': LoungeScreen(),
-                        'hallway screen': HallwayScreen(),
-                        'bedroom 1': Bedroom1Screen(),
-                        'bedroom 2': Bedroom2Screen(),
-                        'bedroom 3': Bedroom3Screen(),
-                        'bedroom 4': Bedroom4Screen(),
-                        'mechanical screen': MechanicalElectricalScreen(),
+                        'Lounge screen': LoungeScreen(),
+                        'Hallway screen': HallwayScreen(),
+                        'Bedroom 1': Bedroom1Screen(),
+                        'Bedroom 2': Bedroom2Screen(),
+                        'Bedroom 3': Bedroom3Screen(),
+                        'Bedroom 4': Bedroom4Screen(),
+                        'Mechanical screen': MechanicalElectricalScreen(),
                         'External Screen': ExternalWorkScreen(),
-                        'major work': MajorWorkScreen(),
+                        'Major work': MajorWorkScreen(),
                       };
 
                       for (var doc in screens.keys) {
@@ -149,11 +151,30 @@ class OccupiedProjectDocs extends StatelessWidget {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Get.snackbar(
-                                    'View Details',
-                                    'Viewing details of ${document.id}',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                  );
+                                  if(document.id == 'Major work'){
+                                    Get.to(
+                                        ViewMajorWorkDetailsScreen(
+                                          docId: document.id,
+                                          projectId: projectName,
+                                        )
+                                    );
+                                  }
+                                  if(document.id == 'OpeningSheet'){
+                                        Get.to(
+                                          ViewOccupiedOpeningSheetDocs(
+                                              projectId:projectName ,
+                                              docId: document.id,
+                                          ),
+                                        );
+                                  }
+                                  else{
+                                    Get.to(
+                                      ViewOccupiedDetailsScreen(
+                                        docId: document.id,
+                                        projectId: projectName,
+                                      ),
+                                    );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.tealAccent.shade700,

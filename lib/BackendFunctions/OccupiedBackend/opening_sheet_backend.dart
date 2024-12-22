@@ -70,21 +70,24 @@ class OpeningSheetFormController extends GetxController {
         "additionalChecks": loftWorksCheckboxes,
       };
       User? user = FirebaseAuth.instance.currentUser;
-      await FirebaseFirestore.instance.
-           collection('OccupiedData')
-          .doc(projectName.text)
-          .set({
-             'userid':user!.uid,
-             'projectName':projectName.text,
-          });
+      if(projectName.value == ''){
+         Get.snackbar('Error', "Project Name cannot be null",backgroundColor: Colors.red,snackPosition: SnackPosition.TOP);
+      } else {
+        await FirebaseFirestore.instance.
+        collection('OccupiedData')
+            .doc(projectName.text)
+            .set({
+          'userid':user!.uid,
+          'projectName':projectName.text,
+        });
 
-      await FirebaseFirestore.instance.
-           collection('OccupiedData')
-          .doc(projectName.text)
-          .collection('Projects')
-          .doc('OpeningSheet')
-          .set(formData);
-
+        await FirebaseFirestore.instance.
+        collection('OccupiedData')
+            .doc(projectName.text)
+            .collection('Projects')
+            .doc('OpeningSheet')
+            .set(formData);
+      }
     } catch (e) {
       print("Error saving form data: $e");
     }

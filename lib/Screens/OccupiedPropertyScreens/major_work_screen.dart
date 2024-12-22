@@ -11,6 +11,7 @@ import '../../CustomWidgets/custom_elevated_button.dart';
 import '../../CustomWidgets/custom_form_field.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
 import '../main_screen.dart';
+import 'final_screen.dart';
 
 class MajorWorkScreen extends StatelessWidget {
   MajorWorkScreen({super.key});
@@ -59,7 +60,7 @@ class MajorWorkScreen extends StatelessWidget {
                 child: CustomElevatedButton(
                   text: 'Skip This Session',
                   onPressed: () {
-                    Get.off(MainScreen());
+                    Get.off(FinalScreen());
                   },
                   width: 300,
                   height: 45,
@@ -161,7 +162,7 @@ class MajorWorkScreen extends StatelessWidget {
                           } finally {
                             _loadingController.startLoading(false);
                           }
-                          Get.off(MainScreen());
+                          Get.off(FinalScreen());
                         },
 
                         saveExist: () {

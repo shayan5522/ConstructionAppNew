@@ -12,6 +12,7 @@ class FirebaseService {
     required String field1,
     required String field2,
     required double totalCost,
+    required List<String> imageUrls,
   }) async {
     // if (user == null) {
     //   throw Exception("No user is logged in");
@@ -45,6 +46,7 @@ class FirebaseService {
              "field1": field1,
              "field2": field2,
              "totalCost": totalCost,
+             "ImageUrls":imageUrls,
           });
     } catch (e) {
       rethrow;

@@ -4,11 +4,19 @@ import 'package:get/get.dart';
 
 class DocumentController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   var mainDocs = <Map<String, dynamic>>[].obs;
+  var pendingProjectsCount = 0.obs;
+  var completedProjectsCount = 0.obs;
+
   User? user = FirebaseAuth.instance.currentUser;
+
   Future<void> fetchDocuments() async {
     try {
       mainDocs.clear();
+      pendingProjectsCount.value = 0;
+      completedProjectsCount.value = 0;
+
       QuerySnapshot mainDocsSnapshot = await _firestore
           .collection('OccupiedData')
           .where('userid', isEqualTo: user!.uid)
@@ -22,22 +30,21 @@ class DocumentController extends GetxController {
             .collection('Projects')
             .get();
 
+        int subDocCount = subDocsSnapshot.docs.length;
         mainDocs.add({
           'mainDocId': mainDocId,
           'mainDocData': mainDoc.data(),
-          'subDocCount': subDocsSnapshot.docs.length,
+          'subDocCount': subDocCount,
         });
+
+        if (subDocCount < 11) {
+          pendingProjectsCount.value += 1;
+        } else {
+          completedProjectsCount.value += 1;
+        }
       }
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch documents: $e');
     }
-  }
-
-  int getSubDocCount(String mainDocId) {
-    var doc = mainDocs.firstWhere(
-          (doc) => doc['mainDocId'] == mainDocId,
-      orElse: () => {},
-    );
-    return doc.isNotEmpty ? doc['subDocCount'] : 0;
   }
 }
