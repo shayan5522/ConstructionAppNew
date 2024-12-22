@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../BackendFunctions/OccupiedBackend/other_screen.dart';
 import '../../Components/OccupiedPropertyComponents/CommonComponents/common_screen_layout.dart';
 import '../../Controllers/check_list_controller.dart';
+import '../../Controllers/currencey_controller.dart';
 import '../../Controllers/total_cost_controller.dart';
 import '../../CustomDialogs/custom_progress_idicator_page.dart';
 import '../../CustomWidgets/custom_snackbar.dart';
@@ -44,6 +45,7 @@ class LoungeScreen extends StatelessWidget {
     final TextEditingController field1Controller = TextEditingController();
     final TextEditingController field2Controller = TextEditingController();
     final TotalCostController totalCostController = Get.put(TotalCostController());
+    final CurrencyController currencyController = Get.put(CurrencyController());
 
     List<TextEditingController> costControllers = List.generate(
       loungeChecklistData.length,
@@ -99,6 +101,7 @@ class LoungeScreen extends StatelessWidget {
             'selectedRadio': checklistController.checklistState[i]['selectedRadio'] ?? null,
             'cost': costControllers[i].text,
             'quantity': quantityControllers[i].text,
+            'Currency':currencyController.selectedCurrency.value,
           };
           finalData.add(data);
         }

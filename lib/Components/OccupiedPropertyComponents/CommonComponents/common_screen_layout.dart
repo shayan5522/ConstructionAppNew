@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../Controllers/check_list_controller.dart';
+import '../../../Controllers/currencey_controller.dart';
 import '../../../CustomWidgets/custom_form_field.dart';
 import '../../../CustomWidgets/custom_radio_button.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
@@ -23,6 +24,7 @@ class CommonScreenLayout extends StatelessWidget {
   final VoidCallback saveExit;
   final TextEditingController field1Controller;
   final TextEditingController field2Controller;
+
   CommonScreenLayout({
     super.key,
     required this.appBarTitle,
@@ -38,7 +40,10 @@ class CommonScreenLayout extends StatelessWidget {
     required this.field1Controller,
     required this.field2Controller,
   });
+
   final ChecklistController checklistController = Get.put(ChecklistController());
+  final CurrencyController currencyController = Get.put(CurrencyController());
+
   @override
   Widget build(BuildContext context) {
     checklistController.initializeChecklist(checklistData);
@@ -67,7 +72,24 @@ class CommonScreenLayout extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomImageSelector(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
+              // Currency Selector
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Obx(() {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const CustomTextWidget(
+                        text: "Select Currency:",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
@@ -100,19 +122,46 @@ class CommonScreenLayout extends StatelessWidget {
                     children: [
                       CustomTextFormField(
                         hint: textFieldHint1,
-                        label:textFieldHint1,
-                        leading: const Icon(Icons.height_rounded),
+                        label: textFieldHint1,
+                        leading: const Icon(FontAwesomeIcons.rulerHorizontal),
                         controller: field1Controller,
+                        type: TextInputType.number,
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 10),
                       CustomTextFormField(
                         hint: textFieldHint2,
-                        label:textFieldHint2,
-                        leading: const Icon(Icons.height_rounded),
+                        label: textFieldHint2,
+                        leading: const Icon(Icons.notes),
                         controller: field2Controller,
                       ),
                     ],
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CustomTextWidget(
+                      text: "Select Currency",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    DropdownButton<String>(
+                      value: currencyController.selectedCurrency.value,
+                      items: const [
+                        DropdownMenuItem(value: 'Dollar', child: CustomTextWidget(text: 'Dollar')),
+                        DropdownMenuItem(value: 'Pound', child: CustomTextWidget(text: 'Pound')),
+                        DropdownMenuItem(value: 'Euro', child: CustomTextWidget(text: 'Euro')),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          currencyController.updateCurrency(value);
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
               const CustomTextWidget(
@@ -135,18 +184,19 @@ class CommonScreenLayout extends StatelessWidget {
                         final data = checklistController.checklistState[index];
                         return Column(
                           children: [
-                            CustomOccupiedCard(
-                              title: data['title'],
-                              options: [
-                                Obx(() {
-                                  return Row(
+                            Obx(() {
+                              return CustomOccupiedCard(
+                                title: data['title'],
+                                options: [
+                                  Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       CustomRadioButton<String>(
                                         value: "Yes",
                                         groupValue: data['selectedRadio'].value,
                                         label: "Yes",
-                                        onChanged: (value) => data['selectedRadio'].value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                       const SizedBox(width: 8),
@@ -154,7 +204,8 @@ class CommonScreenLayout extends StatelessWidget {
                                         value: "No",
                                         groupValue: data['selectedRadio'].value,
                                         label: "No",
-                                        onChanged: (value) => data['selectedRadio'].value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                       const SizedBox(width: 9),
@@ -162,18 +213,25 @@ class CommonScreenLayout extends StatelessWidget {
                                         value: "N/A",
                                         groupValue: data['selectedRadio'].value,
                                         label: "N/A",
-                                        onChanged: (value) => data['selectedRadio'].value = value!,
+                                        onChanged: (value) =>
+                                        data['selectedRadio'].value = value!,
                                         activeColor: Colors.green,
                                       ),
                                     ],
-                                  );
-                                })
-                              ],
-                              costController: data['costController'],
-                              quantityController: data['quantityController'],
-                              onAddNote: () {},
-                              prefixIcon: Icon(FontAwesomeIcons.dollarSign),
-                            ),
+                                  )
+                                ],
+                                costController: data['costController'],
+                                quantityController: data['quantityController'],
+                                onAddNote: () {},
+                                prefixIcon: Icon(
+                                  currencyController.selectedCurrency.value == 'Dollar'
+                                      ? Icons.attach_money
+                                      : currencyController.selectedCurrency.value == 'Pound'
+                                      ? FontAwesomeIcons.sterlingSign
+                                      : FontAwesomeIcons.euroSign,
+                                ),
+                              );
+                            }),
                             const SizedBox(height: 10),
                           ],
                         );
@@ -202,4 +260,3 @@ class CommonScreenLayout extends StatelessWidget {
     );
   }
 }
-
