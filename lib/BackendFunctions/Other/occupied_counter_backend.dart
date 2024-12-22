@@ -13,9 +13,9 @@ class DocumentController extends GetxController {
 
   Future<void> fetchDocuments() async {
     try {
-      mainDocs.clear();
-      pendingProjectsCount.value = 0;
-      completedProjectsCount.value = 0;
+      List<Map<String, dynamic>> tempDocs = [];
+      int pendingCount = 0;
+      int completedCount = 0;
 
       QuerySnapshot mainDocsSnapshot = await _firestore
           .collection('OccupiedData')
@@ -24,6 +24,7 @@ class DocumentController extends GetxController {
 
       for (var mainDoc in mainDocsSnapshot.docs) {
         String mainDocId = mainDoc.id;
+
         QuerySnapshot subDocsSnapshot = await _firestore
             .collection('OccupiedData')
             .doc(mainDocId)
@@ -31,20 +32,26 @@ class DocumentController extends GetxController {
             .get();
 
         int subDocCount = subDocsSnapshot.docs.length;
-        mainDocs.add({
+
+        tempDocs.add({
           'mainDocId': mainDocId,
           'mainDocData': mainDoc.data(),
           'subDocCount': subDocCount,
         });
 
         if (subDocCount < 11) {
-          pendingProjectsCount.value += 1;
+          pendingCount += 1;
         } else {
-          completedProjectsCount.value += 1;
+          completedCount += 1;
         }
       }
+
+      mainDocs.assignAll(tempDocs);
+      pendingProjectsCount.value = pendingCount;
+      completedProjectsCount.value = completedCount;
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch documents: $e');
     }
   }
+
 }
