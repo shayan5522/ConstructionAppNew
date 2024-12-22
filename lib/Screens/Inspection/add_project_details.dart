@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,21 +6,22 @@ import '../../CustomWidgets/custom_buttons.dart';
 import 'project_details_controller.dart';
 
 class ProjectDetailsScreen extends StatelessWidget {
-  const ProjectDetailsScreen({super.key});
+  final List<String>? argument;
+  const ProjectDetailsScreen({Key? key, required this.argument}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<String> publicUrls = argument ?? Get.arguments ?? [];
     final ProjectDetailsController controller = Get.put(ProjectDetailsController());
+    controller.imageUrls.addAll(publicUrls);
 
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
-        title: Text(
-          "Project Details",
-          style: GoogleFonts.metamorphous(
+        title: CustomTextWidget(
+          text: "Project Details",
             fontWeight: FontWeight.w600,
             fontSize: 24,
-          ),
         ),
         centerTitle: true,
         automaticallyImplyLeading: true,

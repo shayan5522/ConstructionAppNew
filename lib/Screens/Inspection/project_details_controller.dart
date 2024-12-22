@@ -17,6 +17,8 @@ class ProjectDetailsController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  var imageUrls = <String>[].obs;
+
   void setPropertyType(String value) {
     selectedPropertyType.value = value;
   }
@@ -37,8 +39,6 @@ class ProjectDetailsController extends GetxController {
         return;
       }
 
-      final String firstName = userDoc.data()?['firstName'] ?? 'Unknown';
-
       final Map<String, dynamic> projectDetails = {
         'userId': user.uid,
         'projectName': projectName.value,
@@ -48,9 +48,11 @@ class ProjectDetailsController extends GetxController {
         'contactDetails': contactDetails.value,
         'propertyManager': propertyManager.value,
         'propertyType': selectedPropertyType.value,
-      };
+        'imageUrls': imageUrls,
 
-      await _firestore.collection('VoidProperty').doc(user.uid).collection('Projects').add(projectDetails);
+      };
+      print('Project details: $projectDetails');
+     await _firestore.collection('VoidProperty').doc(user.uid).collection('Projects').add(projectDetails);
 
       Get.snackbar("Success", "Project details saved successfully!");
       Get.to(()=>const HomeScreen());
@@ -67,6 +69,7 @@ class ProjectDetailsController extends GetxController {
     contactDetails.value = '';
     propertyManager.value = '';
     selectedPropertyType.value = '';
+    imageUrls.clear();
   }
 
   void completeSurveyInspection() async {

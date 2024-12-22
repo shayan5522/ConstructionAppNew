@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import 'package:TotalSurvey/Components/ProjectComponents/occupied_projects_data_screen.dart';
+=======
+import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
+>>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,10 +28,31 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   final OccupiedProjectFetchingController _projectFetchingController =
   Get.put(OccupiedProjectFetchingController());
 
+
   @override
   void initState() {
     super.initState();
     _projectsFuture = fetchUserProjects();
+  }
+
+  Future<void> deleteProject({required projectId}) async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    try {
+      await FirebaseFirestore.instance
+          .collection('VoidProperty')
+          .doc(user!.uid)
+          .collection('Projects')
+          .doc(projectId)
+          .delete();
+      customSnackBar(context, "Success", "Project deleted successfully!");
+
+      setState(() {
+        _projectsFuture = fetchUserProjects();
+      });
+    } catch (error) {
+      customSnackBar(context, "Error", "Failed to delete project");
+      print("Failed to delete project: $error");
+    }
   }
 
   @override
@@ -40,7 +65,48 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           children: [
             const ProjectOverviewComponent(),
             const SizedBox(height: 20),
+<<<<<<< HEAD
             OccupiedProjectsDataScreen(),
+=======
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Current Projects",
+                style: GoogleFonts.nunito(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ProjectCardNew(
+              projectTitle: "Project Beta",
+              projectRef: "Ref#12345",
+              statusText: "Pending",
+              statusColor: const Color(0xFFFFC7C2),
+              onEditPressed: () {},
+              onContinuePressed: () {},
+              onDeletePressed: () {  },
+            ),
+            ProjectCardNew(
+              projectTitle: "Project Alfa",
+              projectRef: "Ref#12345",
+              statusText: "Completed",
+              statusColor: const Color(0xFF17E7D0),
+              onEditPressed: () {},
+              onContinuePressed: () {},
+              onDeletePressed: () {  },
+            ),
+            ProjectCardNew(
+              projectTitle: "Project Alfa",
+              projectRef: "Ref#12345",
+              statusText: "In progress",
+              statusColor: const Color(0xFFFFEB9E),
+              onEditPressed: () {},
+              onContinuePressed: () {},
+              onDeletePressed: () {  },
+            ),
+>>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
             const SizedBox(height: 15),
             Align(
               alignment: Alignment.bottomLeft,
@@ -73,11 +139,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                   itemCount: projects.length,
                   itemBuilder: (context, index) {
                     final project = projects[index];
-                    //print("project data: $project");
                     final projectId = project['projectId'];
                     return ProjectCardNew(
                       projectTitle: project['projectName'] ?? "Unnamed Project",
-                      projectRef: project['uprn'] ?? "No uprn",
+                      projectRef: project['UPRN'] ?? "No uprn",
                       statusText: project['status'] ?? "Unknown",
                       statusColor: const Color(0xFFFFC7C2),
                       onEditPressed: () {
@@ -86,19 +151,47 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                           projectData: project,
                         ));
                       },
-
                       onContinuePressed: () {
                         Get.to(() =>  ViewProjectDetailsScreen(
                           projectId: projectId,
                           projectData: project,
                         ));
                       },
+                      onDeletePressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Delete Project", style: GoogleFonts.nunito(fontWeight: FontWeight.bold)),
+                              content: Text(
+                                "Are you sure you want to delete this project?",
+                                style: GoogleFonts.nunito(),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    await deleteProject(projectId: projectId);
+                                  },
+                                  child: Text("Delete", style: TextStyle(color: Colors.red)),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+
                     );
                   },
                 );
               },
             ),
-
           ],
         ),
       ),
@@ -123,22 +216,22 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          FloatingActionButton.extended(
-            backgroundColor: Colors.white,
-            onPressed: () {},
-            label: const Row(
-              children: [
-                Icon(Icons.history, color: Colors.black),
-                SizedBox(width: 8),
-                CustomTextWidget(
-                  text: 'View Past Projects',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ],
-            ),
-          ),
+          // FloatingActionButton.extended(
+          //   backgroundColor: Colors.white,
+          //   onPressed: () {},
+          //   label: const Row(
+          //     children: [
+          //       Icon(Icons.history, color: Colors.black),
+          //       SizedBox(width: 8),
+          //       CustomTextWidget(
+          //         text: 'View Past Projects',
+          //         fontSize: 14,
+          //         fontWeight: FontWeight.w600,
+          //         color: Colors.black,
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -152,6 +245,7 @@ class ProjectCardNew extends StatelessWidget {
   final Color statusColor;
   final VoidCallback onEditPressed;
   final VoidCallback onContinuePressed;
+  final VoidCallback onDeletePressed;
 
   const ProjectCardNew({
     Key? key,
@@ -161,6 +255,7 @@ class ProjectCardNew extends StatelessWidget {
     required this.statusColor,
     required this.onEditPressed,
     required this.onContinuePressed,
+    required this.onDeletePressed,
   }) : super(key: key);
 
   @override
@@ -189,13 +284,12 @@ class ProjectCardNew extends StatelessWidget {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: onEditPressed,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                Row(
+                  children: [
+                    IconButton(onPressed: onEditPressed,
+                      icon: Icon(Icons.edit,color: Colors.teal,),
                     ),
+<<<<<<< HEAD
                   ),
                   child: const Row(
                     children: [
@@ -208,6 +302,13 @@ class ProjectCardNew extends StatelessWidget {
                     ],
                   ),
                 ),
+=======
+                    IconButton(onPressed: onDeletePressed,
+                      icon: Icon(Icons.delete,color: Colors.red,),
+                    ),
+                  ],
+                )
+>>>>>>> b014e6c1197b8d192e5229a7569a683b6d307e5a
               ],
             ),
             CustomTextWidget(
