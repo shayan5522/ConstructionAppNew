@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.constructionapp"
+    namespace = "com.xavics.totalsurvey"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.constructionapp"
+        applicationId = "com.xavics.totalsurvey"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
@@ -33,13 +33,22 @@ android {
         versionName = flutter.versionName
     }
 
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+    android {
+        signingConfigs {
+            release {
+                storeFile file('my-release-key.jks')
+                storePassword 'app123'
+                keyAlias 'key-alias'
+                keyPassword 'app123'
+            }
+        }
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+            }
         }
     }
+
 }
 
 flutter {
