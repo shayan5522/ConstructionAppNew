@@ -12,6 +12,7 @@ class HelpScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 20,),
               Text(
                 'Frequently Asked Questions',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

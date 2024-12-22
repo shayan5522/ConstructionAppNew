@@ -1,5 +1,9 @@
+import 'package:TotalSurvey/Screens/Inspection/inspection.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../CustomWidgets/custom_buttons.dart';
+import 'help.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -17,32 +21,34 @@ class SettingScreen extends StatelessWidget {
               icon: Icons.add_circle_outline,
               text: 'New Inspection',
               onTap: () {
+                Get.to(()=>InspectionScreen());
               },
             ),
+            // ReusableMenuItem(
+            //   icon: Icons.timelapse,
+            //   text: 'In Progress',
+            //   onTap: () {
+            //   },
+            // ),
+            // ReusableMenuItem(
+            //   icon: Icons.check_circle_outline,
+            //   text: 'Completed',
+            //   onTap: () {
+            //   },
+            // ),
             ReusableMenuItem(
-              icon: Icons.flag,
-              text: 'Pending Inspections',
+              icon: Icons.help,
+              text: 'Help',
               onTap: () {
-              },
-            ),
-            ReusableMenuItem(
-              icon: Icons.timelapse,
-              text: 'In Progress',
-              onTap: () {
-              },
-            ),
-            ReusableMenuItem(
-              icon: Icons.check_circle_outline,
-              text: 'Completed',
-              onTap: () {
+                Get.to(()=>HelpScreen());
               },
             ),
             const Spacer(),
-            CustomButton(
-              text: 'View Reports',
-              solidColor: Colors.white,
-              onPressed: () {  },
-            )
+            // CustomButton(
+            //   text: 'View Reports',
+            //   solidColor: Colors.white,
+            //   onPressed: () {  },
+            // )
           ],
         ),
       ),
