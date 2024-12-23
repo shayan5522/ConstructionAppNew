@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../CustomWidgets/custom_text_widget.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -7,50 +8,7 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifications = [
-      NotificationItem(
-        name: "Inspector A",
-        subtitle: "Survey completed",
-        time: "2 min ago",
-        avatar: "assets/inspector1.png",
-        isUnread: true,
-      ),
-      NotificationItem(
-        name: "Inspector B",
-        subtitle: "Survey in progress",
-        time: "10 min ago",
-        avatar: "assets/inspector2.png",
-        isUnread: false,
-      ),
-      NotificationItem(
-        name: "Inspector C",
-        subtitle: "Survey scheduled",
-        time: "30 min ago",
-        avatar: "assets/inspector3.png",
-        isUnread: false,
-      ),
-      NotificationItem(
-        name: "Manager D",
-        subtitle: "New survey assigned",
-        time: "1 hr ago",
-        avatar: "assets/manager.png",
-        isUnread: true,
-      ),
-      NotificationItem(
-        name: "Inspector E",
-        subtitle: "Survey postponed",
-        time: "2 hrs ago",
-        avatar: "assets/inspector4.png",
-        isUnread: false,
-      ),
-      NotificationItem(
-        name: "Inspector F",
-        subtitle: "Survey completed",
-        time: "3 hrs ago",
-        avatar: "assets/inspector5.png",
-        isUnread: false,
-      ),
-    ];
+    final User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -58,70 +16,139 @@ class NotificationScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: const CustomTextWidget(
-         text:  "Notifications",
-         color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold,
+          text: "Notifications",
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
         ),
       ),
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          final notification = notifications[index];
-          return NotificationTile(notification: notification);
+      body: user == null
+          ? const Center(
+           child: CustomTextWidget(
+          text: "Please log in to view notifications.",
+          fontSize: 16,
+          color: Colors.grey,
+            ),
+          )
+          : StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('notifications')
+            .where('userId', isEqualTo: user.uid)
+            .orderBy('timestamp', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return const Center(
+              child: CustomTextWidget(
+                text: "No notifications yet.",
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            );
+          }
+
+          final notifications = snapshot.data!.docs;
+
+          return ListView.builder(
+            itemCount: notifications.length,
+            itemBuilder: (context, index) {
+              final notification = notifications[index];
+              return NotificationTile(
+                title: notification['title'],
+                subtitle: notification['message'],
+                time: _formatTime(notification['timestamp']),
+                isUnread: false,
+              );
+            },
+          );
         },
       ),
     );
   }
-}
 
-class NotificationItem {
-  final String name;
-  final String subtitle;
-  final String time;
-  final String avatar;
-  final bool isUnread;
+  String _formatTime(Timestamp timestamp) {
+    final dateTime = timestamp.toDate();
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
 
-  NotificationItem({
-    required this.name,
-    required this.subtitle,
-    required this.time,
-    required this.avatar,
-    required this.isUnread,
-  });
+    if (difference.inMinutes < 1) {
+      return "Just now";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes} min ago";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours} hr ago";
+    } else {
+      return "${difference.inDays} days ago";
+    }
+  }
 }
 
 class NotificationTile extends StatelessWidget {
-  final NotificationItem notification;
+  final String title;
+  final String subtitle;
+  final String time;
+  final bool isUnread;
 
-  const NotificationTile({super.key, required this.notification});
+  const NotificationTile({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.time,
+    this.isUnread = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 28,
-        backgroundImage: AssetImage(notification.avatar),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
-      title: CustomTextWidget(
-        text: notification.name,
-        fontWeight: FontWeight.bold, fontSize: 16,
-      ),
-      subtitle: CustomTextWidget(
-       text:  notification.subtitle,
-        color: Colors.grey,
-      ),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomTextWidget(
-           text:  notification.time,
-           color: Colors.grey, fontSize: 12,
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: CircleAvatar(
+          radius: 28,
+          backgroundColor: Colors.tealAccent,
+          child: const Icon(
+            Icons.notifications,
+            color: Colors.white,
+            size: 28,
           ),
-          if (notification.isUnread)
-            const Padding(
-              padding: EdgeInsets.only(top: 4.0),
-              child: Icon(Icons.circle, color: Colors.blue, size: 10),
+        ),
+        title: CustomTextWidget(
+          text: title,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: CustomTextWidget(
+            text: subtitle,
+            color: Colors.grey,
+            fontSize: 14,
+          ),
+        ),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextWidget(
+              text: time,
+              color: Colors.grey,
+              fontSize: 12,
             ),
-        ],
+            if (isUnread)
+              const Padding(
+                padding: EdgeInsets.only(top: 4.0),
+                child: Icon(Icons.circle, color: Colors.blue, size: 10),
+              ),
+          ],
+        ),
       ),
     );
   }

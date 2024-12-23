@@ -1,7 +1,6 @@
 import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../CustomWidgets/custom_buttons.dart';
 import 'project_details_controller.dart';
 
@@ -37,13 +36,11 @@ class ProjectDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Project Details",
-                      style: GoogleFonts.nunito(
+                    CustomTextWidget(
+                     text:  "Project Details",
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: Colors.black87,
-                      ),
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -83,13 +80,11 @@ class ProjectDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "User Information",
-                      style: GoogleFonts.nunito(
+                    CustomTextWidget(
+                      text: "User Information",
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: Colors.black87,
-                      ),
                     ),
                     const SizedBox(height: 10),
                     Container(
@@ -129,13 +124,11 @@ class ProjectDetailsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Building Orientation",
-                      style: GoogleFonts.nunito(
+                    CustomTextWidget(
+                      text: "Building Orientation",
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         color: Colors.black87,
-                      ),
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -148,14 +141,12 @@ class ProjectDetailsScreen extends StatelessWidget {
                       ),
                       child: SizedBox(
                         width: double.infinity,
-                        child: Text(
-                          "Detect building orientation",
-                          style: GoogleFonts.nunito(
+                        child: CustomTextWidget(
+                         text:  "Detect building orientation",
                             color: Colors.black87,
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
+                           textAlign: TextAlign.center,
                         ),
                       ),
                     ),
@@ -173,15 +164,14 @@ class ProjectDetailsScreen extends StatelessWidget {
                             value: controller.selectedPropertyType.value.isEmpty
                                 ? null
                                 : controller.selectedPropertyType.value,
-                            hint: Text(
-                              "Select Property Type",
-                              style: TextStyle(color: Colors.grey.shade500),
+                            hint: CustomTextWidget(
+                             text:  "Select Property Type", color: Colors.grey.shade500,
                             ),
                             items: ["Residential", "Commercial", "Industrial"]
                                 .map((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
-                                child: Text(value),
+                                child: CustomTextWidget(text: value),
                               );
                             }).toList(),
                             onChanged: (value) {
@@ -213,13 +203,11 @@ class ProjectDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: GoogleFonts.nunito(
+        CustomTextWidget(
+         text: label,
             fontSize: 14,
             fontWeight: FontWeight.w500,
             color: Colors.black87,
-          ),
         ),
         const SizedBox(height: 5),
         TextField(

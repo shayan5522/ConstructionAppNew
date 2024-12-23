@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/BackendFunctions/notification_backend.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,6 +64,10 @@ class OpeningSheetScreen extends StatelessWidget {
                           _loadingController.startLoading(true);
                           try {
                             await _formController.saveFormDataToDatabase();
+                            await addNotification(
+                                title: 'Project Created',
+                                message: '${_formController.projectName} Project Created Successfully',
+                            );
                             Get.to(KitchenScreen());
                           } catch (e) {
                             customSnackBar(context, 'Error', '$e');
