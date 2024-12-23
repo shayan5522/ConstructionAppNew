@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../Controllers/check_list_controller.dart';
 import '../../../Controllers/currencey_controller.dart';
+import '../../../Controllers/note_controller.dart';
 import '../../../CustomWidgets/custom_form_field.dart';
 import '../../../CustomWidgets/custom_radio_button.dart';
 import '../../../CustomWidgets/custom_elevated_button.dart';
@@ -43,7 +44,7 @@ class CommonScreenLayout extends StatelessWidget {
 
   final ChecklistController checklistController = Get.put(ChecklistController());
   final CurrencyController currencyController = Get.put(CurrencyController());
-
+  final NoteController noteController = Get.put(NoteController());
   @override
   Widget build(BuildContext context) {
     checklistController.initializeChecklist(checklistData);
@@ -167,6 +168,7 @@ class CommonScreenLayout extends StatelessWidget {
                       itemCount: checklistController.checklistState.length,
                       itemBuilder: (context, index) {
                         final data = checklistController.checklistState[index];
+                        String currentNote = noteController.notes[data['title']] ?? '';
                         return Column(
                           children: [
                             Obx(() {
@@ -207,7 +209,36 @@ class CommonScreenLayout extends StatelessWidget {
                                 ],
                                 costController: data['costController'],
                                 quantityController: data['quantityController'],
-                                onAddNote: () {},
+                                noteArea: currentNote.isEmpty ?
+                                CustomElevatedButton(
+                                  text: 'Add Note',
+                                  fontSize: 10,
+                                  icon: Icons.add,
+                                  backgroundColor: Colors.teal,
+                                  width: 112,
+                                  height: 40,
+                                  onPressed: (){
+                                    _showNoteDialog(context, data['title']);
+                                  },
+                                ):SizedBox(
+                                  width: 130,
+                                  child: Card(
+                                    color: Colors.grey,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        CustomTextWidget(text: currentNote),
+                                        IconButton(
+                                          onPressed: () {
+                                            noteController.removeNote(data['title']);
+                                            noteController.update();
+                                          },
+                                         icon: Icon(Icons.delete,color: Colors.red,),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 prefixIcon: Icon(
                                   currencyController.selectedCurrency.value == 'Dollar'
                                       ? Icons.attach_money
@@ -242,6 +273,45 @@ class CommonScreenLayout extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showNoteDialog(BuildContext context, String cardId) {
+    TextEditingController noteTextController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Add Note'),
+          content: TextField(
+            controller: noteTextController,
+            decoration: InputDecoration(
+              hintText: 'Enter your note here',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                noteTextController.clear();
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                String noteText = noteTextController.text.trim();
+                if (noteText.isNotEmpty) {
+                  noteController.updateNote(cardId, noteText);
+                }
+                noteController.update();
+                Navigator.pop(context);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

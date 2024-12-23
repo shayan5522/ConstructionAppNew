@@ -8,16 +8,15 @@ class CustomOccupiedCard extends StatelessWidget {
   final List<Widget> options;
   final TextEditingController quantityController;
   final TextEditingController costController;
-  final VoidCallback onAddNote;
   final Icon? prefixIcon;
-
+  final Widget? noteArea;
   const CustomOccupiedCard({
     super.key,
     required this.title,
     required this.options,
     required this.quantityController,
     required this.costController,
-    required this.onAddNote,
+    this.noteArea,
     this.prefixIcon,
   });
 
@@ -71,15 +70,7 @@ class CustomOccupiedCard extends StatelessWidget {
             Positioned(
                 bottom: 10,
                 left: 15,
-                child: CustomElevatedButton(
-                  text: 'Add Note',
-                  fontSize: 10,
-                  icon: Icons.add,
-                  backgroundColor: Colors.teal,
-                  width: 112,
-                  height: 40,
-                  onPressed: onAddNote,
-                )
+                child: noteArea!,
             ),
           ],
         ),

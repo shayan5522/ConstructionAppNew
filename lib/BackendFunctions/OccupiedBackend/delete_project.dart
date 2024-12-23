@@ -4,29 +4,23 @@ import 'package:get/get.dart';
 class DeleteProjectController extends GetxController {
   var isLoading = false.obs;
 
-  Future<void> deleteOccupiedProject({required String projectId, required String userId}) async {
+  Future<void> deleteOccupiedProject({required String projectId}) async {
     isLoading.value = true;
     try {
-      final mainCollection = FirebaseFirestore.instance.collection('OccupiedData');
-      final querySnapshot = await mainCollection
-          .where('userid', isEqualTo: userId)
-          .where(FieldPath.documentId, isEqualTo: projectId)
-          .get();
+      // Reference the document directly by its document ID
+      final docRef = FirebaseFirestore.instance
+          .collection('OccupiedData')
+          .doc(projectId);
 
-      if (querySnapshot.docs.isEmpty) {
+      // Check if the document exists
+      final docSnapshot = await docRef.get();
+      if (!docSnapshot.exists) {
         Get.snackbar("Error", "No matching project found.");
         return;
       }
 
-      final projectRef = querySnapshot.docs.first.reference;
-
-      final subDocsSnapshot = await projectRef.collection('Projects').get();
-
-      for (var subDoc in subDocsSnapshot.docs) {
-        await projectRef.collection('Projects').doc(subDoc.id).delete();
-      }
-
-      await projectRef.delete();
+      // Delete the document
+      await docRef.delete();
 
       Get.snackbar("Success", "Project deleted successfully!");
     } catch (error) {

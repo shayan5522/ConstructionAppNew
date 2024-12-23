@@ -1,9 +1,12 @@
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/delete_project.dart';
 import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
+import 'package:TotalSurvey/Controllers/loading_controller.dart';
+import 'package:TotalSurvey/CustomDialogs/delete_dialog_box.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:TotalSurvey/Screens/OccupiedPropertyScreens/OccupiedProjectDetails/occupied_docs_details.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/project_edit.dart';
 import 'package:TotalSurvey/Screens/ProjectScreens/view_project_details.dart';
+import 'package:TotalSurvey/Screens/main_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +28,9 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
   late Future<List<Map<String, dynamic>>> _projectsFuture;
   final OccupiedProjectFetchingController _projectFetchingController =
       Get.put(OccupiedProjectFetchingController());
-  final DeleteProjectController _deleteProjectController = Get.put(DeleteProjectController());
+  final DeleteProjectController _deleteProjectController =
+      Get.put(DeleteProjectController());
+  final LoadingController _loadingController = Get.put(LoadingController());
   User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
@@ -66,29 +71,77 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: CustomTextWidget(
-                  text:"Occupied Projects",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                text: "Occupied Projects",
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
             Obx(() {
+              if (_projectFetchingController.mainDocNames.isEmpty) {
+                return Center(
+                  child: CustomTextWidget(text: 'No Data Found'),
+                );
+              }
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: _projectFetchingController.mainDocNames.length,
                 itemBuilder: (context, index) {
+                  print(_projectFetchingController.mainDocsData.length);
+
                   return ProjectCardNew(
-                      projectTitle: _projectFetchingController.mainDocNames[index],
-                      projectRef: '#NPR 28176',
-                      statusText: '',
-                      statusColor: Colors.green,
-                      onEditPressed: (){},
-                      onContinuePressed: (){
-                        Get.to(OccupiedProjectDocs(projectName: _projectFetchingController.mainDocNames[index]));
-                      },
-                      onDeletePressed: (){
-                        deleteProject(projectId:  _projectFetchingController.mainDocNames[index]);
-                      },
+                    projectTitle: _projectFetchingController.mainDocNames[index],
+                    projectRef: '#NPR 28176',
+                    statusText: '',
+                    statusColor: Colors.green,
+                    onEditPressed: () {},
+                    onContinuePressed: () {
+                      Get.to(OccupiedProjectDocs(
+                          projectName: _projectFetchingController.mainDocNames[index]));
+                    },
+                    onDeletePressed: () {
+                      showDeleteConfirmationDialog(
+                        context: context,
+                        projectName: _projectFetchingController.mainDocNames[index],
+                        onConfirm: _loadingController.isLoading.value
+                            ? CircularProgressIndicator()
+                            : ElevatedButton(
+                          onPressed: () async {
+                            _loadingController.isLoading.value = true;
+                            try {
+                              await _deleteProjectController.deleteOccupiedProject(
+                                projectId: _projectFetchingController.mainDocNames[index],
+                              );
+                              customSnackBar(context, "Success",
+                                  "Project deleted successfully!");
+                            } catch (e) {
+                              customSnackBar(context, "Error",
+                                  "Failed to delete project");
+                            } finally {
+                              _loadingController.isLoading.value = false;
+                              Get.off(MainScreen());
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                          child: CustomTextWidget(
+                            text: 'Delete',
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onCancel: () {
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
                   );
                 },
               );
@@ -275,11 +328,19 @@ class ProjectCardNew extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    IconButton(onPressed: onEditPressed,
-                      icon: Icon(Icons.edit,color: Colors.teal,),
+                    IconButton(
+                      onPressed: onEditPressed,
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.teal,
+                      ),
                     ),
-                    IconButton(onPressed: onDeletePressed,
-                      icon: Icon(Icons.delete,color: Colors.red,),
+                    IconButton(
+                      onPressed: onDeletePressed,
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
                     ),
                   ],
                 ),

@@ -3,6 +3,7 @@ import 'package:TotalSurvey/Screens/ProfileScreens/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../BackendFunctions/OccupiedBackend/fetching_data_projects.dart';
 import '../BackendFunctions/Other/occupied_counter_backend.dart';
 import '../Controllers/bottom_bar_controller.dart';
 import 'BottomBarScreens/home_screen.dart';
@@ -20,6 +21,8 @@ class _MainScreenState extends State<MainScreen> {
   final BottomNavController navController = Get.put(BottomNavController());
   final DocumentController documentController = Get.put(DocumentController());
   User? user = FirebaseAuth.instance.currentUser;
+  final OccupiedProjectFetchingController _projectFetchingController =
+  Get.put(OccupiedProjectFetchingController());
 
   final List<Widget> pages = [
     const NotificationScreen(),
@@ -32,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
     // TODO: implement initState
     super.initState();
     documentController.fetchDocuments();
+    _projectFetchingController.fetchData();
   }
   @override
   Widget build(BuildContext context) {
