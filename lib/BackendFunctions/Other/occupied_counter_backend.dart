@@ -50,7 +50,7 @@ class DocumentController extends GetxController {
       pendingProjectsCount.value = pendingCount;
       completedProjectsCount.value = completedCount;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch documents: $e');
+     print('Error Failed to fetch documents: $e');
     }
   }
 

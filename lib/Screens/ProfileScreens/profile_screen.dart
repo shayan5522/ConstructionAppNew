@@ -2,11 +2,11 @@ import 'package:TotalSurvey/CustomDialogs/custom_dialogue.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_text_widget.dart';
 import 'package:TotalSurvey/Screens/ProfileScreens/register.dart';
 import 'package:TotalSurvey/Screens/main_screen.dart';
+import 'package:TotalSurvey/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../CustomWidgets/custom_snackbar.dart';
 import '../BottomBarScreens/home_screen.dart';
 import '../../Controllers/profile_controller.dart';
@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Future<void> _logout() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Get.off(() =>  MainScreen());
+      Get.off(() =>  SplashScreen());
       customSnackBar(Get.context!, 'Success', 'Logged out successfully');
     } catch (e) {
       customSnackBar(Get.context!, 'Error', 'Failed to logout. Try again.');
