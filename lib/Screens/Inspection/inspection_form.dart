@@ -29,6 +29,21 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
 
   List<String> publicUrls = [];
 
+  final Map<String, bool> legalComplianceChecklist = {
+    "Smoke Detectors": false,
+    "Carbon Monoxide Detectors": false,
+    "Fire Extinguishers": false,
+    "Emergency Exits": false,
+    "First Aid Kits": false,
+    "Electrical Safety": false,
+  };
+
+  final Map<String, bool> housingActChecklist = {
+    "Housing Health and Safety Rating System": false,
+    "Landlord and Tenant Act": false,
+    "Building Regulations": false,
+  };
+
   Future<void> _pickImage(int imageSlot) async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -53,7 +68,7 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
         'image2': _selectedImage2,
         'image3': _selectedImage3,
       };
-    publicUrls.clear();
+      publicUrls.clear();
       for (var entry in images.entries) {
         final image = entry.value;
         if (image == null) continue;
@@ -70,12 +85,16 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('All images uploaded successfully!')),
+        const SnackBar(content: Text('All images uploaded successfully!')),
       );
-      Get.to(() => ProjectDetailsScreen(argument: publicUrls,));
+      Get.to(() => ProjectDetailsScreen(
+        argument: publicUrls,
+      ));
     } catch (e) {
+      print('Error uploading images: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An error occurred during upload.')),
+        const SnackBar(content: Text('An error occurred during upload.')),
+
       );
     } finally {
       setState(() {
@@ -83,7 +102,6 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       });
     }
   }
-
 
   Widget _buildLargeImagePicker({required File? image, required int imageSlot}) {
     return GestureDetector(
@@ -112,6 +130,7 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
       ),
     );
   }
+
   Widget _buildSmallImagePicker({required File? image, required int imageSlot}) {
     return GestureDetector(
       onTap: () => _pickImage(imageSlot),
@@ -132,10 +151,36 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
           children: [
             Icon(Icons.add_photo_alternate, size: 30, color: Colors.white),
             SizedBox(height: 8),
-            Text("Add Image", style: TextStyle(color: Colors.white, fontSize: 12)),
+            Text("Add Image",
+                style: TextStyle(color: Colors.white, fontSize: 12)),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildChecklistItem(Map<String, bool> checklist, String key) {
+    return Row(
+      children: [
+        Checkbox(
+          value: checklist[key],
+          onChanged: (bool? value) {
+            setState(() {
+              checklist[key] = value ?? false;
+            });
+          },
+          activeColor: Colors.teal,
+        ),
+        Expanded(
+          child: Text(
+            key,
+            style: const TextStyle(
+              fontSize: 14,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -213,14 +258,9 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
                   ),
                   const SizedBox(height: 10),
                   Column(
-                    children: [
-                      _buildChecklistItem("Smoke Detectors"),
-                      _buildChecklistItem("Carbon Monoxide Detectors"),
-                      _buildChecklistItem("Fire Extinguishers"),
-                      _buildChecklistItem("Emergency Exits"),
-                      _buildChecklistItem("First Aid Kits"),
-                      _buildChecklistItem("Electrical Safety"),
-                    ],
+                    children: legalComplianceChecklist.keys.map((key) {
+                      return _buildChecklistItem(legalComplianceChecklist, key);
+                    }).toList(),
                   ),
                 ],
               ),
@@ -239,18 +279,12 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
                       color: Colors.black87,
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "Relevant Housing Legislation",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
                   const SizedBox(height: 10),
-                  _buildChecklistItem("Housing Health and Safety Rating System"),
-                  _buildChecklistItem("Landlord and Tenant Act"),
-                  _buildChecklistItem("Building Regulations"),
+                  Column(
+                    children: housingActChecklist.keys.map((key) {
+                      return _buildChecklistItem(housingActChecklist, key);
+                    }).toList(),
+                  ),
                 ],
               ),
             ),
@@ -263,18 +297,19 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
                       ? CircularProgressIndicator(
                     color: Colors.tealAccent,
                   )
-                      :
-                  CustomButton(text: "Next",
-                      onPressed: (){
-                    if(_selectedImage1 == null || _selectedImage2 ==null  || _selectedImage3 == null){
-
-                      customSnackBar(context, "Error", "Please select images first");
-                    }
-                    else{
-                      final projectId = Uuid().v4();
-                      _uploadImages(projectId);
-                    }
-                      },
+                      : CustomButton(
+                    text: "Next",
+                    onPressed: () {
+                      if (_selectedImage1 == null ||
+                          _selectedImage2 == null ||
+                          _selectedImage3 == null) {
+                        customSnackBar(
+                            context, "Error", "Please select images first");
+                      } else {
+                        final projectId = Uuid().v4();
+                        _uploadImages(projectId);
+                      }
+                    },
                   ),
                 ],
               ),
@@ -283,23 +318,6 @@ class _InspectionFormScreenState extends State<InspectionFormScreen> {
           ],
         ),
       ),
-    );
-  }
-  Widget _buildChecklistItem(String title) {
-    return Row(
-      children: [
-        const Icon(Icons.check_circle, color: Colors.teal, size: 20),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
