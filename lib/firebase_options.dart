@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '243194716935',
     projectId: 'construction-app-16da5',
     storageBucket: 'construction-app-16da5.firebasestorage.app',
-    iosBundleId: 'com.xavics.totalsurvey',
+    iosBundleId: 'com.xavicss.totalsurvey',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '243194716935',
     projectId: 'construction-app-16da5',
     storageBucket: 'construction-app-16da5.firebasestorage.app',
-    iosBundleId: 'com.xavics.totalsurvey',
+    iosBundleId: 'com.xavicss.totalsurvey',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
