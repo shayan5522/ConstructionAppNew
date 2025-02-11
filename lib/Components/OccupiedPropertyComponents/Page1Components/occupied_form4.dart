@@ -74,6 +74,7 @@ class _OccupiedForm4State extends State<OccupiedForm4> {
                       label: '',
                       maxLines: 4,
                       controller:_formController.descriptionController,
+                    enabled: true,
                   ),
                   const SizedBox(height: 20,),
                   Center(

@@ -14,9 +14,9 @@ class OpeningSheetFormController extends GetxController {
   final TextEditingController occupiedAddressController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController targetProgramController = TextEditingController();
-  final TextEditingController absoluteSurveyController = TextEditingController();
   final TextEditingController epcRequiredController = TextEditingController();
   var pir = ''.obs;
+  var absoluteSurvey = ''.obs;
   final TextEditingController gasTestController = TextEditingController();
 
   // Form 3: Utility Readings
@@ -33,15 +33,17 @@ class OpeningSheetFormController extends GetxController {
 
   // Form 5: Security Features
   final TextEditingController frontDoorController = TextEditingController();
-  final TextEditingController otherLocksController = TextEditingController();
+  final TextEditingController BackDoorController = TextEditingController();
+  final TextEditingController otherDoorsOrGatesController = TextEditingController();
   final TextEditingController fOBController = TextEditingController();
   var grill = ''.obs;
 
   // Form 6: Additional Checkboxes
   var  loftWorksCheckboxes = <String>[].obs;
-
+  var ProjectName = ''.obs;
 
   Future<void> saveFormDataToDatabase() async {
+    ProjectName.value = projectName.text;
     try {
       final formData = {
         "clientName": clientNameController.text,
@@ -51,7 +53,7 @@ class OpeningSheetFormController extends GetxController {
         "occupiedAddress": occupiedAddressController.text,
         "date": dateController.text,
         "targetProgram": targetProgramController.text,
-        "asbestosSurvey": absoluteSurveyController.text,
+        "asbestosSurvey": absoluteSurvey.value,
         "epcRequired": epcRequiredController.text,
         "pir": pir.value,
         "gasTest": gasTestController.text,
@@ -64,7 +66,8 @@ class OpeningSheetFormController extends GetxController {
         "description": descriptionController.text,
         "photoPath": photoPath.value,
         "frontDoor": frontDoorController.text,
-        "otherLocks": otherLocksController.text,
+        "BackDoor": BackDoorController.text,
+        "otherDoorsOrGates": otherDoorsOrGatesController.text,
         "FOB": fOBController.text,
         "steelGrills": grill.value,
         "additionalChecks": loftWorksCheckboxes,

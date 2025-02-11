@@ -1,3 +1,4 @@
+import 'package:TotalSurvey/BackendFunctions/OccupiedBackend/opening_sheet_backend.dart';
 import 'package:TotalSurvey/Controllers/loading_controller.dart';
 import 'package:TotalSurvey/CustomWidgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -15,22 +16,35 @@ import 'final_screen.dart';
 
 class MajorWorkScreen extends StatelessWidget {
   MajorWorkScreen({super.key});
+  String? selectedValue;
   final CheckboxController checkboxController = Get.put(CheckboxController());
   final TextEditingController projectValueController = TextEditingController();
-  final TextEditingController produceByController = TextEditingController();
+  final TextEditingController authorisedByController = TextEditingController();
   FirebaseService _firebaseService = new FirebaseService();
   final LoadingController _loadingController = Get.put(LoadingController());
-
+  final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
   final List<Map<String, dynamic>> majorWorkCheckList = [
-    {'title': 'Design', 'checked': false},
-    {'title': 'Construction', 'checked': false},
-    {'title': 'Painting', 'checked': false},
-    {'title': 'Electrical', 'checked': false},
-    {'title': 'Plumbing', 'checked': false},
-    {'title': 'Mechanical', 'checked': false},
-    {'title': 'Safety', 'checked': false},
+    {'title': 'Project Scope Defined', 'checked': false},
+    {'title': 'Budget Approved', 'checked': false},
+    {'title': 'Design Finalized', 'checked': false},
+    {'title': 'Permits & Approvals Secured', 'checked': false},
+    {'title': 'Construction Timeline Set', 'checked': false},
+    {'title': 'Materials & Supplies Ordered', 'checked': false},
+    {'title': 'Site Preparation Completed', 'checked': false},
+    {'title': 'Safety Plan in Place', 'checked': false},
+    {'title': 'Insurance & Liability Checked', 'checked': false},
+    {'title': 'Environmental Impact Assessed', 'checked': false},
+    {'title': 'Subcontractors Hired', 'checked': false},
+    {'title': 'Quality Standards Defined', 'checked': false},
+    {'title': 'Painting & Finishing Planned', 'checked': false},
+    {'title': 'Electrical Work Assessed', 'checked': false},
+    {'title': 'Plumbing Work Assessed', 'checked': false},
+    {'title': 'Mechanical Systems Reviewed', 'checked': false},
+    {'title': 'Health & Safety Inspections Passed', 'checked': false},
+    {'title': 'Final Walkthrough Scheduled', 'checked': false},
+    {'title': 'Post-Construction Cleanup Arranged', 'checked': false},
+    {'title': 'Client Approval & Handover Planned', 'checked': false},
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +84,12 @@ class MajorWorkScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const CustomTextWidget(
-                text: 'Project : New Office Building',
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
+               CustomTextWidget(
+                text: _openingSheetFormController.projectName.text.isNotEmpty
+                    ? _openingSheetFormController.projectName.text
+                    : 'Major Work Screen',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
               ),
               Card(
                 color: const Color(0xFFF5F8F3),
@@ -90,12 +106,35 @@ class MajorWorkScreen extends StatelessWidget {
                         label: 'Estimated Project Value',
                         leading: Icon(FontAwesomeIcons.moneyBill),
                         controller: projectValueController,
+                        enabled: true,
                       ),
-                      CustomTextFormField(
-                        hint: 'Check Produce By',
-                        label: 'Check Produce By',
-                        leading: Icon(Icons.help),
-                        controller: produceByController,
+                      Column(
+                        children: [
+                          CustomTextFormField(
+                            hint: 'Authorised By',
+                            label: 'Authorised By',
+                            leading: Icon(Icons.verified_user),
+                            controller: authorisedByController,
+                            enabled: selectedValue != 'N/A',
+                          ),
+                          SizedBox(height: 10),
+                          DropdownButton<String>(
+                            value: selectedValue,
+                            hint: Text('Select an option'),
+                            items: ['N/A'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              if (newValue == 'N/A') {
+                                authorisedByController.clear();
+                              }
+                              selectedValue = newValue;
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -154,7 +193,7 @@ class MajorWorkScreen extends StatelessWidget {
                             _firebaseService.saveMajorListData(
                               title: 'Major work',
                               field1: projectValueController.text,
-                              field2: produceByController.text,
+                              field2: authorisedByController.text,
                               Data: checkedValues,
                             );
                           } catch (e) {
@@ -176,7 +215,7 @@ class MajorWorkScreen extends StatelessWidget {
                             _firebaseService.saveMajorListData(
                               title: 'Major work',
                               field1: projectValueController.text,
-                              field2: produceByController.text,
+                              field2: authorisedByController.text,
                               Data: checkedValues,
                             );
                             Get.off(MainScreen());

@@ -10,6 +10,7 @@ import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_for
 import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form4.dart';
 import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form5.dart';
 import '../../Components/OccupiedPropertyComponents/Page1Components/occupied_form6.dart';
+import '../../Controllers/currencey_controller.dart';
 import '../../Controllers/loading_controller.dart';
 import '../../CustomWidgets/custom_snackbar.dart';
 import '../../CustomWidgets/custom_text_widget.dart';
@@ -19,6 +20,7 @@ class OpeningSheetScreen extends StatelessWidget {
   OpeningSheetScreen({super.key});
   final OpeningSheetFormController _formController = Get.put(OpeningSheetFormController());
   final LoadingController _loadingController = Get.put(LoadingController());
+  final CurrencyController currencyController = Get.put(CurrencyController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +45,34 @@ class OpeningSheetScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Obx((){
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CustomTextWidget(
+                      text: "Select Currency",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    DropdownButton<String>(
+                      value: currencyController.selectedCurrency.value,
+                      items: const [
+                        DropdownMenuItem(value: 'Dollar', child: CustomTextWidget(text: 'Dollar')),
+                        DropdownMenuItem(value: 'Pound', child: CustomTextWidget(text: 'Pound')),
+                        DropdownMenuItem(value: 'Euro', child: CustomTextWidget(text: 'Euro')),
+                      ],
+                      onChanged: (value) {
+                        if (value != null) {
+                          currencyController.updateCurrency(value);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              );
+            }),
             const OccupiedForm1(),
             const OccupiedForm2(),
             OccupiedForm3(),

@@ -11,7 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController? controller;
   final GestureTapCallback? onTap;
-
+  final bool enabled;
   const CustomTextFormField({
     super.key,
     required this.hint,
@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
     this.type = TextInputType.text,
     this.readOnly = false,
     this.onTap,
+    required this.enabled,
   });
 
   @override
@@ -39,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: leading,
+            enabled: enabled,
             label:CustomTextWidget(text:  label, fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black38),
             filled: true,
             hintStyle: const TextStyle(

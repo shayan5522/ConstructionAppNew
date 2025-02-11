@@ -23,23 +23,25 @@ class SurveyPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SectionTitle(title: "Project Details"),
-              CustomTextFormField(hint: "Enter project name", label: "Project Name"),
+              CustomTextFormField(hint: "Enter project name", label: "Project Name",enabled: true,),
               const SizedBox(height: 15),
               CustomTextFormField(
-                  hint: "Enter unique property number", label: "UPRN"),
+                  hint: "Enter unique property number", label: "UPRN",enabled: true,),
               const SizedBox(height: 15),
-              CustomTextFormField(hint: "Enter address", label: "Address"),
+              CustomTextFormField(hint: "Enter address", label: "Address",enabled: true,),
               const SizedBox(height: 25),
               SectionTitle(title: "User Information"),
               CustomTextFormField(
-                  hint: "Enter name", label: "Surveyor's Name"),
+                  hint: "Enter name", label: "Surveyor's Name",enabled: true,),
               const SizedBox(height: 15),
               CustomTextFormField(
-                  hint: "Enter email / phone no", label: "Contact Details"),
+                  hint: "Enter email / phone no", label: "Contact Details",enabled: true,),
               const SizedBox(height: 15),
               CustomTextFormField(
                   hint: "Property/Building Manager",
-                  label: "Property/Building Manager"),
+                  label: "Property/Building Manager",
+                  enabled: true,
+              ),
               const SizedBox(height: 25),
               SectionTitle(title: "Building Orientation"),
               ElevatedButton(

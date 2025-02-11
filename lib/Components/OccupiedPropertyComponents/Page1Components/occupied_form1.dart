@@ -51,6 +51,7 @@ class _OccupiedForm1State extends State<OccupiedForm1> {
                         hint: 'Project Name',
                         label: 'Project',
                         controller: _formController.projectName,
+                      enabled: true,
                     ),
                     const SizedBox(height: 5),
                     const CustomTextWidget(

@@ -96,9 +96,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                     statusColor: Colors.green,
                     onEditPressed: () {},
                     onContinuePressed: () {
-                      Get.to(OccupiedProjectDocs(
-                          projectName: _projectFetchingController.mainDocNames[index]));
-                    },
+                      Get.to(OccupiedProjectDocs(projectName: _projectFetchingController.mainDocNames[index]));},
                     onDeletePressed: () {
                       showDeleteConfirmationDialog(
                         context: context,

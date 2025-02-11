@@ -44,12 +44,14 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                         label: "Void / occupied Address",
                         hint:  "Enter Address",
                         controller: _formController.occupiedAddressController ,
+                      enabled: true,
                     ),
                     const SizedBox(height: 16),
                     CustomTextFormField(
                       label: "Date",
                       hint: "Select Date",
                       controller: _formController.dateController,
+                      enabled: true,
                       readOnly: true,
                       onTap: () async {
                         DateTime? selectedDate = await showDatePicker(
@@ -71,17 +73,75 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                         label: "Target program",
                         hint:  "Enter Target program",
                         controller: _formController.targetProgramController,
+                      enabled: true,
                     ),
+                    const SizedBox(height: 16),
+                    const CustomTextFormField(label: "EPC Required",hint:  "Enter EPC Required",enabled: true,),
                     const SizedBox(height: 16),
                     CustomTextFormField(
-                        label: "Asbestos survey",
-                        hint:  "Enter Asbestos survey",
-                        controller: _formController.absoluteSurveyController,
+                      label: "Gas test",
+                      hint:  "Enter Gas test",
+                      controller: _formController.gasTestController,
+                      enabled: true,
                     ),
                     const SizedBox(height: 16),
-                    const CustomTextFormField(label: "EPC Required",hint:  "Enter EPC Required"),
+                    Obx(() {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CustomTextWidget(
+                            text: "Asbestos Survey",
+                            fontSize: 16, fontWeight: FontWeight.w500,
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              CustomRadioButton<String>(
+                                value: "Yes",
+                                groupValue: _formController.absoluteSurvey.value,
+                                label: "Yes",
+                                onChanged: (value){
+                                  _formController.absoluteSurvey.value = value!;
+                                },
+                                activeColor: Colors.green,
+                              ),
+                              const SizedBox(width: 16),
+                              CustomRadioButton<String>(
+                                value: "No",
+                                groupValue:  _formController.absoluteSurvey.value,
+                                label: "No",
+                                onChanged: (value){
+                                  _formController.absoluteSurvey.value = value!;
+                                },
+                                activeColor: Colors.red,
+                              ),
+                              const SizedBox(width: 16),
+                              CustomRadioButton<String>(
+                                value: "N/A",
+                                groupValue:  _formController.absoluteSurvey.value,
+                                label: "N/A",
+                                onChanged: (value){
+                                  _formController.absoluteSurvey.value = value!;
+                                },
+                                activeColor: Colors.blue,
+                              ),
+                              const SizedBox(width: 16),
+                              CustomRadioButton<String>(
+                                value: "N/K",
+                                groupValue:  _formController.absoluteSurvey.value,
+                                label: "N/K",
+                                onChanged: (value){
+                                  _formController.absoluteSurvey.value = value!;
+                                },
+                                activeColor: Colors.yellow,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }),
                     const SizedBox(height: 16),
-                  Obx(() {
+                    Obx(() {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -121,17 +181,21 @@ class _OccupiedForm2State extends State<OccupiedForm2> {
                                 },
                               activeColor: Colors.blue,
                             ),
+                            const SizedBox(width: 16),
+                            CustomRadioButton<String>(
+                              value: "N/K",
+                              groupValue: _formController.pir.value,
+                              label: "N/K",
+                              onChanged: (value){
+                                _formController.pir.value = value!;
+                              },
+                              activeColor: Colors.yellow,
+                            ),
                           ],
                         ),
                       ],
                     );
                   }),
-                    const SizedBox(height: 16),
-                    CustomTextFormField(
-                        label: "Gas test",
-                        hint:  "Enter Gas test",
-                        controller: _formController.gasTestController,
-                    ),
                   ],
                 ),
               ),

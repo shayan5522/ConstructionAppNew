@@ -30,9 +30,27 @@ class LoungeScreen extends StatelessWidget {
       {'title': 'New toilet pan?'},
       {'title': 'New wall tiles?'},
       {'title': 'Mastic/Sealants?'},
-      {'title': 'New vinyl floor and threshold strip? '},
-      {'title': 'Wallpaper removal?'},
-      {'title': 'Redecoration?'},
+      {
+        'title': 'New vinyl floor and threshold strip?',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'LM',fontWeight: FontWeight.bold,fontSize: 16,),
+        ),
+      },
+      {
+        'title': 'Wallpaper removal?',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'M2',fontWeight: FontWeight.bold,fontSize: 16,),
+        ),
+      },
+      {
+        'title': 'Redecoration?',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'Item',fontWeight: FontWeight.bold,fontSize: 16,),
+        ),
+      },
       {'title': 'Plastering to wall/ceiling?'},
       {'title': 'Remove fixture and fittings?'},
       {'title': 'New 0.5HR fire door?'},
@@ -41,7 +59,7 @@ class LoungeScreen extends StatelessWidget {
       {'title': 'Ease and adjust door?'},
       {'title': 'Renew skirting?'},
       {'title': 'Window restrictions?'},
-      {'title': 'Renewable double glazed panel?'},
+      {'title': 'Renew double glazed panel?'},
       {'title': 'Ease and adjust window?'},
     ];
 

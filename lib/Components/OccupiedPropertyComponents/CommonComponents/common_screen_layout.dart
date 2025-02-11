@@ -15,6 +15,7 @@ import 'occupied_submit_buttons.dart';
 class CommonScreenLayout extends StatelessWidget {
   final String appBarTitle;
   final String sectionTitle;
+  final String? section2Title;
   final List<Map<String, dynamic>> checklistData;
   final Widget? totalCost;
   final VoidCallback submitButton;
@@ -25,11 +26,11 @@ class CommonScreenLayout extends StatelessWidget {
   final VoidCallback saveExit;
   final TextEditingController field1Controller;
   final TextEditingController field2Controller;
-
   CommonScreenLayout({
     super.key,
     required this.appBarTitle,
     required this.sectionTitle,
+    this.section2Title,
     required this.checklistData,
     required this.totalCost,
     required this.submitButton,
@@ -78,7 +79,7 @@ class CommonScreenLayout extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
                   child: CustomElevatedButton(
-                    text: 'Skip This Section',
+                    text: 'Next Section',
                     onPressed: skipButton!,
                     width: 300,
                     height: 45,
@@ -110,6 +111,7 @@ class CommonScreenLayout extends StatelessWidget {
                         leading: const Icon(FontAwesomeIcons.rulerHorizontal),
                         controller: field1Controller,
                         type: TextInputType.number,
+                        enabled: true,
                       ),
                       const SizedBox(height: 10),
                       CustomTextFormField(
@@ -117,41 +119,14 @@ class CommonScreenLayout extends StatelessWidget {
                         label: textFieldHint2,
                         leading: const Icon(Icons.notes),
                         controller: field2Controller,
+                        enabled: true,
                       ),
                     ],
                   ),
                 ),
               ),
-              Obx((){
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const CustomTextWidget(
-                        text: "Select Currency",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      DropdownButton<String>(
-                        value: currencyController.selectedCurrency.value,
-                        items: const [
-                          DropdownMenuItem(value: 'Dollar', child: CustomTextWidget(text: 'Dollar')),
-                          DropdownMenuItem(value: 'Pound', child: CustomTextWidget(text: 'Pound')),
-                          DropdownMenuItem(value: 'Euro', child: CustomTextWidget(text: 'Euro')),
-                        ],
-                        onChanged: (value) {
-                          if (value != null) {
-                            currencyController.updateCurrency(value);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              }),
-              const CustomTextWidget(
-                text: "Check Lists",
+              CustomTextWidget(
+                text:section2Title != null ? sectionTitle : "Check Lists",
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
@@ -246,6 +221,7 @@ class CommonScreenLayout extends StatelessWidget {
                                       ? FontAwesomeIcons.sterlingSign
                                       : FontAwesomeIcons.euroSign,
                                 ),
+                                quantityIcon: data['quantityIcon'],
                               );
                             }),
                             const SizedBox(height: 10),

@@ -135,7 +135,27 @@ class ViewOccupiedOpeningSheetDocs extends StatelessWidget {
     );
   }
 
+  // Widget _buildDetailRow(String title, String value) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 4.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           title,
+  //           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+  //         ),
+  //         Text(
+  //           value,
+  //           style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _buildDetailRow(String title, String value) {
+    if (value == "Unknown") return SizedBox(); // Don't render if value is "Unknown"
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(

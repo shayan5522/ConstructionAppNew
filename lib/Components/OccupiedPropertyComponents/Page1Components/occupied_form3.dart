@@ -44,6 +44,7 @@ class OccupiedForm3 extends StatelessWidget {
                         hint: 'Enter location e.g service room',
                         label: 'Location',
                         controller:_formController.electricLocationController ,
+                        enabled: true,
                       ),
                       const SizedBox(height: 10),
                       const CustomTextWidget(
@@ -56,6 +57,7 @@ class OccupiedForm3 extends StatelessWidget {
                         label: 'Reading',
                         controller:_formController.electricReadingController ,
                         type: TextInputType.number,
+                        enabled: true,
                       ),
                     ],
                   ),
@@ -73,6 +75,7 @@ class OccupiedForm3 extends StatelessWidget {
                         hint: 'Enter location e.g service room',
                         label: 'Location',
                         controller:_formController.gasLocationController,
+                        enabled: true,
                       ),
                       const SizedBox(height: 10),
                       const CustomTextWidget(
@@ -85,6 +88,7 @@ class OccupiedForm3 extends StatelessWidget {
                         label: 'Reading',
                         controller:_formController.gasReadingController ,
                         type: TextInputType.number,
+                        enabled: true,
                       ),
                     ],
                   ),
@@ -102,6 +106,7 @@ class OccupiedForm3 extends StatelessWidget {
                         hint: 'Enter location e.g service room',
                         label: 'Location',
                         controller:_formController.waterLocationController,
+                        enabled: true,
                       ),
                       const SizedBox(height: 10),
                       const CustomTextWidget(
@@ -114,6 +119,7 @@ class OccupiedForm3 extends StatelessWidget {
                         label: 'Reading',
                         controller:_formController.waterReadingController,
                         type: TextInputType.number,
+                        enabled: true,
                       ),
                     ],
                   ),

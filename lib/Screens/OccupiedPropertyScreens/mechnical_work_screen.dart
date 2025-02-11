@@ -54,7 +54,8 @@ class MechanicalElectricalScreen extends StatelessWidget {
     }
     return CommonScreenLayout(
       appBarTitle: 'Mechanical & Electrical Work',
-      sectionTitle: 'Checklist',
+      sectionTitle: 'Instructing Work to be Done',
+      section2Title: 'Gas services test & Report',
       checklistData: mechanicalElectricalChecklistData.map((item){
         final int index = mechanicalElectricalChecklistData.indexOf(item);
         return {
@@ -163,7 +164,7 @@ class MechanicalElectricalScreen extends StatelessWidget {
           customSnackBar(context, 'Error', 'Failed to submit data. Please try again.');
         }
       },
-      textFieldHint1: 'Wiring Quantity',
+      textFieldHint1: ' Electrical test & report',
       textFieldHint2: 'Additional Notes',
       field1Controller: field1Controller,
       field2Controller: field2Controller,

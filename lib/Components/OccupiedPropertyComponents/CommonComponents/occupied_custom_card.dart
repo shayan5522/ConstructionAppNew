@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launcher_icons/main.dart';
-import '../../../CustomWidgets/custom_elevated_button.dart';
 import '../../../CustomWidgets/custom_text_widget.dart';
 
 class CustomOccupiedCard extends StatelessWidget {
@@ -9,6 +7,7 @@ class CustomOccupiedCard extends StatelessWidget {
   final TextEditingController quantityController;
   final TextEditingController costController;
   final Icon? prefixIcon;
+  final Widget? quantityIcon;
   final Widget? noteArea;
   const CustomOccupiedCard({
     super.key,
@@ -18,6 +17,7 @@ class CustomOccupiedCard extends StatelessWidget {
     required this.costController,
     this.noteArea,
     this.prefixIcon,
+    this.quantityIcon,
   });
 
   @override
@@ -58,9 +58,9 @@ class CustomOccupiedCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        buildTextFormField('Quantity', quantityController),
+                        buildTextFormField('Quantity', quantityController,this.quantityIcon),
                         const SizedBox(height: 12),
-                        buildTextFormField('Cost', costController),
+                        buildTextFormField('Cost', costController,this.prefixIcon),
                       ],
                     ),
                   ],
@@ -78,7 +78,7 @@ class CustomOccupiedCard extends StatelessWidget {
     );
   }
 
-  Widget buildTextFormField(String label, TextEditingController controller) {
+  Widget buildTextFormField(String label, TextEditingController controller ,Widget? prefixIcon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,7 +100,7 @@ class CustomOccupiedCard extends StatelessWidget {
             controller: controller,
             style: const TextStyle(fontSize: 14, color: Colors.black),
             decoration:  InputDecoration(
-              prefixIcon:prefixIcon,
+              prefixIcon:prefixIcon != null ? prefixIcon : quantityIcon,
               border: InputBorder.none,
               isDense: true,
               contentPadding: EdgeInsets.symmetric(vertical: 8),

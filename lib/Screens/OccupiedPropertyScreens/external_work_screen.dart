@@ -22,17 +22,43 @@ class ExternalWorkScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> externalWorkChecklistData =  [
-      {'title': 'New Front Entrance Room?'},
+      {'title': 'New Front Entrance Room?',},
       {'title': 'New Frame to Entrance Room?'},
       {'title': 'New Ironmongery to Front Door?'},
       {'title': 'Redecoration'},
-      {'title': 'New Rare Entrance Door?'},
+      {'title': 'New Rear Entrance Door'},
       {'title': 'New Frame to Rear Entrance Door?'},
       {'title': 'Balcony Clearance?'},
-      {'title': 'Garden Waste-Vegetation Clearance?'},
+      {
+        'title': 'Garden Waste-Vegetation Clearance?',
+        'quantityIcon': DropdownButton<String>(
+          value: 'M2', // Default selected value
+          items: ['M2', 'M3'].map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            // Handle the selected value
+          },
+        ),
+      },
       {'title': 'Garden Waste-General Stones,Slabs'},
-      {'title': 'FeatherFencing'},
-      {'title': 'Close Boarded Fence Panels 1.8M X 1.8M'},
+      {
+        'title': 'FeatherFencing',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'LM X H',fontWeight: FontWeight.bold,fontSize: 14,),
+        ),
+      },
+      {
+        'title': 'Close Boarded Fence Panels 1.8M X 1.8M',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'Item',fontWeight: FontWeight.bold,fontSize: 16,),
+        ),
+      },
       {'title': 'Close Boarded Fence Panels1.8M X 1.2M'},
       {'title': 'New 6ft Wood Gate (Excluding Posts)?'},
       {'title': 'New 3ft Wood Gate (Excluding Posts)?'},

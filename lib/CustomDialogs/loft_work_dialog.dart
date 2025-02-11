@@ -28,6 +28,7 @@ class AddItemDialog extends StatelessWidget {
               hint: 'Add Title',
               label: 'Title',
               controller: titleController,
+              enabled: true,
             ),
             const SizedBox(height: 16),
             CustomTextFormField(
@@ -35,6 +36,7 @@ class AddItemDialog extends StatelessWidget {
                 label: 'Description',
                 controller: descriptionController,
                 maxLines: 3,
+              enabled: true,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

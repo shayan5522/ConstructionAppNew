@@ -22,7 +22,13 @@ class HallwayScreen extends StatelessWidget {
     final ImageUploadController _imageUploadController = Get.put(ImageUploadController());
     final OpeningSheetFormController _openingSheetFormController = Get.put(OpeningSheetFormController());
     List<Map<String, dynamic>> hallwayChecklistData = [
-      {'title': 'Strip out floor covering?',},
+      {
+        'title': 'Strip out floor covering?',
+        'quantityIcon':Padding(
+          padding: EdgeInsets.only(top: 8),
+          child: CustomTextWidget(text: 'LXW=M2',fontWeight: FontWeight.bold,fontSize: 14,),
+        ),
+      },
       {'title': 'Mastic/Sealants?',},
       {'title': 'New vinyl floor and threshold strip?',},
       {'title': 'Wallpaper removal?'},
@@ -171,7 +177,7 @@ class HallwayScreen extends StatelessWidget {
           customSnackBar(context, 'Error', 'Failed to submit data. Please try again.');
         }
       },
-      textFieldHint1: 'Width X Length',
+      textFieldHint1: 'Width X Height X Length ',
       textFieldHint2: 'Additional Notes',
       field1Controller: field1Controller,
       field2Controller: field2Controller,

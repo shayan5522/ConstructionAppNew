@@ -21,7 +21,7 @@ class KitchenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> kitchenChecklistData = [
-      {'title': 'Redecoration?',},
+      {'title': 'Redecoration?'},
       {'title': 'Plastering To Wall/Ceiling',},
       {'title': 'Remove Fixtures And Fittings?',},
       {'title': 'New 0.5HR Fire Door ?',},
